@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apiscan"
+version = "1.0.0"
+description = "Phát hiện dấu hiệu lỗ hổng bảo mật trong tệp APK Android bằng phân tích tĩnh, có điểm tin cậy và bản đồ endpoint"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Nguyễn Đức Tâm" }]
+dependencies = []
+
+[project.optional-dependencies]
+config = ["pyyaml>=6"]
+
+[project.scripts]
+apiscan = "apiscan:main"
+
+[tool.setuptools]
+package-dir = { "" = "scripts" }
+py-modules = ["apiscan", "static_scan", "apiscan_config", "dynamic_scan", "request_extract", "compare_mobsf"]

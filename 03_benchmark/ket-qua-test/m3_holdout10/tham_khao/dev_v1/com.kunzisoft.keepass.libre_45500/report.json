@@ -1,0 +1,624 @@
+{
+  "meta": {
+    "app": "com.kunzisoft.keepass.libre",
+    "scope": [
+      "com.kunzisoft.keepass"
+    ],
+    "time": "2026-11-10 18:06",
+    "apk": "com.kunzisoft.keepass.libre_45500.apk",
+    "apk_sha256": "e8a118a0660fc89ca92c53041765631e72a580fb5e63477b400a5305eac5d633",
+    "analysis_seconds": 0.89
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:41",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/settings/NestedSettingsFragment.java:24",
+      "evidence": "private static final String TAG_KEY = \"NESTED_KEY\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "4df2b6113cfe"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "owasp": "M10",
+      "title": "IV tĩnh (mảng byte khởi tạo bằng số 0)",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/file/output/EntryOutputKDB.java:50",
+      "evidence": "private static final byte[] ZERO_FIVE = {0, 0, 0, 0, 0};",
+      "note": "IV cố định làm mất tính ngẫu nhiên của CBC.",
+      "confidence": "low",
+      "fingerprint": "3131e8abd300"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/MasterCredential.java:45",
+      "evidence": "private static final String DEFAULT_KEYFILE_ENCODING = \"UTF-8\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "7e040e74cb7c"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/database/element/MasterCredential.java:414",
+      "evidence": "Log.w(MasterCredential.TAG, \"Unable to add FEATURE_SECURE_PROCESSING to prevent XML eXternal Entity injection (XXE)\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "3a33e0a8b119"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/database/element/MasterCredential.java:450",
+      "evidence": "Log.i(MasterCredential.TAG, \"Reading XML KeyFile version : \" + f2);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "31f67299b0b6"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/database/element/MasterCredential.java:452",
+      "evidence": "Log.e(MasterCredential.TAG, \"XML Keyfile version cannot be read : \" + strRemoveSpaceChars, e);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "5fd43671855d"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/database/element/MasterCredential.java:491",
+      "evidence": "Log.i(MasterCredential.TAG, \"Successful key file hash check.\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "2dbab53dc1cf"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/database/element/MasterCredential.java:494",
+      "evidence": "Log.e(MasterCredential.TAG, \"Unable to check the hash of the key file.\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "b804fd23abd2"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/security/MemoryProtectionConfig.java:18",
+      "evidence": "public static final String PASSWORD_FIELD = \"Password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "91ddfd749918"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/entry/EntryKDBX.java:49",
+      "evidence": "public static final String STR_PASSWORD = \"Password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "bfed6bc10181"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/template/TemplateEngineCompatible.java:41",
+      "evidence": "private static final String TEMPLATE_ATTRIBUTE_PASSWORD = \"Password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "96e2b7d2c6f6"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/template/TemplateField.java:30",
+      "evidence": "public static final String LABEL_PASSWORD = \"Password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "fe7c8725fe85"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/template/TemplateField.java:33",
+      "evidence": "public static final String LABEL_PRIVATE_KEY = \"Private key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "88c412345dab"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/template/TemplateField.java:34",
+      "evidence": "public static final String LABEL_PUBLIC_KEY = \"Public key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "64c84a7ff7e2"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/database/element/template/TemplateField.java:41",
+      "evidence": "public static final String LABEL_TOKEN = \"Token\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "6990d0f4012c"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/database/element/binary/BinaryData.java:161",
+      "evidence": "this.mMessageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "381d351c652b"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/otp/OtpEntryFields.java:32",
+      "evidence": "private static final String DIGITS_KEY = \"size\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "e11b427a859c"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/otp/OtpEntryFields.java:45",
+      "evidence": "public static final String OTP_TOKEN_FIELD = \"OTP Token\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "3638a3bb24f9"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/otp/OtpEntryFields.java:48",
+      "evidence": "private static final String SECRET_URL_PARAM = \"secret\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "3f30f99960d6"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/utils/UriUtil.java:216",
+      "evidence": "str = \"http://\" + str;",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "fbc93cd06eea"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel$manageRegistrationResult$$inlined$CoroutineExceptionHandler$1.java:23",
+      "evidence": "Log.e(PasswordLauncherViewModel.TAG, \"Unable to create registration response for password\", exception);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "ae12e6bf918e"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:168",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Launch password selection\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "5cbcc514b4d3"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:264",
+      "evidence": "Log.w(PasswordLauncherViewModel.TAG, \"Password found for auto selection, should not append,use PasswordProviderService instead\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "fff4f1675147"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:271",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"No password found for selection,launch manual selection in opened database\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "707579ca1a3d"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:278",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Manual password selection in closed database\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "fdbe2cad9f83"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:546",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Password selection result\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "bf697418b8e0"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:642",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Launch password registration\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "af96e234a9f6"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:727",
+      "evidence": "Log.w(PasswordLauncherViewModel.TAG, \"Password found for registration, but launch manual registration for a new entry\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "16f5df364e86"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:734",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Launch new manual registration in opened database\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "8ac78336f539"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:741",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Manual password registration in closed database\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "a4e45633d877"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:899",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Password registration result\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "cc9db9aebcb3"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel$manageSelectionResult$$inlined$CoroutineExceptionHandler$1.java:23",
+      "evidence": "Log.e(PasswordLauncherViewModel.TAG, \"Unable to create selection response for password\", exception);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "bc19ae7ae27c"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/passkey/PasskeyProviderService.java:551",
+      "evidence": "Log.w(str, \"No password found in the database for : \" + searchInfo);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "582ebddc67db"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/passkey/PasskeyProviderService.java:637",
+      "evidence": "Log.d(TAG, \"Build password search for \" + searchInfo);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "d66cfa97447b"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/passkey/PasskeyProviderService.java:749",
+      "evidence": "Log.d(TAG, \"Build passkey search for UV \" + userVerification + \", RP \" + rpId + \" and Credential IDs \" + arrayList3);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "a17151c5aa92"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/kunzisoft/keepass/credentialprovider/passkey/data/AndroidPrivilegedApp.java:29",
+      "evidence": "private static final String FINGERPRINT_KEY = \"cert_fingerprint_sha256\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "f78f3983bf55"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:583",
+      "evidence": "Log.d(str, \"Autofill OTP token web id: \" + tag + \" \" + (htmlInfo3 != null ? htmlInfo3.getAttributes() : null));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "4ccdd60f8531"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:692",
+      "evidence": "Log.d(str2, \"Autofill OTP token web id: \" + tag + \" \" + (htmlInfo4 != null ? htmlInfo4.getAttributes() : null));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "99eecdb6263a"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:718",
+      "evidence": "Log.d(str3, \"Autofill username candidate web type: \" + tag3 + \" \" + (htmlInfo6 != null ? htmlInfo6.getAttributes() : null));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "c0c70264707b"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:742",
+      "evidence": "Log.d(str4, \"Autofill password web type: \" + tag4 + \" \" + (htmlInfo8 != null ? htmlInfo8.getAttributes() : null));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "d47cfadf8ec5"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:764",
+      "evidence": "Log.d(str5, \"Autofill username web type: \" + tag5 + \" \" + (htmlInfo10 != null ? htmlInfo10.getAttributes() : null));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "47db41a351be"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:789",
+      "evidence": "Log.d(TAG, \"Autofill username android text type: \" + showHexInputType(inputType));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "24d4742ca6b2"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:796",
+      "evidence": "Log.d(TAG, \"Autofill username candidate android text type: \" + showHexInputType(inputType));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "d6e47efc66a6"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:803",
+      "evidence": "Log.d(TAG, \"Autofill visible password android text type (as username): \" + showHexInputType(inputType));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "cecc76d852c7"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:817",
+      "evidence": "Log.d(TAG, \"Autofill visible password android text type (as password): \" + showHexInputType(inputType));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "3797e8b38d12"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:831",
+      "evidence": "Log.d(TAG, \"Autofill password android text type: \" + showHexInputType(inputType));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "0996141df334"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:848",
+      "evidence": "Log.d(TAG, \"Autofill username candidate android number type: \" + showHexInputType(inputType));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "fa0bc8f9c5a7"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:860",
+      "evidence": "Log.d(TAG, \"Autofill password android number type: \" + showHexInputType(inputType));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "c3fa65afeb46"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/kunzisoft/keepass/activities/dialogs/SetMainCredentialDialogFragment.java:967",
+      "evidence": "Log.e(SetMainCredentialDialogFragment.TAG, \"Unable  to create the KeyFile.\", e);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "a4d824fa32cb"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "com.kunzisoft.keepass.activities.FileDatabaseSelectActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:43"
+    },
+    {
+      "component": "com.kunzisoft.keepass.activities.MainCredentialActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:49"
+    },
+    {
+      "component": "com.kunzisoft.keepass.settings.MagikeyboardSettingsActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:119"
+    },
+    {
+      "component": "com.kunzisoft.keepass.credentialprovider.activity.EntrySelectionLauncherActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:129"
+    },
+    {
+      "component": "com.kunzisoft.keepass.receivers.DexModeReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.app.action.ENTER_KNOX_DESKTOP_MODE",
+        "android.app.action.EXIT_KNOX_DESKTOP_MODE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:169"
+    }
+  ],
+  "endpoints": [
+    "javax.xml.XMLConstants/feature/secure-processing"
+  ],
+  "requests": []
+}

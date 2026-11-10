@@ -1,0 +1,15 @@
+Số app: 19
+  v1: 331 cảnh báo, chưa nhãn 0 | mọi cảnh báo 17.2% (57/331) | chặt 13.6% (45/331) | ≥ medium 39.1% (54/138) | ≥ medium chặt 31.2% (43/138)
+  v2: 337 cảnh báo, chưa nhãn 6 | mọi cảnh báo 17.2% (57/331) | chặt 13.6% (45/331) | ≥ medium 39.3% (55/140) | ≥ medium chặt 31.4% (44/140)
+
+Thay đổi 1 — cảnh báo đổi tầng tin cậy: 2
+  K-9 Mail 23.1: CFG-EXPORT app.k9mail.feature.migration.provider.SettingsProvider | low → medium | FP
+  Nextcloud 35.0.0: CFG-EXPORT com.owncloud.android.providers.FileContentProvider | low → medium | TP
+
+Thay đổi 2 — cảnh báo chỉ có ở v2: 6
+  DAVx5 4.5.20-ose: CFG-EXPORT org.unifiedpush.android.connector.internal.RaiseToForegroundService | medium | chưa nhãn
+  Tusky 32.2: CFG-EXPORT org.unifiedpush.android.connector.internal.RaiseToForegroundService | medium | chưa nhãn
+  Nextcloud 35.0.0: CFG-EXPORT com.nextcloud.client.player.media3.PlaybackService | medium | chưa nhãn
+  AntennaPod 3.12.2: CFG-EXPORT de.danoeh.antennapod.playback.service.Media3PlaybackService | medium | chưa nhãn
+  Gadgetbridge 0.94.0: CFG-EXPORT androidx.health.platform.client.impl.sdkservice.HealthDataSdkService | medium | chưa nhãn
+  Jellyfin 2.7.3: CFG-EXPORT org.jellyfin.mobile.sessionbrowser.LibraryService | medium | chưa nhãn

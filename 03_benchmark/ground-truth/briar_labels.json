@@ -1,0 +1,50 @@
+{
+  "app": "Briar 1.5.21",
+  "apk_sha256": "433a1d7bf871960b74eac162621586c223e07f66da5179a9e4c2c149b50a30d2",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m2_holdout8/briar/report.json",
+  "note": "Holdout đợt 8: quét bằng `apiscan.py scan` (phạm vi tự suy: ['org.briarproject.briar.android']), luật + điểm tin cậy + suy phạm vi đóng băng ở commit d7818bc, KHÔNG dùng để chỉnh.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "NET-NSC",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Chỉ domain-config cho *.onion (Tor đã mã hoá), không có base-config cleartext — giống Tusky"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "org/briarproject/briar/android/ScreenFilterMonitorImpl.java",
+      "evidence": "private static final String PLAY_SERVICES_PUBLIC_KEY = \"30820120300D06092A864886F70D01010105000382010D00308201080282010100AB562E00D83BA208AE0A966F124E29DA11F2AB",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Khoá CÔNG KHAI (DER hex) của chứng chỉ Google Play Services dùng để đối chiếu chữ ký gói — không phải bí mật; điểm tin cậy xếp high vì chuỗi dài entropy cao"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "org/briarproject/briar/android/hotspot/HotspotManager.java",
+      "evidence": "private static final String HOTSPOT_KEY_PASS = \"pass\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "\"pass\" là tên khoá trong settings lưu mật khẩu hotspot, không phải mật khẩu"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/briarproject/briar/android/hotspot/WebServerManager.java",
+      "evidence": "str = \"http://192.168.49.1:9999\";",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Máy chủ web cục bộ trên hotspot Wi-Fi Direct (có WPA2, chia sẻ qua mã QR) để chia sẻ tệp APK công khai cho thiết bị gần — tính năng có chủ đích, không truyền dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/briarproject/briar/android/hotspot/WebServerManager.java",
+      "evidence": "str = \"http://\" + accessPointAddress.getHostAddress() + \":9999\";",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Máy chủ web cục bộ trên hotspot Wi-Fi Direct để chia sẻ tệp APK công khai — như trên"
+    }
+  ]
+}

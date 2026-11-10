@@ -1,0 +1,64 @@
+=== 19 app thật, công cụ cuối (commit 7135621, phạm vi tự suy) ===
+  NewPipe 0.29.1           cảnh báo    3  TP   1  precision  33.3%  ≥medium 1
+  Tusky 32.2               cảnh báo    2  TP   1  precision  50.0%  ≥medium 1
+  K-9 Mail 23.1            cảnh báo    7  TP   3  precision  42.9%  ≥medium 4
+  AntennaPod 3.12.2        cảnh báo   15  TP   6  precision  40.0%  ≥medium 8
+  Nextcloud 35.0.0         cảnh báo   46  TP   6  precision  13.0%  ≥medium 18
+  Conversations 2.20.4     cảnh báo   22  TP   6  precision  27.3%  ≥medium 8
+  Jellyfin 2.7.3           cảnh báo   10  TP   7  precision  70.0%  ≥medium 9
+  DAVx5 4.5.20-ose         cảnh báo    6  TP   3  precision  50.0%  ≥medium 6
+  Feeder 2.23.2            cảnh báo   16  TP   7  precision  43.8%  ≥medium 9
+  Aegis 3.4.3              cảnh báo    3  TP   0  precision   0.0%  ≥medium 3
+  RedReader 1.26           cảnh báo   19  TP   7  precision  36.8%  ≥medium 9
+  KeePassDX 4.5.5          cảnh báo   50  TP   1  precision   2.0%  ≥medium 2
+  Breezy Weather 6.2.2     cảnh báo    4  TP   1  precision  25.0%  ≥medium 3
+  Gadgetbridge 0.94.0      cảnh báo  100  TP   3  precision   3.0%  ≥medium 39
+  Wikipedia r/50606        cảnh báo    7  TP   0  precision   0.0%  ≥medium 3
+  Briar 1.5.21             cảnh báo    4  TP   0  precision   0.0%  ≥medium 3
+  Money Manager Ex 5.5.13  cảnh báo   10  TP   4  precision  40.0%  ≥medium 8
+  Termux 0.118.3           cảnh báo    3  TP   0  precision   0.0%  ≥medium 1
+  Catima 2.45.1            cảnh báo    4  TP   1  precision  25.0%  ≥medium 3
+  TỔNG: 331 cảnh báo, 57 TP, micro 17.2%, macro 26.4%
+Theo tầng (chính): high: 25/31 = 80.6% | medium: 29/107 = 27.1% | low: 3/193 = 1.6% | >=medium: 54/138 = 39.1% | all: 57/331 = 17.2%
+Theo tầng (chặt, borderline→FP): high: 25/31 = 80.6% | medium: 18/107 = 16.8% | low: 2/193 = 1.0% | >=medium: 43/138 = 31.2% | all: 45/331 = 13.6%
+Theo tầng (nhạy: cấu hình mạng/backup→FP): high: 3/31 = 9.7% | medium: 26/107 = 24.3% | low: 3/193 = 1.6% | >=medium: 29/138 = 21.0% | all: 32/331 = 9.7%
+Lọc ≥medium: 331→138 cảnh báo (-58.3%), mất 3/57 TP
+Theo luật (TP/tổng):
+  STO-EXT           2/75     2.7%
+  CFG-EXPORT       12/43    27.9%
+  LOG-SENS          2/40     5.0%
+  NET-HTTP          9/39    23.1%
+  CRY-KEYLIT        2/36     5.6%
+  WEB-IFACE         5/22    22.7%
+  WEB-JS            0/18     0.0%
+  CRY-HASH          0/15     0.0%
+  CFG-BACKUP        6/11    54.5%
+  NET-NSC           7/7    100.0%
+  NET-TRUST         7/7    100.0%
+  CRY-WEAK          0/7      0.0%
+  NET-CLEAR         5/5    100.0%
+  CRY-IV0           0/5      0.0%
+  CRY-KEYHARD       0/1      0.0%
+Tổng dòng nhãn (19 app + IB): 589
+=== Thời gian phân tích (không gồm giải nén), máy MacBook Apple Silicon ===
+  IB               0.03 s      14 tệp Java trong phạm vi
+  NewPipe          0.82 s     855 tệp Java trong phạm vi
+  Tusky            0.25 s     227 tệp Java trong phạm vi
+  K-9              2.13 s    2121 tệp Java trong phạm vi
+  AntennaPod       0.75 s     749 tệp Java trong phạm vi
+  Nextcloud        3.54 s    2280 tệp Java trong phạm vi
+  Conversations    3.88 s     668 tệp Java trong phạm vi
+  Jellyfin         1.12 s     228 tệp Java trong phạm vi
+  DAVx5            3.39 s     617 tệp Java trong phạm vi
+  Feeder           5.03 s     889 tệp Java trong phạm vi
+  Aegis            0.46 s     277 tệp Java trong phạm vi
+  RedReader        0.64 s     485 tệp Java trong phạm vi
+  KeePassDX        1.81 s     576 tệp Java trong phạm vi
+  Breezy           0.39 s     238 tệp Java trong phạm vi
+  Gadgetbridge     6.92 s    4918 tệp Java trong phạm vi
+  Wikipedia        4.08 s    1762 tệp Java trong phạm vi
+  Briar            0.61 s     696 tệp Java trong phạm vi
+  MMEX             0.28 s     175 tệp Java trong phạm vi
+  Termux           0.16 s     147 tệp Java trong phạm vi
+  Catima           0.20 s     114 tệp Java trong phạm vi
+  trung vị 0.82 s, tối đa 6.92 s

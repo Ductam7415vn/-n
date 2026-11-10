@@ -1,0 +1,1703 @@
+{
+  "meta": {
+    "app": "org.wikipedia",
+    "scope": [
+      "org.wikipedia"
+    ],
+    "time": "2026-11-10 18:13",
+    "apk": "org.wikipedia_50606.apk",
+    "apk_sha256": "eba82a0f77940d8a6be5bd2e53723675a59859a6c8a51be5e50bd034fc77101f",
+    "analysis_seconds": 2.79
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:35",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: MainActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:40",
+      "evidence": "org.wikipedia.main.MainActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "4fa7ba819b4c"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "org/wikipedia/util/FileUtil.java:168",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), str);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "c26a28da36d8"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/wikipedia/activity/SingleWebViewActivity.java:193",
+      "evidence": "((ObservableWebView) hCaptchaHelper4.dialogCancelableRunnable).getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "6ea81261ef6f"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/wikipedia/bridge/CommunicationBridge.java:150",
+      "evidence": "communicationBridgeListener.getWebView().getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "e3ed633c1401"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/wikipedia/bridge/CommunicationBridge.java:154",
+      "evidence": "communicationBridgeListener.getWebView().addJavascriptInterface(new PcsClientJavascriptInterface(), \"pcsClient\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "2324c2841898"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "org/wikipedia/gallery/MediaDownloadReceiver.java:108",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(str), string);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "29d3354f9959"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "org.wikipedia.DefaultIcon",
+      "type": "activity-alias",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:48"
+    },
+    {
+      "component": "org.wikipedia.page.PageActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:55"
+    },
+    {
+      "component": "org.wikipedia.search.SearchActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.PROCESS_TEXT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:92"
+    },
+    {
+      "component": "org.wikipedia.widgets.WidgetProviderSearch",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:161"
+    },
+    {
+      "component": "org.wikipedia.widgets.WidgetProviderFeaturedPage",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:167"
+    },
+    {
+      "component": "org.wikipedia.widgets.readingchallenge.ReadingChallengeWidgetReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:173"
+    },
+    {
+      "component": "org.wikipedia.notifications.NotificationPollBroadcastReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED",
+        ".notifications.NotificationPollBroadcastReceiver.ACTION_POLL"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:179"
+    }
+  ],
+  "endpoints": [
+    "/api/",
+    "/raw/",
+    "/v1/events",
+    "/w/",
+    "/wiki/",
+    "/wikipedia/commons/",
+    "api.wikimedia.org/service/lw/inference/v1/",
+    "assets-hcaptcha.wikimedia.org",
+    "assets-hcaptcha.wikimedia.org/1/api.js",
+    "commons.wikimedia.org/",
+    "donate.wikimedia.org/wiki/MediaWiki:AppsCampaignConfig.json?action=raw",
+    "donate.wikimedia.org/wiki/MediaWiki:AppsDonationConfig.json?action=raw",
+    "en.wikipedia.org/wiki/Help:Introduction_to_editing_with_Wiki_Markup/1",
+    "github.com/jhy/jsoup",
+    "github.com/skydoves/Balloon/blob/main/LICENSE/",
+    "github.com/wikimedia/apps-android-wikipedia/releases/download/latest/app-alpha-universal-release.apk",
+    "github.com/wikimedia/apps-android-wikipedia/releases/download/latest/rev-hash.txt",
+    "hcaptcha.wikimedia.org",
+    "imgs-hcaptcha.wikimedia.org",
+    "meta.wikimedia.org",
+    "report-hcaptcha.wikimedia.org",
+    "semantic-search.wmcloud.org/",
+    "square.github.io/okhttp/",
+    "square.github.io/retrofit/",
+    "test.wikipedia.org/wiki/MediaWiki:AppsCampaignConfig.json?action=raw",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Rio_de_Janeiro_skyline_and_Sugarloaf_Mountain_at_sunset%2C_Brazil_3.jpg",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Africa_and_Europe_from_a_Million_Miles_Away.png/500px-Africa_and_Europe",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Pyramids_of_Giza%2C_Giza%2C_GG%2C_EGY_%2846986591195%29.jpg/500px-Pyram",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Monet_w861.jpg/500px-Monet_w861.jpg",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Edele_Tronier_Ruins_of_St_Catherine%27s_Church_in_Visby%2C_Gotland.jpg/",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Pavillon_Sully_du_Louvre_002.jpg/500px-Pavillon_Sully_du_Louvre_002.jpg",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Mercury_in_color_-_Prockter07_centered.jpg/500px-Mercury_in_color_-_Pro",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Snowy_Mountains_In_Sky_%28Unsplash%29.jpg/500px-Snowy_Mountains_In_Sky_",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Palais_de_l%27Industrie_-_%C3%89douard_Baldus.jpg/500px-Palais_de_l%27I",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Red_eyed_tree_frog_edit2.jpg/500px-Red_eyed_tree_frog_edit2.jpg",
+    "wikimedia.org/",
+    "wikipedia.org/",
+    "www.mediawiki.org/wiki/Specs/Summary/1.2.0\\",
+    "www.mediawiki.org/wiki/Specs/aggregated-feed/0.5.0\\",
+    "www.mediawiki.org/wiki/Specs/definition/0.7.2\\",
+    "www.wikidata.org/"
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/api/search",
+      "params": [
+        {
+          "name": "query",
+          "in": "query"
+        },
+        {
+          "name": "k",
+          "in": "query"
+        },
+        {
+          "name": "table",
+          "in": "query"
+        },
+        {
+          "name": "include_text",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/search/SemanticSearchService.java:10"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/data/lists/",
+      "params": [
+        {
+          "name": "next",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:98"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/data/lists/",
+      "params": [
+        {
+          "name": "csrf_token",
+          "in": "query"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:40"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/data/lists/changes/since/{date}",
+      "params": [
+        {
+          "name": "date",
+          "in": "path"
+        },
+        {
+          "name": "next",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:90"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/data/lists/setup",
+      "params": [
+        {
+          "name": "csrf_token",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:109"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/data/lists/teardown",
+      "params": [
+        {
+          "name": "csrf_token",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:112"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/data/lists/{id}",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:47"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/data/lists/{id}",
+      "params": [
+        {
+          "name": "id",
+          "in": "path"
+        },
+        {
+          "name": "csrf_token",
+          "in": "query"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:116"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/data/lists/{id}/entries/",
+      "params": [
+        {
+          "name": "id",
+          "in": "path"
+        },
+        {
+          "name": "next",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:94"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/data/lists/{id}/entries/",
+      "params": [
+        {
+          "name": "id",
+          "in": "path"
+        },
+        {
+          "name": "csrf_token",
+          "in": "query"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:37"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/data/lists/{id}/entries/batch",
+      "params": [
+        {
+          "name": "id",
+          "in": "path"
+        },
+        {
+          "name": "csrf_token",
+          "in": "query"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:34"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/data/lists/{id}/entries/{entry_id}",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:43"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/feed/configuration",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:55"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/feed/featured/{year}/{month}/{day}",
+      "params": [
+        {
+          "name": "year",
+          "in": "path"
+        },
+        {
+          "name": "month",
+          "in": "path"
+        },
+        {
+          "name": "day",
+          "in": "path"
+        },
+        {
+          "name": "lang",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:66"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/feed/onthisday/events/{mm}/{dd}",
+      "params": [
+        {
+          "name": "mm",
+          "in": "path"
+        },
+        {
+          "name": "dd",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:78"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/growthexperiments/v0/suggestions/addimage/feedback/{title}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/CoreRestService.java:18"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/growthexperiments/v0/user-impact/%23{userId}",
+      "params": [
+        {
+          "name": "userId",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/CoreRestService.java:30"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/edits/per-page/{wikiAuthority}/{title}/all-editor-types/monthly/{fromDate}/{toDate}",
+      "params": [
+        {
+          "name": "wikiAuthority",
+          "in": "path"
+        },
+        {
+          "name": "title",
+          "in": "path"
+        },
+        {
+          "name": "fromDate",
+          "in": "path"
+        },
+        {
+          "name": "toDate",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:52"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/metrics/edits/v3/per_editor/{globalUserId}/all_page_types/monthly/{fromDate}/{toDate}",
+      "params": [
+        {
+          "name": "globalUserId",
+          "in": "path"
+        },
+        {
+          "name": "fromDate",
+          "in": "path"
+        },
+        {
+          "name": "toDate",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:62"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/models/article-descriptions:predict",
+      "params": [],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/liftwing/LiftWingModelService.java:10"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/page/definition/{title}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:59"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/page/media-list/{title}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        },
+        {
+          "name": "Cache-Control",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Save",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Lang",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Title",
+          "in": "header"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:75"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/page/media-list/{title}/{revision}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        },
+        {
+          "name": "revision",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:72"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/page/random/summary",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:86"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/page/summary/{title}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        },
+        {
+          "name": "Referer",
+          "in": "header"
+        },
+        {
+          "name": "Cache-Control",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Save",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Lang",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Title",
+          "in": "header"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:82",
+        "org/wikipedia/dataclient/RestService.java:102"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/page/talk/{title}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:106"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/transform/wikitext/to/mobile-html/{title}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/RestService.java:69"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/v1/events",
+      "params": [
+        {
+          "name": "hasty",
+          "in": "query"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/analytics/eventplatform/EventService.java:13",
+        "org/wikipedia/analytics/eventplatform/EventService.java:16",
+        "org/wikipedia/analytics/eventplatform/EventService.java:19",
+        "org/wikipedia/analytics/eventplatform/EventService.java:22"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/page/{title}/history/counts/{editType}",
+      "params": [
+        {
+          "name": "title",
+          "in": "path"
+        },
+        {
+          "name": "editType",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/CoreRestService.java:24"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/revision/{oldRev}/compare/{newRev}",
+      "params": [
+        {
+          "name": "oldRev",
+          "in": "path"
+        },
+        {
+          "name": "newRev",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/CoreRestService.java:21"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/v1/revision/{rev}",
+      "params": [
+        {
+          "name": "rev",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/CoreRestService.java:27"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/w/api.php",
+      "params": [
+        {
+          "name": "format",
+          "in": "query"
+        },
+        {
+          "name": "formatversion",
+          "in": "query"
+        },
+        {
+          "name": "errorformat",
+          "in": "query"
+        },
+        {
+          "name": "errorsuselocal",
+          "in": "query"
+        },
+        {
+          "name": "action",
+          "in": "query"
+        },
+        {
+          "name": "converttitles",
+          "in": "query"
+        },
+        {
+          "name": "prop",
+          "in": "query"
+        },
+        {
+          "name": "ppprop",
+          "in": "query"
+        },
+        {
+          "name": "generator",
+          "in": "query"
+        },
+        {
+          "name": "gsrnamespace",
+          "in": "query"
+        },
+        {
+          "name": "gsrwhat",
+          "in": "query"
+        },
+        {
+          "name": "inprop",
+          "in": "query"
+        },
+        {
+          "name": "gsrinfo",
+          "in": "query"
+        },
+        {
+          "name": "gsrprop",
+          "in": "query"
+        },
+        {
+          "name": "piprop",
+          "in": "query"
+        },
+        {
+          "name": "pilicense",
+          "in": "query"
+        },
+        {
+          "name": "pithumbsize",
+          "in": "query"
+        },
+        {
+          "name": "gsrsearch",
+          "in": "query"
+        },
+        {
+          "name": "gsrlimit",
+          "in": "query"
+        },
+        {
+          "name": "gsroffset",
+          "in": "query"
+        },
+        {
+          "name": "iiprop",
+          "in": "query"
+        },
+        {
+          "name": "iiurlwidth",
+          "in": "query"
+        },
+        {
+          "name": "cirrusSemanticSearch",
+          "in": "query"
+        },
+        {
+          "name": "meta",
+          "in": "query"
+        },
+        {
+          "name": "notformat",
+          "in": "query"
+        },
+        {
+          "name": "notlimit",
+          "in": "query"
+        },
+        {
+          "name": "notwikis",
+          "in": "query"
+        },
+        {
+          "name": "notfilter",
+          "in": "query"
+        },
+        {
+          "name": "notcontinue",
+          "in": "query"
+        },
+        {
+          "name": "redirects",
+          "in": "query"
+        },
+        {
+          "name": "exchars",
+          "in": "query"
+        },
+        {
+          "name": "exintro",
+          "in": "query"
+        },
+        {
+          "name": "explaintext",
+          "in": "query"
+        },
+        {
+          "name": "gsrqiprofile",
+          "in": "query"
+        },
+        {
+          "name": "gsrsort",
+          "in": "query"
+        },
+        {
+          "name": "amirequestsfor",
+          "in": "query"
+        },
+        {
+          "name": "type",
+          "in": "query"
+        },
+        {
+          "name": "gclshow",
+          "in": "query"
+        },
+        {
+          "name": "gcllimit",
+          "in": "query"
+        },
+        {
+          "name": "titles",
+          "in": "query"
+        },
+        {
+          "name": "clshow",
+          "in": "query"
+        },
+        {
+          "name": "cllimit",
+          "in": "query"
+        },
+        {
+          "name": "gcmprop",
+          "in": "query"
+        },
+        {
+          "name": "gcmtitle",
+          "in": "query"
+        },
+        {
+          "name": "gcmtype",
+          "in": "query"
+        },
+        {
+          "name": "gcmlimit",
+          "in": "query"
+        },
+        {
+          "name": "gcmcontinue",
+          "in": "query"
+        },
+        {
+          "name": "entity",
+          "in": "query"
+        },
+        {
+          "name": "property",
+          "in": "query"
+        },
+        {
+          "name": "sites",
+          "in": "query"
+        },
+        {
+          "name": "ggsradius",
+          "in": "query"
+        },
+        {
+          "name": "ggslimit",
+          "in": "query"
+        },
+        {
+          "name": "colimit",
+          "in": "query"
+        },
+        {
+          "name": "iiextmetadatalanguage",
+          "in": "query"
+        },
+        {
+          "name": "wbetlanguage",
+          "in": "query"
+        },
+        {
+          "name": "pageids",
+          "in": "query"
+        },
+        {
+          "name": "guiprop",
+          "in": "query"
+        },
+        {
+          "name": "assert",
+          "in": "query"
+        },
+        {
+          "name": "lllimit",
+          "in": "query"
+        },
+        {
+          "name": "rvslots",
+          "in": "query"
+        },
+        {
+          "name": "rvprop",
+          "in": "query"
+        },
+        {
+          "name": "uiprop",
+          "in": "query"
+        },
+        {
+          "name": "amenableparser",
+          "in": "query"
+        },
+        {
+          "name": "ammessages",
+          "in": "query"
+        },
+        {
+          "name": "amargs",
+          "in": "query"
+        },
+        {
+          "name": "amlang",
+          "in": "query"
+        },
+        {
+          "name": "siprop",
+          "in": "query"
+        },
+        {
+          "name": "X-Offline-Save",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Lang",
+          "in": "header"
+        },
+        {
+          "name": "X-Offline-Title",
+          "in": "header"
+        },
+        {
+          "name": "rvsection",
+          "in": "query"
+        },
+        {
+          "name": "grnnamespace",
+          "in": "query"
+        },
+        {
+          "name": "gunamespace",
+          "in": "query"
+        },
+        {
+          "name": "iilocalonly",
+          "in": "query"
+        },
+        {
+          "name": "grnlimit",
+          "in": "query"
+        },
+        {
+          "name": "grnfilterredir",
+          "in": "query"
+        },
+        {
+          "name": "list",
+          "in": "query"
+        },
+        {
+          "name": "rcprop",
+          "in": "query"
+        },
+        {
+          "name": "rcnamespace",
+          "in": "query"
+        },
+        {
+          "name": "rctype",
+          "in": "query"
+        },
+        {
+          "name": "rclimit",
+          "in": "query"
+        },
+        {
+          "name": "rcstart",
+          "in": "query"
+        },
+        {
+          "name": "rcdir",
+          "in": "query"
+        },
+        {
+          "name": "rctoponly",
+          "in": "query"
+        },
+        {
+          "name": "rcshow",
+          "in": "query"
+        },
+        {
+          "name": "rccontinue",
+          "in": "query"
+        },
+        {
+          "name": "rvdir",
+          "in": "query"
+        },
+        {
+          "name": "rvlimit",
+          "in": "query"
+        },
+        {
+          "name": "rvstartid",
+          "in": "query"
+        },
+        {
+          "name": "rvcontinue",
+          "in": "query"
+        },
+        {
+          "name": "maxage",
+          "in": "query"
+        },
+        {
+          "name": "smaxage",
+          "in": "query"
+        },
+        {
+          "name": "smtype",
+          "in": "query"
+        },
+        {
+          "name": "smlangprop",
+          "in": "query"
+        },
+        {
+          "name": "commentname",
+          "in": "query"
+        },
+        {
+          "name": "page",
+          "in": "query"
+        },
+        {
+          "name": "includeMissingTitles",
+          "in": "query"
+        },
+        {
+          "name": "lang",
+          "in": "query"
+        },
+        {
+          "name": "ucprop",
+          "in": "query"
+        },
+        {
+          "name": "ucuser",
+          "in": "query"
+        },
+        {
+          "name": "uclimit",
+          "in": "query"
+        },
+        {
+          "name": "ucnamespace",
+          "in": "query"
+        },
+        {
+          "name": "ucshow",
+          "in": "query"
+        },
+        {
+          "name": "uccontinue",
+          "in": "query"
+        },
+        {
+          "name": "ucdir",
+          "in": "query"
+        },
+        {
+          "name": "usprop",
+          "in": "query"
+        },
+        {
+          "name": "ususers",
+          "in": "query"
+        },
+        {
+          "name": "viprop",
+          "in": "query"
+        },
+        {
+          "name": "viurlwidth",
+          "in": "query"
+        },
+        {
+          "name": "viextmetadatalanguage",
+          "in": "query"
+        },
+        {
+          "name": "wllimit",
+          "in": "query"
+        },
+        {
+          "name": "wlprop",
+          "in": "query"
+        },
+        {
+          "name": "wlallrev",
+          "in": "query"
+        },
+        {
+          "name": "wlshow",
+          "in": "query"
+        },
+        {
+          "name": "wltype",
+          "in": "query"
+        },
+        {
+          "name": "intestactions",
+          "in": "query"
+        },
+        {
+          "name": "intestactionsdetail",
+          "in": "query"
+        },
+        {
+          "name": "props",
+          "in": "query"
+        },
+        {
+          "name": "ids",
+          "in": "query"
+        },
+        {
+          "name": "languages",
+          "in": "query"
+        },
+        {
+          "name": "sitefilter",
+          "in": "query"
+        },
+        {
+          "name": "guiuser",
+          "in": "query"
+        },
+        {
+          "name": "notprop",
+          "in": "query"
+        },
+        {
+          "name": "mobileformat",
+          "in": "query"
+        },
+        {
+          "name": "contentmodel",
+          "in": "query"
+        },
+        {
+          "name": "disablelimitreport",
+          "in": "query"
+        },
+        {
+          "name": "text",
+          "in": "query"
+        },
+        {
+          "name": "mainpage",
+          "in": "query"
+        },
+        {
+          "name": "gpsnamespace",
+          "in": "query"
+        },
+        {
+          "name": "gpssearch",
+          "in": "query"
+        },
+        {
+          "name": "gpslimit",
+          "in": "query"
+        },
+        {
+          "name": "gpsoffset",
+          "in": "query"
+        },
+        {
+          "name": "auwitheditsonly",
+          "in": "query"
+        },
+        {
+          "name": "auprefix",
+          "in": "query"
+        },
+        {
+          "name": "aulimit",
+          "in": "query"
+        },
+        {
+          "name": "limit",
+          "in": "query"
+        },
+        {
+          "name": "search",
+          "in": "query"
+        },
+        {
+          "name": "language",
+          "in": "query"
+        },
+        {
+          "name": "uselang",
+          "in": "query"
+        },
+        {
+          "name": "origin",
+          "in": "query"
+        },
+        {
+          "name": "pilimit",
+          "in": "query"
+        },
+        {
+          "name": "unplimit",
+          "in": "query"
+        },
+        {
+          "name": "unpwikis",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/Service.java:171",
+        "org/wikipedia/dataclient/Service.java:174",
+        "org/wikipedia/dataclient/Service.java:177",
+        "org/wikipedia/dataclient/Service.java:180",
+        "org/wikipedia/dataclient/Service.java:184",
+        "org/wikipedia/dataclient/Service.java:187",
+        "org/wikipedia/dataclient/Service.java:190",
+        "org/wikipedia/dataclient/Service.java:193",
+        "org/wikipedia/dataclient/Service.java:196",
+        "org/wikipedia/dataclient/Service.java:199",
+        "org/wikipedia/dataclient/Service.java:202",
+        "org/wikipedia/dataclient/Service.java:205",
+        "org/wikipedia/dataclient/Service.java:208",
+        "org/wikipedia/dataclient/Service.java:211",
+        "org/wikipedia/dataclient/Service.java:214",
+        "org/wikipedia/dataclient/Service.java:217",
+        "org/wikipedia/dataclient/Service.java:220",
+        "org/wikipedia/dataclient/Service.java:223",
+        "org/wikipedia/dataclient/Service.java:226",
+        "org/wikipedia/dataclient/Service.java:229",
+        "org/wikipedia/dataclient/Service.java:232",
+        "org/wikipedia/dataclient/Service.java:235",
+        "org/wikipedia/dataclient/Service.java:238",
+        "org/wikipedia/dataclient/Service.java:242",
+        "org/wikipedia/dataclient/Service.java:245",
+        "org/wikipedia/dataclient/Service.java:248",
+        "org/wikipedia/dataclient/Service.java:251",
+        "org/wikipedia/dataclient/Service.java:254",
+        "org/wikipedia/dataclient/Service.java:257",
+        "org/wikipedia/dataclient/Service.java:260",
+        "org/wikipedia/dataclient/Service.java:263",
+        "org/wikipedia/dataclient/Service.java:266",
+        "org/wikipedia/dataclient/Service.java:269",
+        "org/wikipedia/dataclient/Service.java:272",
+        "org/wikipedia/dataclient/Service.java:276",
+        "org/wikipedia/dataclient/Service.java:279",
+        "org/wikipedia/dataclient/Service.java:282",
+        "org/wikipedia/dataclient/Service.java:285",
+        "org/wikipedia/dataclient/Service.java:288",
+        "org/wikipedia/dataclient/Service.java:291",
+        "org/wikipedia/dataclient/Service.java:294",
+        "org/wikipedia/dataclient/Service.java:297",
+        "org/wikipedia/dataclient/Service.java:300",
+        "org/wikipedia/dataclient/Service.java:303",
+        "org/wikipedia/dataclient/Service.java:306",
+        "org/wikipedia/dataclient/Service.java:309",
+        "org/wikipedia/dataclient/Service.java:313",
+        "org/wikipedia/dataclient/Service.java:316",
+        "org/wikipedia/dataclient/Service.java:319",
+        "org/wikipedia/dataclient/Service.java:322",
+        "org/wikipedia/dataclient/Service.java:325",
+        "org/wikipedia/dataclient/Service.java:328",
+        "org/wikipedia/dataclient/Service.java:332",
+        "org/wikipedia/dataclient/Service.java:336",
+        "org/wikipedia/dataclient/Service.java:340",
+        "org/wikipedia/dataclient/Service.java:344",
+        "org/wikipedia/dataclient/Service.java:348",
+        "org/wikipedia/dataclient/Service.java:352",
+        "org/wikipedia/dataclient/Service.java:355",
+        "org/wikipedia/dataclient/Service.java:358",
+        "org/wikipedia/dataclient/Service.java:361",
+        "org/wikipedia/dataclient/Service.java:364",
+        "org/wikipedia/dataclient/Service.java:372",
+        "org/wikipedia/dataclient/Service.java:379",
+        "org/wikipedia/dataclient/Service.java:382",
+        "org/wikipedia/dataclient/Service.java:385",
+        "org/wikipedia/dataclient/Service.java:436",
+        "org/wikipedia/dataclient/Service.java:439",
+        "org/wikipedia/dataclient/Service.java:442",
+        "org/wikipedia/dataclient/Service.java:445",
+        "org/wikipedia/dataclient/Service.java:448",
+        "org/wikipedia/dataclient/Service.java:460",
+        "org/wikipedia/dataclient/Service.java:463",
+        "org/wikipedia/dataclient/Service.java:466"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/w/api.php",
+      "params": [
+        {
+          "name": "format",
+          "in": "query"
+        },
+        {
+          "name": "formatversion",
+          "in": "query"
+        },
+        {
+          "name": "errorformat",
+          "in": "query"
+        },
+        {
+          "name": "errorsuselocal",
+          "in": "query"
+        },
+        {
+          "name": "action",
+          "in": "query"
+        },
+        {
+          "name": "tasktype",
+          "in": "form"
+        },
+        {
+          "name": "title",
+          "in": "form"
+        },
+        {
+          "name": "filename",
+          "in": "form"
+        },
+        {
+          "name": "token",
+          "in": "form"
+        },
+        {
+          "name": "list",
+          "in": "form"
+        },
+        {
+          "name": "unreadlist",
+          "in": "form"
+        },
+        {
+          "name": "createmessageformat",
+          "in": "query"
+        },
+        {
+          "name": "username",
+          "in": "form"
+        },
+        {
+          "name": "password",
+          "in": "form"
+        },
+        {
+          "name": "retype",
+          "in": "form"
+        },
+        {
+          "name": "createtoken",
+          "in": "form"
+        },
+        {
+          "name": "createreturnurl",
+          "in": "form"
+        },
+        {
+          "name": "email",
+          "in": "form"
+        },
+        {
+          "name": "captchaId",
+          "in": "form"
+        },
+        {
+          "name": "captchaWord",
+          "in": "form"
+        },
+        {
+          "name": "errorlang",
+          "in": "query"
+        },
+        {
+          "name": "language",
+          "in": "form"
+        },
+        {
+          "name": "uselang",
+          "in": "form"
+        },
+        {
+          "name": "site",
+          "in": "form"
+        },
+        {
+          "name": "value",
+          "in": "form"
+        },
+        {
+          "name": "summary",
+          "in": "form"
+        },
+        {
+          "name": "assert",
+          "in": "form"
+        },
+        {
+          "name": "matags",
+          "in": "form"
+        },
+        {
+          "name": "id",
+          "in": "form"
+        },
+        {
+          "name": "data",
+          "in": "form"
+        },
+        {
+          "name": "section",
+          "in": "form"
+        },
+        {
+          "name": "sectiontitle",
+          "in": "form"
+        },
+        {
+          "name": "text",
+          "in": "form"
+        },
+        {
+          "name": "appendtext",
+          "in": "form"
+        },
+        {
+          "name": "baserevid",
+          "in": "form"
+        },
+        {
+          "name": "captchaid",
+          "in": "form"
+        },
+        {
+          "name": "captchaword",
+          "in": "form"
+        },
+        {
+          "name": "minor",
+          "in": "form"
+        },
+        {
+          "name": "watchlist",
+          "in": "form"
+        },
+        {
+          "name": "rememberMe",
+          "in": "query"
+        },
+        {
+          "name": "OATHToken",
+          "in": "form"
+        },
+        {
+          "name": "loginreturnurl",
+          "in": "form"
+        },
+        {
+          "name": "logintoken",
+          "in": "form"
+        },
+        {
+          "name": "logincontinue",
+          "in": "form"
+        },
+        {
+          "name": "newModule",
+          "in": "form"
+        },
+        {
+          "name": "user",
+          "in": "form"
+        },
+        {
+          "name": "paction",
+          "in": "query"
+        },
+        {
+          "name": "page",
+          "in": "form"
+        },
+        {
+          "name": "wikitext",
+          "in": "form"
+        },
+        {
+          "name": "commentid",
+          "in": "form"
+        },
+        {
+          "name": "rev",
+          "in": "form"
+        },
+        {
+          "name": "undo",
+          "in": "form"
+        },
+        {
+          "name": "undoafter",
+          "in": "form"
+        },
+        {
+          "name": "url",
+          "in": "form"
+        },
+        {
+          "name": "commentname",
+          "in": "form"
+        },
+        {
+          "name": "subscribe",
+          "in": "form"
+        },
+        {
+          "name": "converttitles",
+          "in": "query"
+        },
+        {
+          "name": "redirects",
+          "in": "query"
+        },
+        {
+          "name": "unwatch",
+          "in": "form"
+        },
+        {
+          "name": "pageids",
+          "in": "form"
+        },
+        {
+          "name": "titles",
+          "in": "form"
+        },
+        {
+          "name": "expiry",
+          "in": "form"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "org/wikipedia/dataclient/Service.java:368",
+        "org/wikipedia/dataclient/Service.java:376",
+        "org/wikipedia/dataclient/Service.java:389",
+        "org/wikipedia/dataclient/Service.java:393",
+        "org/wikipedia/dataclient/Service.java:397",
+        "org/wikipedia/dataclient/Service.java:401",
+        "org/wikipedia/dataclient/Service.java:405",
+        "org/wikipedia/dataclient/Service.java:409",
+        "org/wikipedia/dataclient/Service.java:413",
+        "org/wikipedia/dataclient/Service.java:417",
+        "org/wikipedia/dataclient/Service.java:421",
+        "org/wikipedia/dataclient/Service.java:425",
+        "org/wikipedia/dataclient/Service.java:429",
+        "org/wikipedia/dataclient/Service.java:433",
+        "org/wikipedia/dataclient/Service.java:452",
+        "org/wikipedia/dataclient/Service.java:456",
+        "org/wikipedia/dataclient/Service.java:470"
+      ]
+    }
+  ]
+}

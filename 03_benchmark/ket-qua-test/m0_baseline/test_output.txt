@@ -1,0 +1,20 @@
+=== InsecureBankv2 — RECALL (ràng buộc cứng = 100%) ===
+  [OK ] V01 khoá cứng
+  [OK ] V02 cleartext
+  [OK ] V05 mật mã yếu (IV)
+  [OK ] V06 exported
+  [OK ] V07 cửa hậu devlogin
+  [OK ] V11 allowBackup
+  => Recall tĩnh: 100%  (6/6 mục tĩnh của đáp án)
+  [+  ] (thêm) V04 lưu trữ không an toàn
+  [+  ] (thêm) V10 rò rỉ qua log
+
+=== InsecureBankv2 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 24  |  TP: 24  FP: 0  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 100.0%  (24/24)
+
+=== NewPipe 0.29.1 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 19  |  TP: 1  FP: 18  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 5.3%  (1/19)
+
+PASS: recall InsecureBankv2 = 100%, không mất TP đã gán nhãn.

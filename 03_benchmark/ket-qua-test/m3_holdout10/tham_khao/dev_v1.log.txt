@@ -1,0 +1,154 @@
+
+[1/19] at.bitfire.davdroid_405200005.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/at.bitfire.davdroid_405200005.apk
+SHA-256: df387d8b3ddc3730d88d2bfea939aadb8906cc6cff7de46385a7751d1b536462
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  6 cảnh báo · 12 endpoint · 0.61 s
+
+[2/19] com.beemdevelopment.aegis_82.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.beemdevelopment.aegis_82.apk
+SHA-256: 0eecec45de0da3ff1358004b51e2960d9178551643a6ed44f6496ea9ec999c19
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  3 cảnh báo · 5 endpoint · 0.24 s
+
+[3/19] com.fsck.k9_39045.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.fsck.k9_39045.apk
+SHA-256: a9a6d4219fe44bfb4e47693efa973c0c173741074193d8e9d7e37a354e7aafca
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  7 cảnh báo · 61 endpoint · 1.44 s
+
+[4/19] com.keylesspalace.tusky_142.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.keylesspalace.tusky_142.apk
+SHA-256: 3e8fcc49a80d4c30ab6f6037e51402c77e2694d27ec19ae5b8a93cd08b6caffa
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  2 cảnh báo · 16 endpoint · 0.15 s
+
+[5/19] com.kunzisoft.keepass.libre_45500.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.kunzisoft.keepass.libre_45500.apk
+SHA-256: e8a118a0660fc89ca92c53041765631e72a580fb5e63477b400a5305eac5d633
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  50 cảnh báo · 1 endpoint · 0.89 s
+
+[6/19] com.money.manager.ex_1118.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.money.manager.ex_1118.apk
+SHA-256: a2295d9b888a764ebd2be5abd3e700e2a33dd51c453add5ff64b97c1e1a33f0c
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  10 cảnh báo · 12 endpoint · 0.16 s
+
+[7/19] com.nextcloud.client_350000090.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.nextcloud.client_350000090.apk
+SHA-256: 2d08059c9a0a94ef4316e5c8491e3c6aee99a87b58bb796163c44e08deb1615c
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  46 cảnh báo · 30 endpoint · 4.71 s
+
+[8/19] com.nononsenseapps.feeder_4113.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.nononsenseapps.feeder_4113.apk
+SHA-256: 0aa5eb094f94ca29ab7956d75b9e5d7c19785ebdac74b9ae512930084338bf3c
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  16 cảnh báo · 33 endpoint · 1.17 s
+
+[9/19] com.termux_1002.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/com.termux_1002.apk
+SHA-256: e6265a57eb5ca363808488e3b01955958bed93bc0c8a0d281849b363b11027ec
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  3 cảnh báo · 29 endpoint · 0.11 s
+
+[10/19] de.danoeh.antennapod_3120295.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/de.danoeh.antennapod_3120295.apk
+SHA-256: 3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  15 cảnh báo · 23 endpoint · 0.45 s
+
+[11/19] eu.siacs.conversations_4218104.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/eu.siacs.conversations_4218104.apk
+SHA-256: 3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  22 cảnh báo · 30 endpoint · 0.56 s
+
+[12/19] me.hackerchick.catima_1004.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/me.hackerchick.catima_1004.apk
+SHA-256: 271980b62f73137db2d843fb4fc35f103c4126d769f816d365206c5c1adff3a9
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  4 cảnh báo · 14 endpoint · 0.13 s
+
+[13/19] nodomain.freeyourgadget.gadgetbridge_253.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/nodomain.freeyourgadget.gadgetbridge_253.apk
+SHA-256: c0912ea6647bcad3f0b8f1f3be5181de7bdf0eafbd43cf930ab54572082aa165
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  100 cảnh báo · 20 endpoint · 3.82 s
+
+[14/19] org.breezyweather_60202.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/org.breezyweather_60202.apk
+SHA-256: 1369d817d426498715f8ccb6750baff19dadd78e85f707088e9bca43977570c0
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  4 cảnh báo · 1 endpoint · 0.16 s
+
+[15/19] org.briarproject.briar.android_10521.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/org.briarproject.briar.android_10521.apk
+SHA-256: 433a1d7bf871960b74eac162621586c223e07f66da5179a9e4c2c149b50a30d2
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  4 cảnh báo · 8 endpoint · 0.31 s
+
+[16/19] org.jellyfin.mobile_2070399.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/org.jellyfin.mobile_2070399.apk
+SHA-256: f9f4b3ab46cc9434df811194c2d4351417f4db83a4c1a0facd0a662d69533f7f
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  10 cảnh báo · 0 endpoint · 0.2 s
+
+[17/19] org.quantumbadger.redreader_118.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/org.quantumbadger.redreader_118.apk
+SHA-256: 641512cee55154cd0c811e435d5f60b9b9e6d65a2103e0a34389c9fe5b4484f2
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  19 cảnh báo · 94 endpoint · 0.41 s
+
+[18/19] org.schabi.newpipe_1015.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/org.schabi.newpipe_1015.apk
+SHA-256: 1d66d19eedbab969b1be2e44e0ea35f5f8921cbe83b5c5ac810767ca1a84b7e8
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  3 cảnh báo · 145 endpoint · 0.62 s
+
+[19/19] org.wikipedia_50606.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/org.wikipedia_50606.apk
+SHA-256: eba82a0f77940d8a6be5bd2e53723675a59859a6c8a51be5e50bd034fc77101f
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  7 cảnh báo · 41 endpoint · 2.79 s
+
+Đã quét 19/19 APK. Tổng hợp: /Volumes/BetaSoft/Desktop/Đồ án/03_benchmark/ket-qua-test/m3_holdout10/tham_khao/dev_v1/index.html

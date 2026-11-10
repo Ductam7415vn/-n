@@ -1,0 +1,4 @@
+Chạy ngày 2026-10-05: python3 04_code/scripts/apiscan.py scan 04_code/target-app/InsecureBankv2.apk --min-confidence medium
+Lần 1 (gồm giải nén + dịch ngược, máy đang tải cao, load average ~24): real 111.57 s
+Lần 2, 3 (dùng lại kết quả dịch ngược trong ~/.cache/apiscan): real 1.74 s, 0.73 s
+Kết quả: 22 cảnh báo (mức nghiêm trọng high 12, medium 10; độ tin cậy high 8, medium 14; 2 cảnh báo low bị ẩn), 6 endpoint.

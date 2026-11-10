@@ -1,0 +1,27 @@
+=== InsecureBankv2 — RECALL (ràng buộc cứng = 100%) ===
+  [OK ] V01 khoá cứng
+  [OK ] V02 cleartext
+  [OK ] V05 mật mã yếu (IV)
+  [OK ] V06 exported
+  [OK ] V07 cửa hậu devlogin
+  [OK ] V11 allowBackup
+  => Recall tĩnh: 100%  (6/6 mục tĩnh của đáp án)
+  [+  ] (thêm) V04 lưu trữ không an toàn
+  [+  ] (thêm) V10 rò rỉ qua log
+
+=== InsecureBankv2 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 24  |  TP: 24  FP: 0  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 100.0%  (24/24)
+
+=== Nextcloud 35.0.0 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 46  |  TP: 6  FP: 40  chưa gán nhãn: 0
+  Báo nhầm đã gán nhãn nay không còn xuất hiện: 31
+  => Precision trên phần đã gán nhãn: 13.0%  (6/46)
+
+=== Nextcloud 35.0.0 — PRECISION THEO ĐỘ TIN CẬY ===
+  mức      | riêng mức            | từ mức này trở lên
+  high     | 100.0% (3/3)         | 100.0% (3/3)
+  medium   |  13.3% (2/15)        |  27.8% (5/18)
+  low      |   3.6% (1/28)        |  13.0% (6/46)
+
+PASS: recall InsecureBankv2 = 100%, không mất TP đã gán nhãn.

@@ -1,0 +1,659 @@
+{
+  "app": "Nextcloud 35.0.0",
+  "apk_sha256": "2d08059c9a0a94ef4316e5c8491e3c6aee99a87b58bb796163c44e08deb1615c",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_holdout2/nc.json",
+  "note": "Holdout đợt 2: luật đóng băng ở commit a84dc9e, KHÔNG dùng để chỉnh luật. Phạm vi quét = package trong manifest. Bổ sung 2026-10-04: 37 nhãn cho cảnh báo phát sinh khi apiscan tự suy phạm vi mã (thêm com.owncloud); kết quả ở ket-qua-test/m1_scope/nc.json.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app.",
+  "labels": [
+    {
+      "rule_id": "NET-CLEAR",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "label": "TP",
+      "reason": "Cho phép HTTP cleartext toàn cục (NSC base-config cũng true). Cố ý (tương thích máy chủ tự host/feed http) nhưng là điểm yếu thật — gán TP nhất quán với K-9 Mail"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.nextcloud.ui.composeActivity.ComposeActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "ComposeActivity (Assistant) — chức năng đã công khai qua activity-alias PROCESS_TEXT; exported trực tiếp không mở thêm dữ liệu"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.owncloud.android.providers.FileContentProvider",
+      "label": "TP",
+      "reason": "Provider exported không permission; isCallerNotAllowed() trả 'được phép' cho URI gốc/file/dir (bảng filelist) → app khác query/insert/delete metadata tệp đồng bộ. Độ tin cậy trung bình: cần kiểm thử động (chỉ trên app có phép)"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.owncloud.android.services.AccountManagerService",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Dịch vụ SSO cho app Nextcloud khác; mỗi lời gọi xác thực token (SHA-512) gắn với package gọi — kiểm tra trong mã"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.owncloud.android.ui.activity.SsoGrantPermissionActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Màn hình xin người dùng cấp quyền SSO cho app gọi — bắt buộc exported, người dùng quyết định"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "label": "TP",
+      "reason": "base-config cleartextTrafficPermitted=true (cùng gốc NET-CLEAR). Cố ý (tương thích máy chủ tự host/feed http) nhưng là điểm yếu thật — gán TP nhất quán với K-9 Mail"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "label": "TP",
+      "reason": "base-config tin CA do người dùng cài cho mọi kết nối → MITM được. Cố ý (tương thích máy chủ tự host/feed http) nhưng là điểm yếu thật — gán TP nhất quán với K-9 Mail"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/database/migrations/DatabaseMigrationUtil.java",
+      "evidence": "public static final String KEYWORD_NOT_NULL = \"NOT NULL\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/database/migrations/DatabaseMigrationUtil.java",
+      "evidence": "public static final String TYPE_INTEGER_PRIMARY_KEY = \"INTEGER PRIMARY KEY\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/migrations/MigrationsDb.java",
+      "evidence": "public static final String DB_KEY_APPLIED_MIGRATIONS = \"applied_migrations\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/migrations/MigrationsDb.java",
+      "evidence": "public static final String DB_KEY_FAILED = \"failed\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/migrations/MigrationsDb.java",
+      "evidence": "public static final String DB_KEY_FAILED_MIGRATION_ERROR_MESSAGE = \"failed_migration_error\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/migrations/MigrationsDb.java",
+      "evidence": "public static final String DB_KEY_FAILED_MIGRATION_ID = \"failed_migration_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/migrations/MigrationsDb.java",
+      "evidence": "public static final String DB_KEY_LAST_MIGRATED_VERSION = \"last_migrated_version\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/preferences/AppPreferencesImpl.java",
+      "evidence": "private static final String PREF__KEYS_MIGRATION = \"keysMigration\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/preferences/AppPreferencesImpl.java",
+      "evidence": "private static final String PREF__KEYS_REINIT = \"keysReinit\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/preferences/AppPreferencesImpl.java",
+      "evidence": "private static final String PREF__PASSCODE_DELAY_IN_SECONDS = \"passcode_delay_in_seconds\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/preferences/AppPreferencesImpl.java",
+      "evidence": "private static final String PREF__PUSH_TOKEN = \"pushToken\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "com/nextcloud/client/utils/HashUtil.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 tên tài khoản để làm root ID cho DocumentsProvider, không dùng cho bảo mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/MediaFoldersDetectionWork.java",
+      "evidence": "private static final String KEY_MEDIA_FOLDERS = \"media_folders\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/MediaFoldersDetectionWork.java",
+      "evidence": "public static final String KEY_MEDIA_FOLDER_PATH = \"KEY_MEDIA_FOLDER_PATH\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/MediaFoldersDetectionWork.java",
+      "evidence": "public static final String KEY_MEDIA_FOLDER_TYPE = \"KEY_MEDIA_FOLDER_TYPE\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/NotificationWork.java",
+      "evidence": "public static final String KEY_NOTIFICATION_ACCOUNT = \"KEY_NOTIFICATION_ACCOUNT\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/NotificationWork.java",
+      "evidence": "private static final String KEY_NOTIFICATION_ACTION_LINK = \"KEY_NOTIFICATION_ACTION_LINK\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/NotificationWork.java",
+      "evidence": "private static final String KEY_NOTIFICATION_ACTION_TYPE = \"KEY_NOTIFICATION_ACTION_TYPE\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/NotificationWork.java",
+      "evidence": "public static final String KEY_NOTIFICATION_SIGNATURE = \"signature\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/NotificationWork.java",
+      "evidence": "public static final String KEY_NOTIFICATION_SUBJECT = \"subject\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "file": "com/nextcloud/client/jobs/NotificationWork.java",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"RSA/ECB/OAEPWithSHA-1AndMGF1Padding\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "RSA/ECB/OAEPWithSHA-1AndMGF1Padding: 'ECB' với RSA chỉ là tên gọi, OAEP là padding an toàn — luật khớp chữ ECB"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/TestJob.java",
+      "evidence": "private static final String PROGRESS_KEY = \"progress\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/ContactsBackupWork.java",
+      "evidence": "public static final String KEY_ACCOUNT = \"account\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/ContactsBackupWork.java",
+      "evidence": "public static final String KEY_FORCE = \"force\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/jobs/download/SendShareDownloader.java",
+      "evidence": "private static final String KEY_FILE_WAITING_TO_SEND = \"KEY_FILE_WAITING_TO_SEND\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/account/UserAccountManager.java",
+      "evidence": "public static final String ACCOUNT_USES_STANDARD_PASSWORD = \"ACCOUNT_USES_STANDARD_PASSWORD\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/player/util/PlayerUtil.java",
+      "evidence": "private static final String PLAYBACK_FILE_KEY = \"playback_file\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/player/model/PlaybackSettings.java",
+      "evidence": "private static final String REPEAT_MODE_ID_KEY = \"repeat_mode_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/player/model/PlaybackSettings.java",
+      "evidence": "private static final String SHUFFLE_KEY = \"shuffle\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java",
+      "evidence": "private static final String COLLECTION_KEY = \"collection\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java",
+      "evidence": "private static final String CURRENT_FILE_ID_KEY = \"current_file_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java",
+      "evidence": "private static final String FILE_TYPE_KEY = \"file_type\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java",
+      "evidence": "private static final String FOLDER_ID_KEY = \"folder_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nextcloud/ui/ClientIntegrationScreenKt.java",
+      "evidence": "ClientIntegrationScreen(new ClientIntegrationUI(0.1d, new Layout(LayoutOrientation.VERTICAL, CollectionsKt.mutableListOf(new LayoutRow(CollectionsKt.listOf((Obj",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URL mẫu http://nextcloud.local trong hàm @Preview của Compose (ClientIntegrationScreenPreview…) — dữ liệu xem trước, không chạy trong app",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nextcloud/ui/ClientIntegrationScreenKt.java",
+      "evidence": "ClientIntegrationScreen(new ClientIntegrationUI(0.1d, new Layout(LayoutOrientation.HORIZONTAL, CollectionsKt.mutableListOf(new LayoutRow(CollectionsKt.listOf((O",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URL mẫu http://nextcloud.local trong hàm @Preview của Compose (ClientIntegrationScreenPreview…) — dữ liệu xem trước, không chạy trong app",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nextcloud/ui/ClientIntegrationScreenKt.java",
+      "evidence": "ClientIntegrationScreen(new ClientIntegrationUI(0.1d, new Layout(LayoutOrientation.HORIZONTAL, CollectionsKt.emptyList())), \"http://nextcloud.local\", composerSt",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URL mẫu http://nextcloud.local trong hàm @Preview của Compose (ClientIntegrationScreenPreview…) — dữ liệu xem trước, không chạy trong app",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nextcloud/android/common/ui/network/auth/AuthInterceptor.java",
+      "evidence": "private static final String HTTP_PREFIX = \"http://\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng \"http://\" chỉ dùng để so sánh/bỏ tiền tố (startsWith, replace, substring) — không kết nối",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/android/common/ui/share/repository/ShareRemoteRepository.java",
+      "evidence": "private static final String SECRET_ENDPOINT = \"/ocs/v2.php/apps/sharing/api/v1/secret\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là ĐƯỜNG DẪN API (/ocs/v2.php/…) — không phải bí mật; secret_value_confidence xếp high vì chuỗi dài có chữ + số",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/android/sso/Constants.java",
+      "evidence": "public static final String EXCEPTION_INVALID_TOKEN = \"CE_1\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nextcloud/android/sso/Constants.java",
+      "evidence": "public static final String SSO_TOKEN = \"token\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "com/owncloud/android/ui/activity/TextEditorWebView.java",
+      "evidence": "textEditorWebView.getWebView().addJavascriptInterface(new EditorWebView.MobileInterface(), \"DirectEditingMobileInterface\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Cầu nối JS của trình soạn thảo Text chỉ lộ close/share/loaded/reload — không có dữ liệu/hành động nhạy cảm (nhất quán với RedReader notifyVideoEnd)",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "com/owncloud/android/ui/activity/RichDocumentsEditorWebView.java",
+      "evidence": "getWebView().addJavascriptInterface(new RichDocumentsMobileInterface(), \"RichDocumentsMobileInterface\");",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Cầu nối JS RichDocuments (Collabora) lộ downloadAs/hyperlink/fileRename/paste cho nội dung tải từ server người dùng; cleartext được phép → MITM/XSS gọi được hàm native — nhất quán với Jellyfin",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "com/owncloud/android/ui/activity/ExternalSiteWebView.java",
+      "evidence": "webSettings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/trình soạn thảo cần JS",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/ui/dialog/SyncFileNotEnoughSpaceDialogFragment.java",
+      "evidence": "public static final String REQUEST_KEY = \"SyncFileNotEnoughSpaceDialogFragment\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "com/owncloud/android/ui/fragment/FeatureWebFragment.java",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/trình soạn thảo cần JS",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/owncloud/android/ui/helpers/FileOperationsHelper.java",
+      "evidence": "return new File(activity.getExternalFilesDir(isVideo ? Environment.DIRECTORY_MOVIES : Environment.DIRECTORY_PICTURES) + (isVideo ? \"/directCameraUpload.mp4\" : \"",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp tạm cho ứng dụng camera chụp ảnh/quay video để tải lên, trong thư mục external riêng của app — do người dùng chủ động",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/owncloud/android/utils/DisplayUtils.java",
+      "evidence": "private static final String HTTP_PROTOCOL = \"http://\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng \"http://\" chỉ dùng để so sánh/bỏ tiền tố (startsWith, replace, substring) — không kết nối",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/owncloud/android/utils/DisplayUtils.java",
+      "evidence": "return url.substring(\"http://\".length()).trim();",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng \"http://\" chỉ dùng để so sánh/bỏ tiền tố (startsWith, replace, substring) — không kết nối",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/owncloud/android/utils/FileExportUtils.java",
+      "evidence": "File file3 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), fileName);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Người dùng chủ động xuất tệp vào Downloads",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/owncloud/android/utils/FileExportUtils.java",
+      "evidence": "file2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), generateNewName(fileName, i));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Người dùng chủ động xuất tệp vào Downloads",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/status/GetCapabilitiesRemoteOperation.java",
+      "evidence": "private static final String NODE_PASSWORD = \"password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/owncloud/android/lib/resources/status/GetStatusRemoteOperation.java",
+      "evidence": "private static final String PROTOCOL_HTTP = \"http://\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng PROTOCOL_HTTP không được dùng trực tiếp (JADX nội tuyến); lời gọi thật ở dòng 209 được gán nhãn riêng",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/owncloud/android/lib/resources/status/GetStatusRemoteOperation.java",
+      "evidence": "ownCloudClient.setBaseUri(Uri.parse(\"http://\" + string));",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Khi địa chỉ server không có scheme: thử https, thất bại (không phải lỗi SSL khôi phục được) thì TỰ ĐỘNG rơi xuống http:// → MITM chặn 443 ép hạ cấp. Có cảnh báo 'kết nối không an toàn' trên UI → rủi ro nhẹ hơn AntennaPod; nhất quán nhóm 'mặc định/rơi xuống http'",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/users/GetPublicKeyRemoteOperation.java",
+      "evidence": "private static final String PUBLIC_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là ĐƯỜNG DẪN API (/ocs/v2.php/…) — không phải bí mật; secret_value_confidence xếp high vì chuỗi dài có chữ + số",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/users/DeletePublicKeyRemoteOperation.java",
+      "evidence": "private static final String PUBLIC_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là ĐƯỜNG DẪN API (/ocs/v2.php/…) — không phải bí mật; secret_value_confidence xếp high vì chuỗi dài có chữ + số",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/users/SendCSRRemoteOperation.java",
+      "evidence": "private static final String PUBLIC_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là ĐƯỜNG DẪN API (/ocs/v2.php/…) — không phải bí mật; secret_value_confidence xếp high vì chuỗi dài có chữ + số",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/users/DeletePrivateKeyRemoteOperation.java",
+      "evidence": "private static final String PRIVATE_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là ĐƯỜNG DẪN API (/ocs/v2.php/…) — không phải bí mật; secret_value_confidence xếp high vì chuỗi dài có chữ + số",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/users/GetPrivateKeyRemoteOperation.java",
+      "evidence": "private static final String PRIVATE_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là ĐƯỜNG DẪN API (/ocs/v2.php/…) — không phải bí mật; secret_value_confidence xếp high vì chuỗi dài có chữ + số",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/users/StorePrivateKeyRemoteOperation.java",
+      "evidence": "private static final String PRIVATE_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là ĐƯỜNG DẪN API (/ocs/v2.php/…) — không phải bí mật; secret_value_confidence xếp high vì chuỗi dài có chữ + số",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/shares/ShareXMLParser.java",
+      "evidence": "private static final String NODE_PASSWORD = \"password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/shares/ShareXMLParser.java",
+      "evidence": "private static final String NODE_TOKEN = \"token\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/shares/UpdateShareRemoteOperation.java",
+      "evidence": "private static final String PARAM_PASSWORD = \"password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/resources/shares/CreateShareRemoteOperation.java",
+      "evidence": "private static final String PARAM_PASSWORD = \"password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/common/network/NetworkUtils.java",
+      "evidence": "private static String LOCAL_TRUSTSTORE_PASSWORD = \"password\";",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật khẩu \"password\" của truststore cục bộ chỉ chứa chứng chỉ công khai người dùng đã chấp nhận, tệp nằm trong vùng riêng của app — không bảo vệ bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/common/operations/RemoteOperation.java",
+      "evidence": "protected static final String E2E_TOKEN = \"e2e-token\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/lib/common/operations/RemoteOperation.java",
+      "evidence": "protected static final String REMOTE_WIPE_TOKEN = \"token\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/owncloud/android/db/ProviderMeta.java",
+      "evidence": "public static final String OCSHARES_TOKEN = \"token\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là tên tham số/trường/mã lỗi (\"token\", \"password\", \"CE_1\"…), không phải bí mật",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/owncloud/android/authentication/AuthenticatorActivity.java",
+      "evidence": "public static final String HTTP_PROTOCOL = \"http://\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng \"http://\" chỉ dùng để so sánh/bỏ tiền tố (startsWith, replace, substring) — không kết nối",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "com/owncloud/android/authentication/AuthenticatorActivity.java",
+      "evidence": "this.accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/trình soạn thảo cần JS",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/owncloud/android/authentication/dialog/LoginDialog.java",
+      "evidence": "private static final String HTTP = \"http://\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng \"http://\" chỉ dùng để so sánh/bỏ tiền tố (startsWith, replace, substring) — không kết nối",
+      "added_on": "2026-10-04 (phạm vi suy rộng: com.nextcloud, com.nmc, com.owncloud)"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+ "app": "FlorisBoard 0.5.2",
+ "apk_sha256": "d8ef30b212730e7c005250f3f9a8bcee4afd1605b66efaa15f7f59a89cffa9b5",
+ "labeled_on": "2026-11-08",
+ "labeled_from": "03_benchmark/ket-qua-test/m3_holdout10/v2/dev.patrickgold.florisboard/report.json (v2 ⊇ v1; mục [chỉ v2] không có trong 03_benchmark/ket-qua-test/m3_holdout10/v1/dev.patrickgold.florisboard/report.json)",
+ "note": "Holdout đợt 10: quét bằng `apiscan.py scan` v1 và `--export-rules v2`, luật đóng băng ở commit 9fa79f2, tiêu chí ghi trước ở 03_benchmark/ket-qua-test/m3_holdout10/TIEU_CHI.md, KHÔNG dùng để chỉnh.",
+ "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+ "labels": [
+  {
+   "rule_id": "CFG-BACKUP",
+   "file": "AndroidManifest.xml",
+   "evidence": "android:allowBackup=\"true\"",
+   "label": "FP",
+   "fp_type": "intended",
+   "borderline": true,
+   "reason": "Quy tắc backup chỉ gồm cài đặt (jetpref_datastore), tệp ime và từ điển người dùng — không có thông tin đăng nhập. Borderline: từ điển người dùng của bàn phím có thể chứa từ nhạy cảm, không requireFlags mã hoá, minSdk 26"
+  },
+  {
+   "rule_id": "CRY-KEYLIT",
+   "file": "dev/patrickgold/florisboard/lib/util/InputMethodUtils$$ExternalSyntheticLambda1.java",
+   "evidence": "String key = \"android-support-nav:controller:backStackStates:\" + str;",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Khoá lưu trạng thái Navigation của AndroidX (mã thư viện bị gộp vào package app), không phải bí mật"
+  }
+ ]
+}

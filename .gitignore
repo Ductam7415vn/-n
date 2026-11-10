@@ -1,0 +1,14 @@
+.DS_Store
+~$*.docx
+__pycache__/
+*.pyc
+
+04_code/target-app/OUT_*/
+*.apk
+
+.claude/settings.local.json
+firebase-debug.log
+*.log
+04_code/dynamic/backend/AndroLabServer/
+04_code/build/
+*.egg-info/

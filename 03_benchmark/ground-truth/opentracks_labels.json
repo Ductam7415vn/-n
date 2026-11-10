@@ -1,0 +1,61 @@
+{
+ "app": "OpenTracks v4.29.0",
+ "apk_sha256": "f63ed60e2a4f1b3d878671bfde2150ceaa89e484618b91390500e1a583694cc1",
+ "labeled_on": "2026-11-08",
+ "labeled_from": "03_benchmark/ket-qua-test/m3_holdout10/v2/de.dennisguse.opentracks/report.json (v2 ⊇ v1; mục [chỉ v2] không có trong 03_benchmark/ket-qua-test/m3_holdout10/v1/de.dennisguse.opentracks/report.json)",
+ "note": "Holdout đợt 10: quét bằng `apiscan.py scan` v1 và `--export-rules v2`, luật đóng băng ở commit 9fa79f2, tiêu chí ghi trước ở 03_benchmark/ket-qua-test/m3_holdout10/TIEU_CHI.md, KHÔNG dùng để chỉnh.",
+ "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+ "labels": [
+  {
+   "rule_id": "CFG-BACKUP",
+   "file": "AndroidManifest.xml",
+   "evidence": "android:allowBackup=\"true\"",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "full-backup include requireFlags=clientSideEncryption; cloud-backup disableIfNoEncryptionCapabilities — nhất quán với Conversations"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "de.dennisguse.opentracks.publicapi.StartRecording",
+   "label": "FP",
+   "fp_type": "intended",
+   "borderline": true,
+   "reason": "Public API có tài liệu, mặc định TẮT (publicapi_enabled_default=false), chỉ chạy khi người dùng bật trong cài đặt. Borderline: khi đã bật, mọi app bắt đầu ghi vị trí được mà không xác thực bên gọi"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "de.dennisguse.opentracks.publicapi.StopRecording",
+   "label": "FP",
+   "fp_type": "intended",
+   "borderline": true,
+   "reason": "Như StartRecording: public API mặc định tắt, người dùng chủ động bật"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "de.dennisguse.opentracks.publicapi.CreateMarker",
+   "label": "FP",
+   "fp_type": "intended",
+   "borderline": true,
+   "reason": "Như StartRecording: public API mặc định tắt, người dùng chủ động bật"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "androidx.health.platform.client.impl.sdkservice.HealthDataSdkService",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "[chỉ v2] Service của thư viện Health Connect; HealthDataSdkServiceStubImpl kiểm tra getPackagesForUid(Binder.getCallingUid()) với danh sách cho phép, sai thì SecurityException"
+  },
+  {
+   "rule_id": "CRY-KEYLIT",
+   "file": "de/dennisguse/opentracks/services/TrackIdStorage.java",
+   "evidence": "private static final String KEY = \"trackId_key\";",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Tên khoá lưu trữ (Bundle/SharedPreferences), không phải bí mật"
+  }
+ ]
+}

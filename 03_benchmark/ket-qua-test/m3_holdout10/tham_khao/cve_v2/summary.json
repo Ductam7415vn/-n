@@ -1,0 +1,181 @@
+{
+  "meta": {
+    "time": "2026-11-10 18:16",
+    "min_confidence": "low",
+    "config": null
+  },
+  "apps": [
+    {
+      "apk": "com.nextcloud.client_30170090.apk",
+      "app": "com.nextcloud.client",
+      "sha256": "8d2ed6c796174afa46a5aab9ee3f33c26f22c101022c73e3029c5a28edbde581",
+      "status": "ok",
+      "issues": 40,
+      "conf_high": 3,
+      "conf_medium": 14,
+      "conf_low": 23,
+      "sev_high": 20,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 6,
+      "attack_surface": 7,
+      "seconds": 0.86,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 5,
+        "CRY-HASH": 3,
+        "CRY-KEYLIT": 14,
+        "LOG-SENS": 2,
+        "NET-CLEAR": 1,
+        "NET-HTTP": 6,
+        "NET-NSC": 1,
+        "NET-TRUST": 1,
+        "STO-EXT": 1,
+        "WEB-IFACE": 2,
+        "WEB-JS": 3
+      },
+      "owasp": {
+        "M1": 14,
+        "M10": 3,
+        "M4": 5,
+        "M5": 9,
+        "M8": 6,
+        "M9": 3
+      },
+      "report": "com.nextcloud.client_30170090/report.html"
+    },
+    {
+      "apk": "com.owncloud.android_22100100.apk",
+      "app": "com.owncloud.android",
+      "sha256": "81a88b2fadd7e557d01721961b2ba73bd3307ed61493ef041db8b64f13dbfd9f",
+      "status": "ok",
+      "issues": 15,
+      "conf_high": 2,
+      "conf_medium": 3,
+      "conf_low": 10,
+      "sev_high": 7,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 1,
+      "attack_surface": 6,
+      "seconds": 0.69,
+      "rules": {
+        "CFG-EXPORT": 1,
+        "CRY-HASH": 2,
+        "CRY-KEYLIT": 6,
+        "NET-HTTP": 2,
+        "NET-NSC": 1,
+        "NET-TRUST": 1,
+        "STO-EXT": 1,
+        "WEB-JS": 1
+      },
+      "owasp": {
+        "M1": 6,
+        "M10": 2,
+        "M4": 1,
+        "M5": 4,
+        "M8": 1,
+        "M9": 1
+      },
+      "report": "com.owncloud.android_22100100/report.html"
+    },
+    {
+      "apk": "de.luhmer.owncloudnewsreader_165.apk",
+      "app": "de.luhmer.owncloudnewsreader",
+      "sha256": "6fc631462b466cae7d552d97cbe0e796f5cb0ee84205f4f6f2417282cd562a10",
+      "status": "ok",
+      "issues": 12,
+      "conf_high": 3,
+      "conf_medium": 3,
+      "conf_low": 6,
+      "sev_high": 6,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 5,
+      "attack_surface": 10,
+      "seconds": 0.16,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 1,
+        "CRY-HASH": 1,
+        "CRY-KEYLIT": 4,
+        "LOG-SENS": 1,
+        "NET-CLEAR": 1,
+        "STO-EXT": 2,
+        "WEB-JS": 1
+      },
+      "owasp": {
+        "M1": 4,
+        "M10": 1,
+        "M4": 1,
+        "M5": 1,
+        "M8": 2,
+        "M9": 3
+      },
+      "report": "de.luhmer.owncloudnewsreader_165/report.html"
+    },
+    {
+      "apk": "net.osmand.plus_531003.apk",
+      "app": "net.osmand.plus",
+      "sha256": "27f1eb82d288a9939b7c0bdd0fb94f78749824ffc753d32d421e01cbe487e5e0",
+      "status": "ok",
+      "issues": 38,
+      "conf_high": 3,
+      "conf_medium": 20,
+      "conf_low": 15,
+      "sev_high": 19,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 117,
+      "attack_surface": 4,
+      "seconds": 4.67,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 4,
+        "CRY-KEYLIT": 14,
+        "NET-CLEAR": 1,
+        "NET-HTTP": 11,
+        "STO-EXT": 1,
+        "WEB-IFACE": 2,
+        "WEB-JS": 4
+      },
+      "owasp": {
+        "M1": 14,
+        "M4": 6,
+        "M5": 12,
+        "M8": 5,
+        "M9": 1
+      },
+      "report": "net.osmand.plus_531003/report.html"
+    },
+    {
+      "apk": "org.wikipedia_50575.apk",
+      "app": "org.wikipedia",
+      "sha256": "6b5cd05f850f99d3ca45270e3fd943a627d592ec2fec449462bf5510bf29c9e8",
+      "status": "ok",
+      "issues": 7,
+      "conf_high": 0,
+      "conf_medium": 3,
+      "conf_low": 4,
+      "sev_high": 1,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 35,
+      "attack_surface": 6,
+      "seconds": 2.0,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 1,
+        "STO-EXT": 2,
+        "WEB-IFACE": 1,
+        "WEB-JS": 2
+      },
+      "owasp": {
+        "M4": 3,
+        "M8": 2,
+        "M9": 2
+      },
+      "report": "org.wikipedia_50575/report.html"
+    }
+  ]
+}

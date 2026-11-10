@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "app": "org.breezyweather",
+    "scope": [
+      "org.breezyweather"
+    ],
+    "time": "2026-11-08 11:49",
+    "apk": "org.breezyweather_60202.apk",
+    "apk_sha256": "1369d817d426498715f8ccb6750baff19dadd78e85f707088e9bca43977570c0",
+    "analysis_seconds": 1.23
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: MainActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:46",
+      "evidence": "org.breezyweather.ui.main.MainActivity",
+      "note": "Nhận action org.breezyweather.Main mà chính app tự gửi — kênh nội bộ, app khác cũng gửi được. Thành phần là LAUNCHER (vốn bắt buộc exported).",
+      "confidence": "low",
+      "fingerprint": "89b87353a302"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: LiveWallpaperConfigActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:83",
+      "evidence": "org.breezyweather.wallpaper.LiveWallpaperConfigActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "4b5e1e83b669"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: WeatherContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:256",
+      "evidence": "org.breezyweather.background.provider.WeatherContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "7fed65cb82d9"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: PreviewActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:267",
+      "evidence": "androidx.compose.ui.tooling.PreviewActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "5e019df425c4"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "org.breezyweather.ui.settings.activities.SettingsActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.APPLICATION_PREFERENCES"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:69"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.DayWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:84"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.WeekWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:89"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.DayWeekWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:94"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.ClockDayHorizontalWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:99"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.ClockDayDetailsWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:104"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.ClockDayVerticalWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:109"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.ClockDayWeekWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:114"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.TextWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:119"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.DailyTrendWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:124"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.HourlyTrendWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:129"
+    },
+    {
+      "component": "org.breezyweather.remoteviews.config.MultiCityWidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:134"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.BootReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:152"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetMaterialYouForecastProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:158"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetMaterialYouCurrentProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_ENABLED",
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.APPWIDGET_OPTIONS_CHANGED",
+        "android.appwidget.action.APPWIDGET_UPDATE_OPTIONS",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:165"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetDayProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:175"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetWeekProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:182"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetDayWeekProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:189"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetClockDayHorizontalProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:196"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetClockDayDetailsProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:203"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetClockDayVerticalProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:210"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetClockDayWeekProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:217"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetTextProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:224"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetTrendDailyProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:231"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetTrendHourlyProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:238"
+    },
+    {
+      "component": "org.breezyweather.background.receiver.widget.WidgetMultiCityProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "android.appwidget.action.ACTION_APPWIDGET_DISABLED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:245"
+    }
+  ],
+  "endpoints": [
+    "github.com/breezy-weather/breezy-weather/blob/main/INSTALL.md"
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "app": "Wikipedia r/50606",
+  "apk_sha256": "eba82a0f77940d8a6be5bd2e53723675a59859a6c8a51be5e50bd034fc77101f",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m2_holdout7/wp.json",
+  "note": "Holdout đợt 7: luật phát hiện + điểm tin cậy theo từng cảnh báo đóng băng ở commit 9c71644, KHÔNG dùng để chỉnh. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Backup chỉ include wikipedia.db (danh sách đọc/lịch sử), không gồm phiên đăng nhập/cookie"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.wikipedia.main.MainActivity",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "MainActivity là đích của activity-alias LAUNCHER — exported không mở thêm gì; luật chưa xét activity-alias"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/wikipedia/util/FileUtil.java",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), str);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Người dùng chủ động tải tệp vào Downloads"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "org/wikipedia/activity/SingleWebViewActivity.java",
+      "evidence": "((ObservableWebView) hCaptchaHelper4.dialogCancelableRunnable).getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView hCaptcha cần JS"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "org/wikipedia/bridge/CommunicationBridge.java",
+      "evidence": "communicationBridgeListener.getWebView().getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView hiển thị bài viết cần JS"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/wikipedia/bridge/CommunicationBridge.java",
+      "evidence": "communicationBridgeListener.getWebView().addJavascriptInterface(new PcsClientJavascriptInterface(), \"pcsClient\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Cầu nối Page Content Service cho trang bài viết Wikipedia (HTTPS, nguồn tin cậy) — theo thiết kế"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/wikipedia/gallery/MediaDownloadReceiver.java",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(str), string);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Người dùng chủ động tải ảnh/media công khai vào thư mục công khai"
+    }
+  ]
+}

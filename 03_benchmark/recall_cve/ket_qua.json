@@ -1,0 +1,23 @@
+{
+  "tool": "apiscan, luật như commit 659f5e7, cấu hình mặc định",
+  "scored_on": "2026-11-08",
+  "items": [
+    {"id": "CVE-2021-43863", "app": "Nextcloud 3.18.0", "component": "FileContentProvider", "result": "mechanism", "rule": "CFG-EXPORT", "confidence": "low", "evidence": "AndroidManifest.xml:129", "note": "Hạ xuống low vì mã provider có gọi API kiểm tra app gọi; lỗ hổng SQLi vẫn có thật"},
+    {"id": "CVE-2021-41166", "app": "Nextcloud 3.17.0", "component": "DiskLruImageCacheFileProvider", "result": "mechanism", "rule": "CFG-EXPORT", "confidence": "medium", "evidence": "AndroidManifest.xml:114", "note": "Tiêu chí ban đầu ghi 3.18.0, nhưng manifest 3.18.0 đã có android:permission (đã sửa) → chấm trên 3.17.0 là bản advisory nêu. Ở 3.18.0 cảnh báo biến mất."},
+    {"id": "GHSL-2022-059", "app": "ownCloud 2.21.1", "component": "FileContentProvider", "result": "mechanism", "rule": "CFG-EXPORT", "confidence": "medium", "evidence": "AndroidManifest.xml:66"},
+    {"id": "GHSL-2022-060", "app": "ownCloud 2.21.1", "component": "ReceiveExternalFilesActivity", "result": "component", "where": "attack_surface (SEND, SEND_MULTIPLE)"},
+    {"id": "CVE-2021-41256", "app": "Nextcloud News 0.9.9.62", "component": "SettingsActivity", "result": "component", "where": "attack_surface (action ACCOUNT_MANAGER_ENTRY)"},
+    {"id": "CVE-2026-65993", "app": "Wikipedia r/50575", "component": "MainActivity (deep link wikipedia:// qua alias DefaultIcon)", "result": "component", "where": "CFG-EXPORT medium trên MainActivity (lý do khác: kênh nội bộ) + DefaultIcon trong attack_surface"},
+    {"id": "CVE-2026-65994", "app": "Wikipedia r/50575", "component": "PageActivity", "result": "component", "where": "attack_surface (VIEW)"},
+    {"id": "CVE-2026-65995", "app": "OsmAnd 5.3.10", "component": "OsmandAidlServiceV2", "result": "component", "where": "attack_surface — service exported không permission nhưng nhận action tuỳ biến nên bị xếp là giao thức với app bên thứ ba"},
+    {"id": "CVE-2026-65996", "app": "OsmAnd 5.3.10", "component": "IntentHelper.parseOpenGpxIntent (deep link /open-gpx của MapActivity)", "result": "component", "where": "MapActivity trong attack_surface; cảnh báo CRY-KEYLIT low ở IntentHelper.java:88 không liên quan"},
+    {"id": "CVE-2026-65997", "app": "OsmAnd 5.3.10", "component": "MapActivity", "result": "component", "where": "attack_surface (MAIN/LAUNCHER, VIEW, SEND)"}
+  ],
+  "fixed_versions": {
+    "Nextcloud 3.18.1": "FileContentProvider vẫn bị cảnh báo (bản sửa là làm sạch SQL, provider vẫn exported) — đúng",
+    "Nextcloud 3.18.0": "DiskLruImageCacheFileProvider không còn cảnh báo sau khi thêm android:permission",
+    "Nextcloud News 0.9.9.63": "giống bản lỗi (chỉ có mục bề mặt) — không phân biệt được",
+    "OsmAnd 5.4.11": "giống bản lỗi — không phân biệt được",
+    "Wikipedia r/50606": "giống bản lỗi — không phân biệt được"
+  }
+}

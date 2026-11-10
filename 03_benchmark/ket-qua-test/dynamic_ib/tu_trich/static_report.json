@@ -1,0 +1,405 @@
+{
+  "meta": {
+    "app": "com.android.insecurebankv2",
+    "scope": [
+      "com.android.insecurebankv2"
+    ],
+    "time": "2026-11-08 22:37"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-DEBUG",
+      "owasp": "M8",
+      "title": "Ứng dụng bật cờ debuggable",
+      "severity": "high",
+      "location": "AndroidManifest.xml:16",
+      "evidence": "android:debuggable=\"true\"",
+      "note": "Bản phát hành không được để true.",
+      "confidence": "high",
+      "fingerprint": "1dcd3297e240"
+    },
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:16",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm.",
+      "confidence": "high",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "NET-SDK",
+      "owasp": "M5",
+      "title": "targetSdk=22 (<28): cleartext HTTP được phép mặc định",
+      "severity": "medium",
+      "location": "apktool.yml",
+      "evidence": "targetSdkVersion=22",
+      "note": "Từ Android 9 (SDK 28) cleartext mới bị chặn mặc định.",
+      "confidence": "high",
+      "fingerprint": "68b4eddcc893"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: PostLogin",
+      "severity": "high",
+      "location": "AndroidManifest.xml:25",
+      "evidence": "com.android.insecurebankv2.PostLogin",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "ef5146b21a94"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: DoTransfer",
+      "severity": "high",
+      "location": "AndroidManifest.xml:27",
+      "evidence": "com.android.insecurebankv2.DoTransfer",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "ad911ba92dbc"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ViewStatement",
+      "severity": "high",
+      "location": "AndroidManifest.xml:28",
+      "evidence": "com.android.insecurebankv2.ViewStatement",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "9826ee250ee9"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: TrackUserContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:29",
+      "evidence": "com.android.insecurebankv2.TrackUserContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "a530eb949f9f"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: MyBroadCastReceiver",
+      "severity": "high",
+      "location": "AndroidManifest.xml:30",
+      "evidence": "com.android.insecurebankv2.MyBroadCastReceiver",
+      "note": "Nhận action theBroadcast mà chính app tự gửi — kênh nội bộ, app khác cũng gửi được.",
+      "confidence": "medium",
+      "fingerprint": "3174d46f660a"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ChangePassword",
+      "severity": "high",
+      "location": "AndroidManifest.xml:35",
+      "evidence": "com.android.insecurebankv2.ChangePassword",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "6cd2ab152f38"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/android/insecurebankv2/CryptoClass.java:22",
+      "evidence": "String key = \"This is the super secret key 123\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "medium",
+      "fingerprint": "12e4ecd8c41f"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "owasp": "M10",
+      "title": "IV tĩnh (mảng byte khởi tạo bằng số 0)",
+      "severity": "high",
+      "location": "com/android/insecurebankv2/CryptoClass.java:23",
+      "evidence": "byte[] ivBytes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};",
+      "note": "IV cố định làm mất tính ngẫu nhiên của CBC.",
+      "confidence": "high",
+      "fingerprint": "494d26c6033e"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "SecretKeySpec dùng khoá bắt nguồn từ hằng viết cứng",
+      "severity": "high",
+      "location": "com/android/insecurebankv2/CryptoClass.java:27",
+      "evidence": "SecretKeySpec newKey = new SecretKeySpec(keyBytes, \"AES\");",
+      "note": "Byte khoá truy ngược (trong cùng tệp, qua biến/tham số) về literal chuỗi hoặc mảng byte.",
+      "confidence": "high",
+      "fingerprint": "c66b150a7379"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "SecretKeySpec dùng khoá bắt nguồn từ hằng viết cứng",
+      "severity": "high",
+      "location": "com/android/insecurebankv2/CryptoClass.java:35",
+      "evidence": "SecretKeySpec newKey = new SecretKeySpec(keyBytes, \"AES\");",
+      "note": "Byte khoá truy ngược (trong cùng tệp, qua biến/tham số) về literal chuỗi hoặc mảng byte.",
+      "confidence": "high",
+      "fingerprint": "c66b150a7379"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/ViewStatement.java:25",
+      "evidence": "File fileToCheck = new File(Environment.getExternalStorageDirectory(), FILENAME);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "377231db2e8e"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/ViewStatement.java:29",
+      "evidence": "mWebView.loadUrl(\"file://\" + Environment.getExternalStorageDirectory() + \"/Statements_\" + this.uname + \".html\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "medium",
+      "fingerprint": "10428824ad97"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/android/insecurebankv2/ViewStatement.java:30",
+      "evidence": "mWebView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "3d0d0c0c05a9"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/DoLogin.java:51",
+      "evidence": "String protocol = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "65daf5813603"
+    },
+    {
+      "rule_id": "API-HIDDEN",
+      "owasp": "M8",
+      "title": "Dấu hiệu endpoint dev/test/ẩn",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/DoLogin.java:99",
+      "evidence": "HttpPost httppost2 = new HttpPost(DoLogin.this.protocol + DoLogin.this.serverip + \":\" + DoLogin.this.serverport + \"/devlogin\");",
+      "note": "Có thể là endpoint lẽ ra không xuất hiện ở bản phát hành.",
+      "confidence": "medium",
+      "fingerprint": "608556cd0baf"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/DoLogin.java:115",
+      "evidence": "Log.d(\"Successful Login:\", \", account=\" + DoLogin.this.username + \":\" + DoLogin.this.password);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "high",
+      "fingerprint": "5f45308a890d"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/DoTransfer.java:65",
+      "evidence": "String protocol = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "6277ac97143f"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/DoTransfer.java:162",
+      "evidence": "String MYFILE = Environment.getExternalStorageDirectory() + \"/Statements_\" + DoTransfer.this.usernameBase64ByteString + \".html\";",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "medium",
+      "fingerprint": "d3451f1023d8"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/DoTransfer.java:180",
+      "evidence": "String MYFILE2 = Environment.getExternalStorageDirectory() + \"/Statements_\" + DoTransfer.this.usernameBase64ByteString + \".html\";",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "medium",
+      "fingerprint": "b52ae8da011c"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/android/insecurebankv2/ChangePassword.java:57",
+      "evidence": "String protocol = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "b5d47b5d2423"
+    },
+    {
+      "rule_id": "STO-PREF-WORLD",
+      "owasp": "M9",
+      "title": "SharedPreferences chế độ WORLD_READABLE/WRITEABLE",
+      "severity": "high",
+      "location": "com/android/insecurebankv2/MyBroadCastReceiver.java:21",
+      "evidence": "SharedPreferences settings = context.getSharedPreferences(\"mySharedPreferences\", 1);",
+      "note": "Mode 1/2 cho app khác đọc/ghi.",
+      "confidence": "high",
+      "fingerprint": "04f83ba09566"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "com.android.insecurebankv2.LoginActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:17"
+    }
+  ],
+  "endpoints": [
+    "/Statements_",
+    "/changepassword",
+    "/devlogin",
+    "/dotransfer",
+    "/getaccounts",
+    "/login"
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "path": "/changepassword",
+      "params": [
+        {
+          "name": "username",
+          "in": "form"
+        },
+        {
+          "name": "newpassword",
+          "in": "form"
+        }
+      ],
+      "body": null,
+      "source": "HttpClient",
+      "locations": [
+        "com/android/insecurebankv2/ChangePassword.java:105"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/devlogin",
+      "params": [
+        {
+          "name": "username",
+          "in": "form"
+        },
+        {
+          "name": "password",
+          "in": "form"
+        }
+      ],
+      "body": null,
+      "source": "HttpClient",
+      "locations": [
+        "com/android/insecurebankv2/DoLogin.java:99"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/dotransfer",
+      "params": [
+        {
+          "name": "username",
+          "in": "form"
+        },
+        {
+          "name": "password",
+          "in": "form"
+        },
+        {
+          "name": "from_acc",
+          "in": "form"
+        },
+        {
+          "name": "to_acc",
+          "in": "form"
+        },
+        {
+          "name": "amount",
+          "in": "form"
+        }
+      ],
+      "body": null,
+      "source": "HttpClient",
+      "locations": [
+        "com/android/insecurebankv2/DoTransfer.java:103"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/getaccounts",
+      "params": [
+        {
+          "name": "username",
+          "in": "form"
+        },
+        {
+          "name": "password",
+          "in": "form"
+        }
+      ],
+      "body": null,
+      "source": "HttpClient",
+      "locations": [
+        "com/android/insecurebankv2/DoTransfer.java:216"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/login",
+      "params": [
+        {
+          "name": "username",
+          "in": "form"
+        },
+        {
+          "name": "password",
+          "in": "form"
+        }
+      ],
+      "body": null,
+      "source": "HttpClient",
+      "locations": [
+        "com/android/insecurebankv2/DoLogin.java:98"
+      ]
+    }
+  ]
+}

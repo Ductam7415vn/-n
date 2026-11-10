@@ -1,0 +1,1270 @@
+{
+  "meta": {
+    "app": "nodomain.freeyourgadget.gadgetbridge",
+    "scope": [
+      "nodomain.freeyourgadget.gadgetbridge"
+    ],
+    "time": "2026-11-10 18:16",
+    "export_rules": "v2",
+    "apk": "nodomain.freeyourgadget.gadgetbridge_253.apk",
+    "apk_sha256": "c0912ea6647bcad3f0b8f1f3be5181de7bdf0eafbd43cf930ab54572082aa165",
+    "analysis_seconds": 4.51
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: FitViewerActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:116",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.activities.fit.FitViewerActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "79ced4904a74"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: PebbleContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:441",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.contentprovider.PebbleContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "0021e2b08bcd"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: QHybridNotificationsConfigActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:481",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridNotificationsConfigActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "cb9b23497a02"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: QHybridAppChooserActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:482",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridAppChooserActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "a7d0b5ce989f"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: HRConfigActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:483",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "6e06a0944a5b"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ImageEditActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:485",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.ImageEditActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "f2430f92e8a4"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: FileManagementActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:486",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.FileManagementActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "baa60b3f754d"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: AppsManagementActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:487",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.AppsManagementActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "cdfaf1a00d24"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: DataActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:494",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.um25.Activity.DataActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "a33f6a34f092"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ControlActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:495",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.supercars.ControlActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "ffe1c8322ae8"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: SolarEquipmentStatusActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:496",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.SolarEquipmentStatusActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "b1623bc60dc1"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: DataActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:497",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.binary_sensor.activity.DataActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "93e958e1ad55"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: OpenTracksController",
+      "severity": "high",
+      "location": "AndroidManifest.xml:514",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.externalevents.opentracks.OpenTracksController",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "7c24e7bda91f"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: CyclingLiveDataActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:519",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.cycling_sensor.activity.CyclingLiveDataActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "65a47b5c4728"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: HealthDataSdkService",
+      "severity": "high",
+      "location": "AndroidManifest.xml:613",
+      "evidence": "androidx.health.platform.client.impl.sdkservice.HealthDataSdkService",
+      "note": "Service nhận action androidx.health.platform.client.ACTION_BIND_SDK_SERVICE từ bất kỳ app nào mà không yêu cầu permission — cần kiểm tra service có xác thực bên gọi không.",
+      "confidence": "medium",
+      "fingerprint": "e3e55252658c"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "8343f37cc05d"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "a5738d77e954"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/CheckSums.java:91",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "0001a7b34f3d"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/CheckSums.java:108",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "0001a7b34f3d"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/WaypointHelper.java:74",
+      "evidence": "Uri uri2 = Uri.parse(\"http://dummy/\" + uri.getEncodedSchemeSpecificPart());",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "a25b19604c92"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/FileUtils.java:182",
+      "evidence": "File file = new File(getExternalFilesDir(), str);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "e8d1fa2f4f2a"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/UriUtils.java:74",
+      "evidence": "return Environment.getExternalStorageDirectory() + \"/\" + listSplit$default.get(1);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "7921ad39320e"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/BcdUtil.java:159",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/NoPadding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu.",
+      "confidence": "medium",
+      "fingerprint": "121bea97319a"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/BcdUtil.java:241",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/NoPadding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu.",
+      "confidence": "medium",
+      "fingerprint": "121bea97319a"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/GB.java:292",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), str);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "9e19fb899d85"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/AndroidUtils.java:59",
+      "evidence": "return Environment.getExternalStorageDirectory() + \"/\" + DocumentsContract.getDocumentId(uri).split(\":\")[1];",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "0824c6739682"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/PebbleUtils.java:37",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"pbw-cache\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "c4025994795a"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/util/healthconnect/GadgetbridgeDataExporter.java:115",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), Config.CC.m(\"gb_export_\", StringsKt__StringsJVMKt.replace$default(aliasOrName, \" \", \"_\"), \"_\", str2, \".jso",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "medium",
+      "fingerprint": "9dbfb6e38c54"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/externalevents/opentracks/OpenTracksController.java:458",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"gpx\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "4894a8f5920f"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java:105",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "696c8160b447"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java:111",
+      "evidence": "this.myWebView.addJavascriptInterface(new JSInterface(gBDevice, uuidFromString), \"GBjs\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low",
+      "fingerprint": "b87ec19b5688"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java:112",
+      "evidence": "this.myWebView.addJavascriptInterface(new ActivityJSInterface(), \"GBActivity\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low",
+      "fingerprint": "2668fde086bb"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java:113",
+      "evidence": "this.myWebView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low",
+      "fingerprint": "0553131b456d"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/GpxReceiverActivity.java:109",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"gpx\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "5b494b4914bf"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:216",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "df5dbf642f13"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:250",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "7241c5f08c86"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:304",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "78d7aaf250ff"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:313",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a3344342f2b2"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:386",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "df5dbf642f13"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:420",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "7241c5f08c86"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:474",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "78d7aaf250ff"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:483",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a3344342f2b2"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:578",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "df5dbf642f13"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:612",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "7241c5f08c86"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:666",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "78d7aaf250ff"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:675",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a3344342f2b2"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:748",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "df5dbf642f13"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:782",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "7241c5f08c86"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:836",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "78d7aaf250ff"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:845",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a3344342f2b2"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:941",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "df5dbf642f13"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:975",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "7241c5f08c86"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1029",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "78d7aaf250ff"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1038",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a3344342f2b2"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1111",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "df5dbf642f13"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1145",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "7241c5f08c86"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1199",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "78d7aaf250ff"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1208",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a3344342f2b2"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/RebbleAppStoreActivity.java:84",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "9a67210c1d3e"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/RebbleAppStoreActivity.java:168",
+      "evidence": "webView4.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "ced622b4b715"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/AppManagerActivity.java:58",
+      "evidence": "BufferedReader bufferedReader = new BufferedReader(new FileReader(FileUtils.getExternalFilesDir() + \"/\" + str));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a862f860776b"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/AppManagerActivity.java:84",
+      "evidence": "BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FileUtils.getExternalFilesDir() + \"/\" + str));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "medium",
+      "fingerprint": "036c418285f4"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/workouts/WorkoutDetailsFragment$takeSharedScreenshot$1.java:164",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), str.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "4bc700a79542"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/activities/charts/StepStreaksDashboard.java:341",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), str.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "36b2dc89c232"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java:112",
+      "evidence": "String str7 = \"http://www.garmin.com/xmlschemas/TrackPointExtension/v2\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "3d0bcca06677"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java:113",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(\"gpxtpx\", \"http://www.garmin.com/xmlschemas/TrackPointExtension/v2\");",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "88dfc2261799"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java:115",
+      "evidence": "String str9 = \"http://www.garmin.com/xmlschemas/PowerExtension/v1\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "1ce9b471a1a1"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java:116",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(\"gpxpx\", \"http://www.garmin.com/xmlschemas/PowerExtension/v1\");",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "3c3c86dfe1eb"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java:117",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(CoreConstants.EMPTY_STRING, \"http://www.topografix.com/GPX/1/1\");",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "1cf465aaa6ad"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java:118",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(\"opentracks\", \"http://opentracksapp.com/xmlschemas/v1\");",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "5f9cd28f0b50"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/AsynchronousResponse.java:391",
+      "evidence": "File file = new File(huaweiSupportProvider.context.getExternalFilesDir(null), \"ephemeris.zip\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "e9a7483ff72d"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/AsynchronousResponse.java:644",
+      "evidence": "File file = new File(huaweiSupportProvider2.context.getExternalFilesDir(null), \"ephemeris.zip\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "2c7733efb2a3"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/requests/SendEphemerisParameterConsultRequest.java:60",
+      "evidence": "File file = new File(huaweiSupportProvider.context.getExternalFilesDir(null), \"ephemeris.zip\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a00e122e0a00"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/p2p/HuaweiP2PScreenshotService.java:232",
+      "evidence": "FileOutputStream fileOutputStream = new FileOutputStream(new File(FileUtils.getExternalFilesDir() + File.separator + str));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "medium",
+      "fingerprint": "150c88578e0c"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/pebble/webview/JSInterface.java:121",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-1\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "176cdd184e6f"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java:69",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/PKCS5Padding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu.",
+      "confidence": "medium",
+      "fingerprint": "1077e3caba47"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java:177",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/PKCS5Padding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu.",
+      "confidence": "medium",
+      "fingerprint": "1077e3caba47"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "SecretKeySpec dùng khoá bắt nguồn từ hằng viết cứng",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java:178",
+      "evidence": "cipher.init(1, new SecretKeySpec(bArr, \"AES\"));",
+      "note": "Byte khoá truy ngược (trong cùng tệp, qua biến/tham số) về literal chuỗi hoặc mảng byte.",
+      "confidence": "high",
+      "fingerprint": "aa5fc8463f88"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java:187",
+      "evidence": "Cipher cipher2 = Cipher.getInstance(\"AES/ECB/PKCS5Padding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu.",
+      "confidence": "medium",
+      "fingerprint": "3b5576324f14"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/banglejs/BangleJSDeviceSupport.java:681",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir() + \"/\" + this.gbDevice.mName.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "a1ab89257a56"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/banglejs/BangleJSActivityTrack.java:95",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir() + \"/\" + gBDevice.mName.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "dad50f15e27b"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/garmin/ProtocolBufferHandler.java:960",
+      "evidence": "File file2 = new File(garminSupport3.context.getExternalCacheDir(), \"garmin-inflated\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "2c7e2ebb97e6"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/garmin/fit/FitAsyncProcessor.java:72",
+      "evidence": "File file2 = new File(this.context.getExternalCacheDir(), \"garmin-zip-contents\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "809be037a3e9"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/adapter/fossil_hr/FossilHRWatchAdapter.java:2526",
+      "evidence": "new File(qHybridSupport.context.getExternalFilesDir(null), \"hr_background.bin\").delete();",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "d4ed8d0d34b4"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/adapter/fossil_hr/FossilHRWatchAdapter.java:2531",
+      "evidence": "new FileOutputStream(new File(qHybridSupport.context.getExternalFilesDir(null), \"hr_background.bin\"), false).write(bArr);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "medium",
+      "fingerprint": "562f226ae5ed"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "owasp": "M10",
+      "title": "IV tĩnh (mảng byte khởi tạo bằng số 0)",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/requests/fossil_hr/authentication/VerifyPrivateKeyRequest.java:77",
+      "evidence": "cipher.init(2, secretKeySpec, new IvParameterSpec(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));",
+      "note": "IV cố định làm mất tính ngẫu nhiên của CBC.",
+      "confidence": "high",
+      "fingerprint": "c9834d284eef"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "owasp": "M10",
+      "title": "IV tĩnh (mảng byte khởi tạo bằng số 0)",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/requests/fossil_hr/authentication/VerifyPrivateKeyRequest.java:87",
+      "evidence": "cipher2.init(1, secretKeySpec, new IvParameterSpec(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));",
+      "note": "IV cố định làm mất tính ngẫu nhiên của CBC.",
+      "confidence": "high",
+      "fingerprint": "00bc2e60847f"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/huami/operations/init/InitOperation.java:109",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/NoPadding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu.",
+      "confidence": "medium",
+      "fingerprint": "fbe74669b87f"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/huami/zeppos/ZeppOsSupport.java:1022",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"zepp-os-received-files\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "ec500cfb36e1"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/huami/zeppos/ZeppOsSupport.java:1027",
+      "evidence": "new File(FileUtils.getExternalFilesDir(), \"zepp-os-received-files\").mkdirs();",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "8ca8c6a2f010"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/casio/Casio2C2DSupport$$ExternalSyntheticLambda2.java:339",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "9b43863cbd45"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/casio/Casio2C2DSupport$$ExternalSyntheticLambda2.java:349",
+      "evidence": "webView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low",
+      "fingerprint": "fd5643f3a279"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/casio/Casio2C2DSupport$$ExternalSyntheticLambda2.java:372",
+      "evidence": "webView4.addJavascriptInterface(jSInterface, \"GBjs\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low",
+      "fingerprint": "590a7306fcdf"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/service/devices/withingssteelhr/AuthenticationHandler.java:34",
+      "evidence": "return MessageDigest.getInstance(\"SHA1\").digest(byteBufferAllocate.array());",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "31c8d7f1cf28"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/devices/AbstractDeviceCoordinator.java:114",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), gBDevice.mAddress);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "0b6f789a5f09"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/devices/test/TestDeviceCoordinator.java:108",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"test-app-cache\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "254bddba0347"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "nodomain/freeyourgadget/gadgetbridge/devices/banglejs/AppsManagementActivity.java:175",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "6371f3e87766"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/devices/banglejs/AppsManagementActivity.java:181",
+      "evidence": "this.webView.addJavascriptInterface(new WebViewInterface(), \"Android\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "2bfcebb83458"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/devices/banglejs/AppsManagementActivity.java:199",
+      "evidence": "this.webView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "b2c77e8bed85"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/devices/qhybrid/QHybridCoordinator.java:88",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"qhybrid-app-cache\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "98d7921e8282"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "nodomain/freeyourgadget/gadgetbridge/devices/huami/zeppos/ZeppOsCoordinator.java:107",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"zepp-os-app-cache\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "8097c93ae16f"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:89"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.install.FileInstallerActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:141"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.externalevents.GenericWeatherReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "nodomain.freeyourgadget.gadgetbridge.ACTION_GENERIC_WEATHER"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:360"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.externalevents.UsbAttachReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.hardware.usb.action.USB_ACCESSORY_DETACHED",
+        "android.hardware.usb.action.USB_ACCESSORY_ATTACHED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:391"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.ExternalPebbleJSActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:472"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.GpxReceiverActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:498"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.TextReceiverActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:506"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.devices.garmin.actions.GarminSendWaypointActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:520"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.endurain.EndurainOAuthCallbackActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:534"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.PermissionsRationaleActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:542"
+    },
+    {
+      "component": "nodomain.freeyourgadget.gadgetbridge.activities.quicksettings.QuickSettingsPreferencesActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.service.quicksettings.action.QS_TILE_PREFERENCES"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:604"
+    }
+  ],
+  "endpoints": [
+    "/api/v1/activities/edit",
+    "apps.rebble.io/en_US/watchfaces",
+    "appstore-api.rebble.io/api/v1/apps/id/",
+    "banglejs.com/apps/android.html",
+    "dummy/",
+    "ftp-stud.hs-esslingen.de/pub/Mirrors/download.mapsforge.org/maps/v5/",
+    "gadgetbridge.freeyourgadget.nodomain/map/0.zip?type=1&zipsize=",
+    "gadgetbridge.org/basics/pairing/#authentication-key",
+    "gadgetbridge.org/basics/pairing/companion-device/",
+    "gadgetbridge.org/basics/pairing/fossil-server/",
+    "gadgetbridge.org/basics/pairing/huami-xiaomi-server/",
+    "gadgetbridge.org/basics/pairing/nothing-cmf-server/",
+    "gadgetbridge.org/basics/topics/background-service/",
+    "gadgetbridge.org/gadgets/scooters/xiaomi/#auth-key",
+    "github.com/dakhnod/Fossil-HR-Menu-Companion/releases/latest",
+    "opentracksapp.com/xmlschemas/v1",
+    "www.garmin.com/xmlschemas/PowerExtension/v1",
+    "www.garmin.com/xmlschemas/TrackPointExtension/v2",
+    "www.topografix.com/GPX/1/1",
+    "www.topografix.com/GPX/1/1 https://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/TrackPointExtensi"
+  ],
+  "requests": []
+}

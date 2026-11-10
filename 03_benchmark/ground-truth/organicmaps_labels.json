@@ -1,0 +1,81 @@
+{
+ "app": "Organic Maps 2026.09.29-32-FDroid",
+ "apk_sha256": "654a736d43317084f13560281fe7013f869800610e9d6036b6789d9c9e07f8bc",
+ "labeled_on": "2026-11-08",
+ "labeled_from": "03_benchmark/ket-qua-test/m3_holdout10/v2/app.organicmaps/report.json (v2 ⊇ v1; mục [chỉ v2] không có trong 03_benchmark/ket-qua-test/m3_holdout10/v1/app.organicmaps/report.json)",
+ "note": "Holdout đợt 10: quét bằng `apiscan.py scan` v1 và `--export-rules v2`, luật đóng băng ở commit 9fa79f2, tiêu chí ghi trước ở 03_benchmark/ket-qua-test/m3_holdout10/TIEU_CHI.md, KHÔNG dùng để chỉnh.",
+ "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+ "labels": [
+  {
+   "rule_id": "CFG-BACKUP",
+   "file": "AndroidManifest.xml",
+   "evidence": "android:allowBackup=\"true\"",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "fullBackupContent và dataExtractionRules chỉ include bookmarks/ và settings.ini — dữ liệu người dùng muốn sao lưu, không có thông tin đăng nhập/token; nhất quán với Wikipedia"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "app.organicmaps.ManageSpaceActivity",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "activity-alias trỏ tới SplashActivity (điểm vào app), khai báo làm android:manageSpaceActivity để Cài đặt hệ thống mở — không mở màn hình đặc quyền nào"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "app.organicmaps.car.AndroidAutoService",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "[chỉ v2] CarAppService cho Android Auto; createHostValidator() ở bản phát hành (super(false)) chỉ cho phép host theo chữ ký trong hosts_allowlist_sample (gearhead, automotive templates host) — có xác thực bên gọi"
+  },
+  {
+   "rule_id": "NET-NSC",
+   "file": "res/xml/network_security_config.xml",
+   "evidence": "cleartextTrafficPermitted=\"true\"",
+   "label": "TP",
+   "reason": "base-config cleartextTrafficPermitted=true. Cố ý nhưng là điểm yếu thật — gán TP nhất quán với các app trước"
+  },
+  {
+   "rule_id": "NET-NSC",
+   "file": "res/xml/network_security_config.xml",
+   "evidence": "cleartextTrafficPermitted=\"true\" (domain-config: organicmaps.app, omaps.app)",
+   "label": "TP",
+   "borderline": true,
+   "reason": "domain-config cho phép cleartext tới domain công khai của chính app; cùng gốc với base-config cleartext (đã gán TP) — borderline vì trùng lặp"
+  },
+  {
+   "rule_id": "WEB-JS",
+   "file": "app/organicmaps/WebContainerDelegate.java",
+   "evidence": "this.mWebView.getSettings().setJavaScriptEnabled(true);",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "WebView chỉ dùng cho FaqFragment/CopyrightFragment (trang đóng gói trong app); link ngoài mở bằng trình duyệt"
+  },
+  {
+   "rule_id": "WEB-JS",
+   "file": "app/organicmaps/widget/placepage/sections/ExpandableNotesView.java",
+   "evidence": "webView2.getSettings().setJavaScriptEnabled(true);",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "Ghi chú bookmark (có thể từ tệp KML người khác) được bọc bằng CSP script-src 'none'; object-src 'none' trước khi nạp — script không chạy"
+  },
+  {
+   "rule_id": "NET-HTTP",
+   "file": "app/organicmaps/sdk/bookmarks/data/MapObject.java",
+   "evidence": "private static final String kHttp = \"http://\";",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Hằng dùng để startsWith() bỏ tiền tố scheme khi xử lý chuỗi, không phải địa chỉ kết nối"
+  },
+  {
+   "rule_id": "WEB-JS",
+   "file": "app/organicmaps/editor/AdvancedTimetableFragment.java",
+   "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "Chỉ nạp file:///android_asset/opening_hours_how_to_edit.html — nội dung đóng gói trong app"
+  }
+ ]
+}

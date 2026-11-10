@@ -1,0 +1,157 @@
+{
+  "app": "Feeder 2.23.2",
+  "apk_sha256": "0aa5eb094f94ca29ab7956d75b9e5d7c19785ebdac74b9ae512930084338bf3c",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_holdout4/fd.json",
+  "note": "Holdout đợt 4: luật đóng băng ở commit 3fd2ccb, KHÔNG dùng để chỉnh luật. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "TP",
+      "reason": "allowBackup=true không có backup rules (DB/prefs gồm khoá đồng bộ); minSdk 29 → adb backup trên Android 10–11 — nhất quán với NewPipe"
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "label": "TP",
+      "reason": "Cho phép HTTP cleartext toàn cục. Cố ý (máy chủ tự host / feed http) nhưng là điểm yếu thật — gán TP nhất quán với các app trước"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.nononsenseapps.feeder.ui.OpenLinkInDefaultActivity",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Activity exported không cần thiết (dùng cho PendingIntent của notification): app khác mở link tuỳ ý và đánh dấu bài đã thông báo theo id tuỳ ý. Tác động nhỏ"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.nononsenseapps.feeder.contentprovider.RSSContentProvider",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Provider có readPermission; insert/update/delete ném UnsupportedOperationException — thiết kế cho app bên thứ ba đọc feed"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "androidx.compose.ui.tooling.PreviewActivity",
+      "label": "TP",
+      "reason": "androidx.compose.ui.tooling.PreviewActivity (công cụ debug) lọt vào bản release và exported — app khác khởi chạy composable bất kỳ theo tên lớp. Độ tin cậy trung bình"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "com/nononsenseapps/feeder/localtranslation/BergamotWebTranslator.java",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView dịch cục bộ (Bergamot) chỉ nạp file:///android_asset/bergamot/index.html — nội dung đóng gói trong app"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "com/nononsenseapps/feeder/localtranslation/BergamotWebTranslator.java",
+      "evidence": "webView.addJavascriptInterface(this.bridge, \"AndroidBergamot\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "JS bridge cho trang dịch cục bộ đóng gói trong app, không nạp nội dung từ mạng"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/ui/compose/searchfeed/SearchFeedScreenKt.java",
+      "evidence": "new URL(\"http://\" + str);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "new URL(\"http://\" + str) chỉ để kiểm tra cú pháp URL hợp lệ, không kết nối"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/ui/text/VideoTagHunterKt.java",
+      "evidence": "return new Video(str, dh5.v(\"http://img.youtube.com/vi/\", str2, \"/hqdefault.jpg\"), um2.j(\"https://www.youtube.com/watch?v=\", str2));",
+      "label": "TP",
+      "reason": "Ảnh thumbnail YouTube tải qua http://img.youtube.com (cleartext). Rủi ro thấp (lộ video đang xem, ảnh có thể bị thay)"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "file": "com/nononsenseapps/feeder/crypto/AesCbcWithIntegrity.java",
+      "evidence": "return new SecretKeys(new SecretKeySpec(bArrDecode, 0, bArrDecode.length, CIPHER), new SecretKeySpec(bArrDecode2, HMAC_ALGORITHM));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "SecretKeySpec từ khoá đã lưu (giải mã base64), không viết cứng"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "file": "com/nononsenseapps/feeder/crypto/AesCbcWithIntegrity.java",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(randomBytes(32), HMAC_ALGORITHM);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "SecretKeySpec từ byte ngẫu nhiên"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "file": "com/nononsenseapps/feeder/crypto/AesCbcWithIntegrity.java",
+      "evidence": "return new SecretKeys(new SecretKeySpec(uk.l0(0, encoded, 16), CIPHER), new SecretKeySpec(uk.l0(16, encoded, 48), HMAC_ALGORITHM));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "SecretKeySpec từ khoá dẫn xuất PBKDF2(password, salt)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/util/LinkUtilsKt.java",
+      "evidence": "return new URL(\"http://\".concat(str));",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Link 'cẩu thả' không có scheme bị mặc định thành http:// (cleartext) — giống AntennaPod UrlChecker"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/util/LinkUtilsKt.java",
+      "evidence": "return new URL(\"http://\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "new URL(\"http://\") là giá trị mặc định placeholder, không kết nối"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/db/room/Feed.java",
+      "evidence": "URL url3 = (i2 & 8) != 0 ? new URL(\"http://\") : url;",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "new URL(\"http://\") là giá trị mặc định tham số Kotlin, không kết nối"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/db/room/RemoteReadMark.java",
+      "evidence": "url = (i & 4) != 0 ? new URL(\"http://\") : url;",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "new URL(\"http://\") là giá trị mặc định tham số Kotlin, không kết nối"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/db/room/FeedItemForReadMark.java",
+      "evidence": "this((i & 1) != 0 ? 0L : j, (i & 2) != 0 ? 0L : j2, (i & 4) != 0 ? FeedKt.OPEN_ARTICLE_WITH_APPLICATION_DEFAULT : str, (i & 8) != 0 ? new URL(\"http://\") : url);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "new URL(\"http://\") là giá trị mặc định tham số Kotlin, không kết nối"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/nononsenseapps/feeder/db/room/RemoteFeed.java",
+      "evidence": "this((i & 1) != 0 ? 0L : j, (i & 2) != 0 ? 0L : j2, (i & 4) != 0 ? new URL(\"http://\") : url);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "new URL(\"http://\") là giá trị mặc định tham số Kotlin, không kết nối"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/nononsenseapps/feeder/sync/RetrofitKt.java",
+      "evidence": "private static final String HARDCODED_PASSWORD = \"feeder_secret_1234\";",
+      "label": "TP",
+      "reason": "Thông tin đăng nhập Basic Auth dùng chung nhúng cứng cho server đồng bộ Feeder (feeder_user:…). Mức nhẹ: dữ liệu đồng bộ mã hoá đầu cuối bằng khoá riêng mỗi chuỗi"
+    }
+  ]
+}

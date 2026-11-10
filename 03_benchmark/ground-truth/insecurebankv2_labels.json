@@ -1,0 +1,177 @@
+{
+  "app": "InsecureBankv2",
+  "apk_sha256": "b18af2a0e44d7634bbcdf93664d9c78a2695e050393fcfbb5e8b91f902d194a4",
+  "labeled_on": "2026-10-03",
+  "labeled_from": "03_benchmark/ket-qua-test/m0_baseline/ib.json",
+  "definition": "TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app.",
+  "labels": [
+    {
+      "rule_id": "CFG-DEBUG",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:debuggable=\"true\"",
+      "label": "TP",
+      "reason": "debuggable=true trong bản phát hành"
+    },
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "TP",
+      "reason": "V11: allowBackup=true, targetSdk 22 → adb backup trích được dữ liệu"
+    },
+    {
+      "rule_id": "NET-SDK",
+      "file": "apktool.yml",
+      "evidence": "targetSdkVersion=22",
+      "label": "TP",
+      "reason": "V02: targetSdk 22 < 28 → cleartext mặc định được phép"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.android.insecurebankv2.PostLogin",
+      "label": "TP",
+      "reason": "V06: activity sau đăng nhập exported, không permission → bỏ qua màn đăng nhập"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.android.insecurebankv2.DoTransfer",
+      "label": "TP",
+      "reason": "V06: activity chuyển tiền exported, không permission"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.android.insecurebankv2.ViewStatement",
+      "label": "TP",
+      "reason": "V06: activity xem sao kê exported, không permission"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.android.insecurebankv2.TrackUserContentProvider",
+      "label": "TP",
+      "reason": "V06: content provider exported, không permission → đọc lịch sử đăng nhập"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.android.insecurebankv2.MyBroadCastReceiver",
+      "label": "TP",
+      "reason": "V06: receiver exported, không permission → kích hoạt gửi SMS chứa mật khẩu"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.android.insecurebankv2.ChangePassword",
+      "label": "TP",
+      "reason": "V06: activity đổi mật khẩu exported, không permission"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/android/insecurebankv2/CryptoClass.java",
+      "evidence": "String key = \"This is the super secret key 123\";",
+      "label": "TP",
+      "reason": "V01: khoá AES viết cứng"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "file": "com/android/insecurebankv2/CryptoClass.java",
+      "evidence": "byte[] ivBytes = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};",
+      "label": "TP",
+      "reason": "V05: IV toàn số 0 (AES/CBC)"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "file": "com/android/insecurebankv2/CryptoClass.java",
+      "evidence": "SecretKeySpec newKey = new SecretKeySpec(keyBytes, \"AES\");",
+      "label": "TP",
+      "reason": "Khoá cho SecretKeySpec lấy từ chuỗi viết cứng (cùng gốc V01)"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "file": "com/android/insecurebankv2/CryptoClass.java",
+      "evidence": "SecretKeySpec newKey = new SecretKeySpec(keyBytes, \"AES\");",
+      "label": "TP",
+      "reason": "Khoá cho SecretKeySpec lấy từ chuỗi viết cứng (cùng gốc V01)"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/android/insecurebankv2/ViewStatement.java",
+      "evidence": "File fileToCheck = new File(Environment.getExternalStorageDirectory(), FILENAME);",
+      "label": "TP",
+      "reason": "V04: sao kê tài khoản đọc từ bộ nhớ ngoài (world-readable trên SDK 22)"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/android/insecurebankv2/ViewStatement.java",
+      "evidence": "mWebView.loadUrl(\"file://\" + Environment.getExternalStorageDirectory() + \"/Statements_\" + this.uname + \".html\");",
+      "label": "TP",
+      "reason": "V04: nạp sao kê từ bộ nhớ ngoài vào WebView qua file://"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "com/android/insecurebankv2/ViewStatement.java",
+      "evidence": "mWebView.getSettings().setJavaScriptEnabled(true);",
+      "label": "TP",
+      "reason": "WebView bật JS khi nạp file HTML từ bộ nhớ ngoài (app khác ghi được)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/android/insecurebankv2/DoLogin.java",
+      "evidence": "String protocol = \"http://\";",
+      "label": "TP",
+      "reason": "V02: giao thức http:// cho API đăng nhập"
+    },
+    {
+      "rule_id": "API-HIDDEN",
+      "file": "com/android/insecurebankv2/DoLogin.java",
+      "evidence": "HttpPost httppost2 = new HttpPost(DoLogin.this.protocol + DoLogin.this.serverip + \":\" + DoLogin.this.serverport + \"/devlogin\");",
+      "label": "TP",
+      "reason": "V07: endpoint cửa hậu /devlogin"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/android/insecurebankv2/DoLogin.java",
+      "evidence": "Log.d(\"Successful Login:\", \", account=\" + DoLogin.this.username + \":\" + DoLogin.this.password);",
+      "label": "TP",
+      "reason": "V10: log username:password"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/android/insecurebankv2/DoTransfer.java",
+      "evidence": "String protocol = \"http://\";",
+      "label": "TP",
+      "reason": "V02: giao thức http:// cho API chuyển tiền"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/android/insecurebankv2/DoTransfer.java",
+      "evidence": "String MYFILE = Environment.getExternalStorageDirectory() + \"/Statements_\" + DoTransfer.this.usernameBase64ByteString + \".html\";",
+      "label": "TP",
+      "reason": "V04: ghi sao kê ra bộ nhớ ngoài"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/android/insecurebankv2/DoTransfer.java",
+      "evidence": "String MYFILE2 = Environment.getExternalStorageDirectory() + \"/Statements_\" + DoTransfer.this.usernameBase64ByteString + \".html\";",
+      "label": "TP",
+      "reason": "V04: ghi sao kê ra bộ nhớ ngoài"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/android/insecurebankv2/ChangePassword.java",
+      "evidence": "String protocol = \"http://\";",
+      "label": "TP",
+      "reason": "V02: giao thức http:// cho API đổi mật khẩu"
+    },
+    {
+      "rule_id": "STO-PREF-WORLD",
+      "file": "com/android/insecurebankv2/MyBroadCastReceiver.java",
+      "evidence": "SharedPreferences settings = context.getSharedPreferences(\"mySharedPreferences\", 1);",
+      "label": "TP",
+      "reason": "V04: SharedPreferences mode 1 = MODE_WORLD_READABLE"
+    }
+  ]
+}

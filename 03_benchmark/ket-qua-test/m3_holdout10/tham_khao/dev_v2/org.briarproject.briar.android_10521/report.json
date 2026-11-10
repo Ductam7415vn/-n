@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "app": "org.briarproject.briar.android",
+    "scope": [
+      "org.briarproject.briar.android"
+    ],
+    "time": "2026-11-10 18:16",
+    "export_rules": "v2",
+    "apk": "org.briarproject.briar.android_10521.apk",
+    "apk_sha256": "433a1d7bf871960b74eac162621586c223e07f66da5179a9e4c2c149b50a30d2",
+    "analysis_seconds": 0.45
+  },
+  "issues": [
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "org/briarproject/briar/android/ScreenFilterMonitorImpl.java:40",
+      "evidence": "private static final String PLAY_SERVICES_PUBLIC_KEY = \"30820120300D06092A864886F70D01010105000382010D00308201080282010100AB562E00D83BA208AE0A966F124E29DA11F2AB",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "high",
+      "fingerprint": "615485228b09"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "org/briarproject/briar/android/hotspot/HotspotManager.java:29",
+      "evidence": "private static final String HOTSPOT_KEY_PASS = \"pass\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "9e38a16bf760"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "org/briarproject/briar/android/hotspot/WebServerManager.java:54",
+      "evidence": "str = \"http://192.168.49.1:9999\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "5e6f61c0fe4c"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "org/briarproject/briar/android/hotspot/WebServerManager.java:60",
+      "evidence": "str = \"http://\" + accessPointAddress.getHostAddress() + \":9999\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "5452e4b6f669"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "org.briarproject.briar.android.splash.SplashScreenActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:70"
+    },
+    {
+      "component": "org.briarproject.briar.android.navdrawer.NavDrawerActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:76"
+    },
+    {
+      "component": "org.briarproject.briar.android.panic.PanicResponderActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "info.guardianproject.panic.action.TRIGGER"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:172"
+    }
+  ],
+  "endpoints": [
+    "192.168.49.1",
+    "briarproject.org/",
+    "briarproject.org/download-briar",
+    "briarproject.org/download/",
+    "briarproject.org/privacy-policy/",
+    "briarproject.org/privacy-policy/\\\\",
+    "code.briarproject.org/briar/briar",
+    "code.briarproject.org/briar/briar/-/wikis/changelog"
+  ],
+  "requests": []
+}

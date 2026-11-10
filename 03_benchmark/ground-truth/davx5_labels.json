@@ -1,0 +1,55 @@
+{
+ "app": "DAVx5 4.5.20-ose",
+ "apk_sha256": "df387d8b3ddc3730d88d2bfea939aadb8906cc6cff7de46385a7751d1b536462",
+ "labeled_on": "2026-10-04",
+ "labeled_from": "03_benchmark/ket-qua-test/m1_holdout4/dx.json",
+ "note": "Holdout đợt 4: luật đóng băng ở commit 3fd2ccb, KHÔNG dùng để chỉnh luật. Phạm vi quét = package trong manifest.",
+ "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+ "labels": [
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "at.bitfire.davdroid.ui.account.AccountActivity",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "Chỉ mở màn hình tài khoản theo extra 'account' — điều hướng UI, không lộ/sửa dữ liệu"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "at.bitfire.davdroid.ui.webdav.WebdavMountsActivity",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "Chỉ mở màn hình WebDAV mounts, không đọc extra — điều hướng UI"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "[ẩn danh A]",
+   "label": "TP",
+   "reason": "Ẩn danh: lỗ hổng đang được công bố có trách nhiệm cho nhà phát triển; chi tiết sẽ được bổ sung sau khi bản sửa được phát hành."
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "org.unifiedpush.android.connector.internal.MessagingReceiverImpl",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Receiver UnifiedPush có intent-filter giao thức liên app; luật tưởng 'app tự gửi' action REGISTRATION_FAILED vì R8 gộp mã thư viện vào lớp lambda tổng hợp trong package app"
+  },
+  {
+   "rule_id": "NET-NSC",
+   "file": "res/xml/network_security_config.xml",
+   "evidence": "cleartextTrafficPermitted=\"true\"",
+   "label": "TP",
+   "reason": "base-config cleartextTrafficPermitted=true. Cố ý (máy chủ tự host / feed http) nhưng là điểm yếu thật — gán TP nhất quán với các app trước"
+  },
+  {
+   "rule_id": "NET-TRUST",
+   "file": "res/xml/network_security_config.xml",
+   "evidence": "user certificates trusted",
+   "label": "TP",
+   "reason": "base-config tin CA người dùng cài → MITM được. Cố ý (máy chủ tự host / feed http) nhưng là điểm yếu thật — gán TP nhất quán với các app trước"
+  }
+ ]
+}

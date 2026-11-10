@@ -1,0 +1,410 @@
+{
+  "app": "KeePassDX 4.5.5",
+  "apk_sha256": "e8a118a0660fc89ca92c53041765631e72a580fb5e63477b400a5305eac5d633",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m2_holdout6/kp.json",
+  "note": "Holdout đợt 6: luật phát hiện + bảng độ tin cậy đóng băng ở commit 226af5a, KHÔNG dùng để chỉnh. Quét với --app-pkg com.kunzisoft.keepass (namespace mã); package manifest com.kunzisoft.keepass.libre chỉ chứa R.java → công cụ mặc định chỉ ra 1 cảnh báo.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Backup loại trừ database KeePass (com.kunzisoft.keepass.database); cloud-backup disableIfNoEncryptionCapabilities; có backupAgent chỉ cho cài đặt"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/settings/NestedSettingsFragment.java",
+      "evidence": "private static final String TAG_KEY = \"NESTED_KEY\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "file": "com/kunzisoft/keepass/database/file/output/EntryOutputKDB.java",
+      "evidence": "private static final byte[] ZERO_FIVE = {0, 0, 0, 0, 0};",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "ZERO_FIVE = {0,0,0,0,0} là hằng padding, không phải IV — regex khớp chữ 'IV' trong 'FIVE'"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/MasterCredential.java",
+      "evidence": "private static final String DEFAULT_KEYFILE_ENCODING = \"UTF-8\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/database/element/MasterCredential.java",
+      "evidence": "Log.w(MasterCredential.TAG, \"Unable to add FEATURE_SECURE_PROCESSING to prevent XML eXternal Entity injection (XXE)\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/database/element/MasterCredential.java",
+      "evidence": "Log.i(MasterCredential.TAG, \"Reading XML KeyFile version : \" + f2);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/database/element/MasterCredential.java",
+      "evidence": "Log.e(MasterCredential.TAG, \"XML Keyfile version cannot be read : \" + strRemoveSpaceChars, e);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/database/element/MasterCredential.java",
+      "evidence": "Log.i(MasterCredential.TAG, \"Successful key file hash check.\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/database/element/MasterCredential.java",
+      "evidence": "Log.e(MasterCredential.TAG, \"Unable to check the hash of the key file.\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/security/MemoryProtectionConfig.java",
+      "evidence": "public static final String PASSWORD_FIELD = \"Password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/entry/EntryKDBX.java",
+      "evidence": "public static final String STR_PASSWORD = \"Password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/template/TemplateEngineCompatible.java",
+      "evidence": "private static final String TEMPLATE_ATTRIBUTE_PASSWORD = \"Password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/template/TemplateField.java",
+      "evidence": "public static final String LABEL_PASSWORD = \"Password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/template/TemplateField.java",
+      "evidence": "public static final String LABEL_PRIVATE_KEY = \"Private key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/template/TemplateField.java",
+      "evidence": "public static final String LABEL_PUBLIC_KEY = \"Public key\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/database/element/template/TemplateField.java",
+      "evidence": "public static final String LABEL_TOKEN = \"Token\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "com/kunzisoft/keepass/database/element/binary/BinaryData.java",
+      "evidence": "this.mMessageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 để băm nội dung tệp đính kèm (khử trùng lặp/kiểm tra), không dùng cho bảo mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/otp/OtpEntryFields.java",
+      "evidence": "private static final String DIGITS_KEY = \"size\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/otp/OtpEntryFields.java",
+      "evidence": "public static final String OTP_TOKEN_FIELD = \"OTP Token\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/otp/OtpEntryFields.java",
+      "evidence": "private static final String SECRET_URL_PARAM = \"secret\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/kunzisoft/keepass/utils/UriUtil.java",
+      "evidence": "str = \"http://\" + str;",
+      "label": "TP",
+      "borderline": true,
+      "reason": "URL của mục mật khẩu không có scheme bị mặc định http:// trước khi mở trình duyệt — nhất quán với Feeder/RedReader"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel$manageRegistrationResult$$inlined$CoroutineExceptionHandler$1.java",
+      "evidence": "Log.e(PasswordLauncherViewModel.TAG, \"Unable to create registration response for password\", exception);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Launch password selection\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.w(PasswordLauncherViewModel.TAG, \"Password found for auto selection, should not append,use PasswordProviderService instead\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"No password found for selection,launch manual selection in opened database\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Manual password selection in closed database\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Password selection result\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Launch password registration\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.w(PasswordLauncherViewModel.TAG, \"Password found for registration, but launch manual registration for a new entry\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Launch new manual registration in opened database\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Manual password registration in closed database\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java",
+      "evidence": "Log.d(PasswordLauncherViewModel.TAG, \"Password registration result\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel$manageSelectionResult$$inlined$CoroutineExceptionHandler$1.java",
+      "evidence": "Log.e(PasswordLauncherViewModel.TAG, \"Unable to create selection response for password\", exception);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/passkey/PasskeyProviderService.java",
+      "evidence": "Log.w(str, \"No password found in the database for : \" + searchInfo);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/passkey/PasskeyProviderService.java",
+      "evidence": "Log.d(TAG, \"Build password search for \" + searchInfo);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/passkey/PasskeyProviderService.java",
+      "evidence": "Log.d(TAG, \"Build passkey search for UV \" + userVerification + \", RP \" + rpId + \" and Credential IDs \" + arrayList3);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "com/kunzisoft/keepass/credentialprovider/passkey/data/AndroidPrivilegedApp.java",
+      "evidence": "private static final String FINGERPRINT_KEY = \"cert_fingerprint_sha256\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng là nhãn trường/tên tham số/bảng mã hiển thị (\"Password\", \"Token\", \"secret\", \"UTF-8\"…), không phải bí mật"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(str, \"Autofill OTP token web id: \" + tag + \" \" + (htmlInfo3 != null ? htmlInfo3.getAttributes() : null));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(str2, \"Autofill OTP token web id: \" + tag + \" \" + (htmlInfo4 != null ? htmlInfo4.getAttributes() : null));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(str3, \"Autofill username candidate web type: \" + tag3 + \" \" + (htmlInfo6 != null ? htmlInfo6.getAttributes() : null));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(str4, \"Autofill password web type: \" + tag4 + \" \" + (htmlInfo8 != null ? htmlInfo8.getAttributes() : null));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(str5, \"Autofill username web type: \" + tag5 + \" \" + (htmlInfo10 != null ? htmlInfo10.getAttributes() : null));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(TAG, \"Autofill username android text type: \" + showHexInputType(inputType));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(TAG, \"Autofill username candidate android text type: \" + showHexInputType(inputType));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(TAG, \"Autofill visible password android text type (as username): \" + showHexInputType(inputType));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(TAG, \"Autofill visible password android text type (as password): \" + showHexInputType(inputType));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(TAG, \"Autofill password android text type: \" + showHexInputType(inputType));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(TAG, \"Autofill username candidate android number type: \" + showHexInputType(inputType));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java",
+      "evidence": "Log.d(TAG, \"Autofill password android number type: \" + showHexInputType(inputType));",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/kunzisoft/keepass/activities/dialogs/SetMainCredentialDialogFragment.java",
+      "evidence": "Log.e(SetMainCredentialDialogFragment.TAG, \"Unable  to create the KeyFile.\", e);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp log không chứa giá trị bí mật; luật khớp tên lớp/TAG (MasterCredential, PasswordLauncherViewModel) hoặc từ khoá trong thông điệp nối với giá trị không nhạy cảm (tag, kiểu input, searchInfo)"
+    }
+  ]
+}

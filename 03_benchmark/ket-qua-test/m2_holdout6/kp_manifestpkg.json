@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "app": "com.kunzisoft.keepass.libre",
+    "time": "2026-10-04 00:53"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:41",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium"
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "com.kunzisoft.keepass.activities.FileDatabaseSelectActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:43"
+    },
+    {
+      "component": "com.kunzisoft.keepass.activities.MainCredentialActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:49"
+    },
+    {
+      "component": "com.kunzisoft.keepass.settings.MagikeyboardSettingsActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:119"
+    },
+    {
+      "component": "com.kunzisoft.keepass.credentialprovider.activity.EntrySelectionLauncherActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:129"
+    },
+    {
+      "component": "com.kunzisoft.keepass.receivers.DexModeReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.app.action.ENTER_KNOX_DESKTOP_MODE",
+        "android.app.action.EXIT_KNOX_DESKTOP_MODE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:169"
+    }
+  ],
+  "endpoints": []
+}

@@ -1,0 +1,170 @@
+{
+  "meta": {
+    "app": "de.dennisguse.opentracks",
+    "scope": [
+      "de.dennisguse.opentracks"
+    ],
+    "time": "2026-11-08 23:03",
+    "export_rules": "v2",
+    "apk": "de.dennisguse.opentracks_6766.apk",
+    "apk_sha256": "f63ed60e2a4f1b3d878671bfde2150ceaa89e484618b91390500e1a583694cc1",
+    "analysis_seconds": 0.21
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:39",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: StartRecording",
+      "severity": "high",
+      "location": "AndroidManifest.xml:40",
+      "evidence": "de.dennisguse.opentracks.publicapi.StartRecording",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "b2dadd2742f1"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: StopRecording",
+      "severity": "high",
+      "location": "AndroidManifest.xml:45",
+      "evidence": "de.dennisguse.opentracks.publicapi.StopRecording",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "9b8deb54b1cf"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: CreateMarker",
+      "severity": "high",
+      "location": "AndroidManifest.xml:50",
+      "evidence": "de.dennisguse.opentracks.publicapi.CreateMarker",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "31b2e3ee68db"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: HealthDataSdkService",
+      "severity": "high",
+      "location": "AndroidManifest.xml:284",
+      "evidence": "androidx.health.platform.client.impl.sdkservice.HealthDataSdkService",
+      "note": "Service nhận action androidx.health.platform.client.ACTION_BIND_SDK_SERVICE từ bất kỳ app nào mà không yêu cầu permission — cần kiểm tra service có xác thực bên gọi không.",
+      "confidence": "medium",
+      "fingerprint": "e3e55252658c"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/dennisguse/opentracks/services/TrackIdStorage.java:9",
+      "evidence": "private static final String KEY = \"trackId_key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "medium",
+      "fingerprint": "a935f6dd540c"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "de.dennisguse.opentracks.introduction.IntroductionActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:55"
+    },
+    {
+      "component": "de.dennisguse.opentracks.HealthConnectPermissionsRationaleActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:63"
+    },
+    {
+      "component": "de.dennisguse.opentracks.io.file.importer.ImportActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:79"
+    },
+    {
+      "component": "de.dennisguse.opentracks.publicapi.ShowMarkerActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "de.dennisguse.opentracks.MarkerDetails"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:228"
+    },
+    {
+      "component": "de.dennisguse.opentracks.publicapi.CreateMarkerActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "de.dennisguse.opentracks.CreateMarker"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:234"
+    }
+  ],
+  "endpoints": [
+    "opentracksapp.com/xmlschemas/v1",
+    "opentracksapp.com/xmlschemas/v1\\",
+    "www.cluetrust.com/Schemas/\\",
+    "www.garmin.com/xmlschemas/PowerExtension/v1",
+    "www.garmin.com/xmlschemas/PowerExtension/v1\\",
+    "www.garmin.com/xmlschemas/TrackPointExtension/v1",
+    "www.garmin.com/xmlschemas/TrackPointExtension/v2",
+    "www.garmin.com/xmlschemas/TrackPointExtension/v2\\",
+    "www.garmin.com/xmlschemas/TrackStatsExtension/v1\\",
+    "www.opengis.net/kml/2.3 http://schemas.opengis.net/kml/2.3/ogckml23.xsd\\n                        http://opentracksapp.co",
+    "www.opengis.net/kml/2.3\\",
+    "www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.topografix.com/GPX/Private/TopoGrafix/0/",
+    "www.topografix.com/GPX/1/1\\",
+    "www.topografix.com/GPX/Private/TopoGrafix/0/1\\"
+  ],
+  "requests": []
+}

@@ -1,0 +1,283 @@
+{
+  "meta": {
+    "app": "com.nononsenseapps.feeder",
+    "scope": [
+      "com.nononsenseapps.feeder"
+    ],
+    "time": "2026-11-10 18:08",
+    "apk": "com.nononsenseapps.feeder_4113.apk",
+    "apk_sha256": "0aa5eb094f94ca29ab7956d75b9e5d7c19785ebdac74b9ae512930084338bf3c",
+    "analysis_seconds": 1.17
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:25",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm.",
+      "confidence": "high",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:25",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": "",
+      "confidence": "high",
+      "fingerprint": "506e7ca61e85"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: OpenLinkInDefaultActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:91",
+      "evidence": "com.nononsenseapps.feeder.ui.OpenLinkInDefaultActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "974ee0991097"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: RSSContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:92",
+      "evidence": "com.nononsenseapps.feeder.contentprovider.RSSContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "07a2c8064830"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: PreviewActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:166",
+      "evidence": "androidx.compose.ui.tooling.PreviewActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "5e019df425c4"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/nononsenseapps/feeder/localtranslation/BergamotWebTranslator.java:363",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "f58ef3f37956"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/localtranslation/BergamotWebTranslator.java:388",
+      "evidence": "webView.addJavascriptInterface(this.bridge, \"AndroidBergamot\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "bea95d274041"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/ui/compose/searchfeed/SearchFeedScreenKt.java:1329",
+      "evidence": "new URL(\"http://\" + str);",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "ae9a301d65f5"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/ui/text/VideoTagHunterKt.java:23",
+      "evidence": "return new Video(str, dh5.v(\"http://img.youtube.com/vi/\", str2, \"/hqdefault.jpg\"), um2.j(\"https://www.youtube.com/watch?v=\", str2));",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "cd0bfbc4ab76"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/util/LinkUtilsKt.java:65",
+      "evidence": "return new URL(\"http://\".concat(str));",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "0c73e1ca8863"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/util/LinkUtilsKt.java:74",
+      "evidence": "return new URL(\"http://\");",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "low",
+      "fingerprint": "99eb2b143226"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/db/room/Feed.java:50",
+      "evidence": "URL url3 = (i2 & 8) != 0 ? new URL(\"http://\") : url;",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "low",
+      "fingerprint": "c3d4b5db2f80"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/db/room/RemoteReadMark.java:27",
+      "evidence": "url = (i & 4) != 0 ? new URL(\"http://\") : url;",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "low",
+      "fingerprint": "a34c35398595"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/db/room/FeedItemForReadMark.java:22",
+      "evidence": "this((i & 1) != 0 ? 0L : j, (i & 2) != 0 ? 0L : j2, (i & 4) != 0 ? FeedKt.OPEN_ARTICLE_WITH_APPLICATION_DEFAULT : str, (i & 8) != 0 ? new URL(\"http://\") : url);",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "low",
+      "fingerprint": "72f700d03609"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/nononsenseapps/feeder/db/room/RemoteFeed.java:21",
+      "evidence": "this((i & 1) != 0 ? 0L : j, (i & 2) != 0 ? 0L : j2, (i & 4) != 0 ? new URL(\"http://\") : url);",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "low",
+      "fingerprint": "7d185d31d7e6"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nononsenseapps/feeder/sync/RetrofitKt.java:42",
+      "evidence": "private static final String HARDCODED_PASSWORD = \"feeder_secret_1234\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "2a32b7a13f75"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "com.nononsenseapps.feeder.ui.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:27"
+    },
+    {
+      "component": "com.nononsenseapps.feeder.ui.ManageSettingsActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MANAGE_NETWORK_USAGE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:42"
+    },
+    {
+      "component": "com.nononsenseapps.feeder.ui.ImportOPMLFileActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:48"
+    },
+    {
+      "component": "com.nononsenseapps.feeder.ui.AddFeedFromShareActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:62"
+    },
+    {
+      "component": "com.nononsenseapps.feeder.widget.FeedWidgetReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:94"
+    }
+  ],
+  "endpoints": [
+    "/api/v1/",
+    "api-free.deepl.com",
+    "api.deepl.com",
+    "api.deepl.com/v2/translate",
+    "bergamot.s3.amazonaws.com/models",
+    "bergamot.s3.amazonaws.com/models/",
+    "cdn.jsdelivr.net/npm/@browsermt/bergamot-translator@0.4.5/worker/bergamot-translator-worker.wasm",
+    "cowboyprogrammer.org",
+    "cowboyprogrammer.org/atom",
+    "cowboyprogrammer.org/images/2017/10/gimp_image_mode_index.png",
+    "cowboyprogrammer.org/rss",
+    "feeder-sync.nononsenseapps.com",
+    "feeder-sync.nononsenseapps.com/join?sync_code=1234abc572335asdbc&key=123ABF",
+    "feederapp.nononsenseapps.com",
+    "feederapp.nononsenseapps.com/article/",
+    "feederapp.nononsenseapps.com/article/{itemId}",
+    "feederapp.nononsenseapps.com/feed?id=",
+    "feederapp.nononsenseapps.com/feed?id=-10",
+    "feederapp.nononsenseapps.com/feed?id={id}&tag={tag}",
+    "feederapp.nononsenseapps.com/sync/join?sync_code=123foo",
+    "feederapp.nononsenseapps.com/sync/join?sync_code=123foo&key=123ABF",
+    "feederapp.nononsenseapps.com/sync/join?sync_code={syncCode}&key={secretKey}",
+    "firefox-settings-attachments.cdn.mozilla.net/",
+    "firefox.settings.services.mozilla.com/v1/buckets/main/collections/translations-models/records?_limit=10000",
+    "foo/bar.png",
+    "github.com/spacecowboy/Feeder/issues/443\\",
+    "github.com/spacecowboy/feeder/issues",
+    "img.youtube.com/vi/",
+    "ko-fi.com/spacecowboy",
+    "news.nononsenseapps.com/index.atom",
+    "nononsenseapps.com/feeder",
+    "www.youtube.com/feeds/videos.xml?channel_id=",
+    "www.youtube.com/watch?v="
+  ],
+  "requests": []
+}

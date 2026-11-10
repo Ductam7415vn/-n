@@ -1,0 +1,95 @@
+{
+ "app": "Money Manager Ex 5.5.13",
+ "apk_sha256": "a2295d9b888a764ebd2be5abd3e700e2a33dd51c453add5ff64b97c1e1a33f0c",
+ "labeled_on": "2026-10-04",
+ "labeled_from": "03_benchmark/ket-qua-test/m2_holdout8/mmex/report.json",
+ "note": "Holdout đợt 8: quét bằng `apiscan.py scan` (phạm vi tự suy: ['com.money.manager.ex']), luật + điểm tin cậy + suy phạm vi đóng băng ở commit d7818bc, KHÔNG dùng để chỉnh.",
+ "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+ "labels": [
+  {
+   "rule_id": "CFG-BACKUP",
+   "file": "AndroidManifest.xml",
+   "evidence": "android:allowBackup=\"true\"",
+   "label": "TP",
+   "reason": "allowBackup + backupAgent sao lưu SharedPreferences và TỆP DATABASE tài chính, không yêu cầu mã hoá phía client — nhất quán với Jellyfin/RedReader"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "com.money.manager.ex.sync.SyncSchedulerBroadcastReceiver",
+   "label": "TP",
+   "borderline": true,
+   "reason": "Receiver exported không permission nhận action STOP_SYNC_SERVICE: app khác tắt được lịch đồng bộ dữ liệu. Tác động nhỏ (tính sẵn sàng)"
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "[ẩn danh C]",
+   "label": "TP",
+   "reason": "Ẩn danh: lỗ hổng đang được công bố có trách nhiệm cho nhà phát triển; chi tiết sẽ được bổ sung sau khi bản sửa được phát hành."
+  },
+  {
+   "rule_id": "CFG-EXPORT",
+   "file": "AndroidManifest.xml",
+   "evidence": "[ẩn danh B]",
+   "label": "TP",
+   "reason": "Ẩn danh: lỗ hổng đang được công bố có trách nhiệm cho nhà phát triển; chi tiết sẽ được bổ sung sau khi bản sửa được phát hành."
+  },
+  {
+   "rule_id": "NET-NSC",
+   "file": "res/xml/network_security_config.xml",
+   "evidence": "cleartextTrafficPermitted=\"true\"",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Chỉ domain-config cho IP nội bộ 192.168.1.20 (cấu hình thử nghiệm sót lại), không có base-config cleartext — tác động không đáng kể"
+  },
+  {
+   "rule_id": "WEB-JS",
+   "file": "com/money/manager/ex/HelpActivity.java",
+   "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "WebView trang trợ giúp cần JS"
+  },
+  {
+   "rule_id": "NET-HTTP",
+   "file": "com/money/manager/ex/about/AboutFragment.java",
+   "evidence": "gVar3.e = hc1.p(\"http://android.moneymanagerex.org/?utm_campaign=Application_Android&utm_medium=MMEX_\", strC, \"&utm_source=Website\");",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Link trang chủ trong màn hình Giới thiệu (mở trình duyệt) — nhất quán với K-9 About"
+  },
+  {
+   "rule_id": "NET-HTTP",
+   "file": "com/money/manager/ex/about/AboutFragment.java",
+   "evidence": "gVar4.e = hc1.p(\"http://www.moneymanagerex.org/?utm_campaign=Application_Android&utm_medium=MMEX_\", strC, \"&utm_source=Website\");",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Link trang chủ trong màn hình Giới thiệu (mở trình duyệt)"
+  },
+  {
+   "rule_id": "NET-HTTP",
+   "file": "com/money/manager/ex/about/AboutFragment.java",
+   "evidence": "gVar7.e = \"http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\";",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Link giấy phép GPL trong màn hình Giới thiệu"
+  },
+  {
+   "rule_id": "WEB-JS",
+   "file": "com/money/manager/ex/common/WebViewActivity.java",
+   "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+   "label": "FP",
+   "fp_type": "intended",
+   "reason": "WebView hiển thị trang web cần JS"
+  },
+  {
+   "rule_id": "NET-HTTP",
+   "file": "com/money/manager/ex/currency/CurrencyChartActivity.java",
+   "evidence": "String str = \"http://chart.finance.yahoo.com/z?s=\" + stringExtra2 + stringExtra + \"=x&t=5d&z=m\";",
+   "label": "FP",
+   "fp_type": "pattern",
+   "reason": "Ảnh biểu đồ tỷ giá qua http:// bị NỀN TẢNG CHẶN (targetSdk 36, không usesCleartextTraffic, NSC chỉ cho phép 192.168.1.20) → yêu cầu thất bại, không lộ dữ liệu; lỗi chức năng chứ không phải lỗ hổng"
+  }
+ ]
+}

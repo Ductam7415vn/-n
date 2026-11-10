@@ -1,0 +1,57 @@
+{
+  "app": "Tusky 32.2",
+  "apk_sha256": "3e8fcc49a80d4c30ab6f6037e51402c77e2694d27ec19ae5b8a93cd08b6caffa",
+  "labeled_on": "2026-10-03",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_4apps/tu.json",
+  "note": "App kiểm tra độc lập (holdout): chưa dùng để viết luật lọc. Phạm vi quét = package trong manifest.",
+  "definition": "TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app.",
+  "labels": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.canhub.cropper.CropImageActivity",
+      "label": "TP",
+      "reason": "Activity của thư viện CanHub cropper exported không permission, không intent-filter (Tusky chỉ gọi nội bộ); nhận URI nguồn + tuỳ chọn crop từ intent → app khác có thể nhờ nó đọc/crop ảnh bằng quyền của Tusky. Độ tin cậy trung bình: cần kiểm thử động để khẳng định khai thác được"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "base-config cleartextTrafficPermitted=false; chỉ domain-config cho *.onion (Tor đã mã hoá) — luật chưa phân biệt base-config/domain-config"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/keylesspalace/tusky/components/compose/ComposeActivity.java",
+      "evidence": "this.f4084c0.G(\"android.permission.READ_EXTERNAL_STORAGE\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Chuỗi tên quyền READ_EXTERNAL_STORAGE xin khi SDK<29 để chọn ảnh đính kèm, không ghi dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "com/keylesspalace/tusky/components/login/LoginWebViewActivity.java",
+      "evidence": "webView2.getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView đăng nhập OAuth vào instance người dùng chọn; setAllowFileAccess(false), không addJavascriptInterface"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/keylesspalace/tusky/components/login/LoginActivity.java",
+      "evidence": "String strG0 = p.g0(p.g0(String.valueOf(u0().f21963j.getText()), \"http://\", BuildConfig.FLAVOR), \"https://\", BuildConfig.FLAVOR);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Bỏ tiền tố http:// / https:// khỏi tên miền người dùng nhập (hàm replace bị R8 đổi tên thành p.g0 nên luật không nhận ra)"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/keylesspalace/tusky/worker/PruneCacheWorker.java",
+      "evidence": "File externalFilesDir = this.f4932g.getExternalFilesDir(\"Tusky\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Dọn file cũ trong thư mục external riêng của app (getExternalFilesDir), không ghi dữ liệu nhạy cảm"
+    }
+  ]
+}

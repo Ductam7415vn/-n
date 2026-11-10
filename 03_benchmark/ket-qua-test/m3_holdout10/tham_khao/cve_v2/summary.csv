@@ -1,0 +1,6 @@
+apk,app,sha256,status,issues,conf_high,conf_medium,conf_low,sev_high,hidden,suppressed,endpoints,attack_surface,seconds,report,error
+com.nextcloud.client_30170090.apk,com.nextcloud.client,8d2ed6c796174afa46a5aab9ee3f33c26f22c101022c73e3029c5a28edbde581,ok,40,3,14,23,20,0,0,6,7,0.86,com.nextcloud.client_30170090/report.html,
+com.owncloud.android_22100100.apk,com.owncloud.android,81a88b2fadd7e557d01721961b2ba73bd3307ed61493ef041db8b64f13dbfd9f,ok,15,2,3,10,7,0,0,1,6,0.69,com.owncloud.android_22100100/report.html,
+de.luhmer.owncloudnewsreader_165.apk,de.luhmer.owncloudnewsreader,6fc631462b466cae7d552d97cbe0e796f5cb0ee84205f4f6f2417282cd562a10,ok,12,3,3,6,6,0,0,5,10,0.16,de.luhmer.owncloudnewsreader_165/report.html,
+net.osmand.plus_531003.apk,net.osmand.plus,27f1eb82d288a9939b7c0bdd0fb94f78749824ffc753d32d421e01cbe487e5e0,ok,38,3,20,15,19,0,0,117,4,4.67,net.osmand.plus_531003/report.html,
+org.wikipedia_50575.apk,org.wikipedia,6b5cd05f850f99d3ca45270e3fd943a627d592ec2fec449462bf5510bf29c9e8,ok,7,0,3,4,1,0,0,35,6,2.0,org.wikipedia_50575/report.html,

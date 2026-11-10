@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "app": "com.termux",
+    "scope": [
+      "com.termux"
+    ],
+    "time": "2026-11-10 18:16",
+    "export_rules": "v2",
+    "apk": "com.termux_1002.apk",
+    "apk_sha256": "e6265a57eb5ca363808488e3b01955958bed93bc0c8a0d281849b363b11027ec",
+    "analysis_seconds": 0.13
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: SettingsActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:41",
+      "evidence": "com.termux.app.activities.SettingsActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "5bd2b85c6873"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "com/termux/app/TermuxInstaller.java:369",
+      "evidence": "Logger.logInfo(\"termux-storage\", \"Setting up storage symlinks at ~/storage/shared, ~/storage/downloads, ~/storage/dcim, ~/storage/pictures, ~/storage/music and ",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "9f0996df92d2"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "com/termux/shared/file/TermuxFileUtils.java:44",
+      "evidence": "if (path.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath() + \"/\")) {",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "babeccb1c155"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "com.termux.app.TermuxActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:22"
+    },
+    {
+      "component": "com.termux.HomeActivity",
+      "type": "activity-alias",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:33"
+    },
+    {
+      "component": "com.termux.filepicker.TermuxFileReceiverActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:43"
+    }
+  ],
+  "endpoints": [
+    "f-droid.org/en/packages/com.termux.styling",
+    "github.com/termux/game-packages/issues",
+    "github.com/termux/science-packages/issues",
+    "github.com/termux/termux-api",
+    "github.com/termux/termux-api/issues",
+    "github.com/termux/termux-app",
+    "github.com/termux/termux-app/issues",
+    "github.com/termux/termux-app/wiki",
+    "github.com/termux/termux-app/wiki/RUN_COMMAND-Intent",
+    "github.com/termux/termux-boot",
+    "github.com/termux/termux-boot/issues",
+    "github.com/termux/termux-float",
+    "github.com/termux/termux-float/issues",
+    "github.com/termux/termux-packages",
+    "github.com/termux/termux-packages/issues",
+    "github.com/termux/termux-packages/wiki",
+    "github.com/termux/termux-root-packages/issues",
+    "github.com/termux/termux-styling",
+    "github.com/termux/termux-styling/issues",
+    "github.com/termux/termux-tasker",
+    "github.com/termux/termux-tasker/issues",
+    "github.com/termux/termux-widget",
+    "github.com/termux/termux-widget/issues",
+    "github.com/termux/unstable-packages/issues",
+    "github.com/termux/x11-packages/issues",
+    "termux.dev/donate",
+    "wiki.termux.com",
+    "wiki.termux.com/",
+    "www.reddit.com/r/termux"
+  ],
+  "requests": []
+}

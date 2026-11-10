@@ -1,0 +1,1052 @@
+{
+  "app": "AntennaPod 3.12.2",
+  "apk_sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_holdout2/ap.json",
+  "note": "Holdout đợt 2: luật đóng băng ở commit a84dc9e, KHÔNG dùng để chỉnh luật. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app.",
+  "known_false_negatives": [
+    {
+      "what": "API secret PodcastIndex là chuỗi literal truyền thẳng vào sha1(...) (không gán vào biến)",
+      "where": "de/danoeh/antennapod/net/discovery/PodcastIndexPodcastSearcher.java:91",
+      "why_missed": "CRY-KEYLIT chỉ bắt dạng khai báo String x = \"...\"; literal nằm trong biểu thức không có tên biến gợi ý",
+      "severity_note": "Thấp: đi cặp với API key ở BuildConfig (đã bắt từ 2026-10-04)"
+    }
+  ],
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "allowBackup=true nhưng có backupAgent riêng (OpmlBackupAgent) chỉ sao lưu danh sách OPML, không sao lưu DB/thông tin đăng nhập"
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "label": "TP",
+      "reason": "Cho phép HTTP cleartext toàn cục (NSC base-config cũng true). Cố ý (tương thích máy chủ tự host/feed http) nhưng là điểm yếu thật — gán TP nhất quán với K-9 Mail"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Receiver chỉ gọi FeedUpdateManager.runOnce() — tính năng tự động hoá (Tasker) có chủ đích, không nhận dữ liệu từ intent"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "label": "TP",
+      "reason": "base-config cleartextTrafficPermitted=true (cùng gốc NET-CLEAR). Cố ý (tương thích máy chủ tự host/feed http) nhưng là điểm yếu thật — gán TP nhất quán với K-9 Mail"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "label": "TP",
+      "reason": "base-config tin CA do người dùng cài cho mọi kết nối → MITM được. Cố ý (tương thích máy chủ tự host/feed http) nhưng là điểm yếu thật — gán TP nhất quán với K-9 Mail"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/statistics/StatisticsFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "private static final String KEY_ENABLED = \"WidgetEnabled\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "public static final String KEY_WIDGET_COLOR = \"widget_color\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "public static final String KEY_WIDGET_COVER_BACKGROUND = \"widget_cover_background\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "public static final String KEY_WIDGET_FAST_FORWARD = \"widget_fast_forward\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "public static final String KEY_WIDGET_PLAYBACK_SPEED = \"widget_playback_speed\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "public static final String KEY_WIDGET_REWIND = \"widget_rewind\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "public static final String KEY_WIDGET_SKIP = \"widget_skip\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/widget/PlayerWidget.java",
+      "evidence": "private static final String KEY_WORKAROUND_ENABLED = \"WorkaroundEnabled\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/episodeslist/EpisodesListFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/AddFeedFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/home/HomeFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/rating/RatingDialogManager.java",
+      "evidence": "private static final String KEY_FIRST_START_DATE = \"KEY_FIRST_HIT_DATE\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/rating/RatingDialogManager.java",
+      "evidence": "private static final String KEY_RATED = \"KEY_WAS_RATED\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/episode/ItemPagerFragment.java",
+      "evidence": "private static final String KEY_PAGER_ID = \"pager_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/subscriptions/SubscriptionFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/download/CompletedDownloadsFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/feed/FeedItemlistFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/queue/QueueFragment.java",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/queue/QueueFragment.java",
+      "evidence": "private static final String SCROLL_OFFSET_KEY = \"scroll_offset\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/screen/queue/QueueFragment.java",
+      "evidence": "private static final String SCROLL_POSITION_KEY = \"scroll_position\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/swipeactions/SwipeActions.java",
+      "evidence": "public static final String KEY_PREFIX_NO_ACTION = \"PrefNoSwipeAction\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/ui/swipeactions/SwipeActions.java",
+      "evidence": "public static final String KEY_PREFIX_SWIPEACTIONS = \"PrefSwipeActions\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/net/discovery/ItunesTopListLoader.java",
+      "evidence": "public static final String PREF_KEY_COUNTRY_CODE = \"country_code\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/net/discovery/ItunesTopListLoader.java",
+      "evidence": "public static final String PREF_KEY_HIDDEN_DISCOVERY_COUNTRY = \"hidden_discovery_country\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/net/discovery/ItunesTopListLoader.java",
+      "evidence": "public static final String PREF_KEY_NEEDS_CONFIRM = \"needs_confirm\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "de/danoeh/antennapod/net/discovery/PodcastIndexPodcastSearcher.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-1\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "SHA-1 theo đặc tả xác thực API PodcastIndex (Authorization = sha1(key+secret+date)), không phải lưu mật khẩu"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "de/danoeh/antennapod/net/common/BasicAuthorizationInterceptor.java",
+      "evidence": "Log.d(TAG, \"no credentials for '\" + request.url() + \"'\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Log URL request kèm thông điệp có từ 'credentials', không log thông tin đăng nhập"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "de/danoeh/antennapod/net/common/BasicAuthorizationInterceptor.java",
+      "evidence": "Log.d(TAG, \"Invalid credentials for '\" + request.url() + \"'\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Log URL request kèm thông điệp có từ 'credentials', không log thông tin đăng nhập"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "de/danoeh/antennapod/net/common/UrlChecker.java",
+      "evidence": "return \"http://\" + strTrim;",
+      "label": "TP",
+      "reason": "Người dùng nhập URL feed không có scheme → app mặc định thêm http:// (cleartext) thay vì https://. Rủi ro thấp"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/net/download/service/feed/NewEpisodesNotification.java",
+      "evidence": "private static final String GROUP_KEY = \"de.danoeh.antennapod.EPISODES\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "de/danoeh/antennapod/net/download/serviceinterface/FileNameGenerator.java",
+      "evidence": "byte[] bArrDigest = MessageDigest.getInstance(\"MD5\").digest(str.getBytes(\"UTF-8\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 để sinh tên tệp từ URL, không dùng cho bảo mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/activity/MainActivity.java",
+      "evidence": "public static final String KEY_GENERATED_VIEW_ID = \"generated_view_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "de/danoeh/antennapod/parser/feed/namespace/Itunes.java",
+      "evidence": "public static final String NSURI = \"http://www.itunes.com/dtds/podcast-1.0.dtd\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML của RSS (itunes dtd), không phải kết nối mạng — URL_IGNORE chưa có"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "de/danoeh/antennapod/parser/feed/namespace/DublinCore.java",
+      "evidence": "public static final String NSURI = \"http://purl.org/dc/elements/1.1/\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML (purl.org Dublin Core), không phải kết nối mạng"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "de/danoeh/antennapod/parser/feed/namespace/Media.java",
+      "evidence": "public static final String NSURI = \"http://search.yahoo.com/mrss/\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML (Yahoo Media RSS), không phải kết nối mạng"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "de/danoeh/antennapod/parser/feed/namespace/SimpleChapters.java",
+      "evidence": "public static final String NSURI = \"http://podlove.org/simple-chapters\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML (podlove simple-chapters), không phải kết nối mạng"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "de/danoeh/antennapod/parser/feed/namespace/Content.java",
+      "evidence": "public static final String NSURI = \"http://purl.org/rss/1.0/modules/content/\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML (purl.org RSS content), không phải kết nối mạng"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/parser/media/vorbis/VorbisCommentMetadataReader.java",
+      "evidence": "private static final String KEY_COMMENT = \"comment\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/parser/media/vorbis/VorbisCommentMetadataReader.java",
+      "evidence": "private static final String KEY_DESCRIPTION = \"description\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/parser/media/vorbis/VorbisCommentMetadataReader.java",
+      "evidence": "private static final String KEY_SYNOPSIS = \"synopsis\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "private static final String KEYS_FEED = \"Feeds.id AS feed_id, Feeds.title, Feeds.custom_title, Feeds.file_url, Feeds.download_url, Feeds.downloaded, Feeds.link,",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "private static final String KEYS_FEED_MEDIA = \"FeedMedia.id AS media_id, FeedMedia.duration, FeedMedia.file_url, FeedMedia.download_url, FeedMedia.downloaded, F",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_AUTHOR = \"author\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_AUTO_DELETE_ACTION = \"auto_delete_action\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_AUTO_DOWNLOAD_ENABLED = \"auto_download\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_COMPLETION_DATE = \"completion_date\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_CUSTOM_TITLE = \"custom_title\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_DESCRIPTION = \"description\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_DOWNLOADSTATUS_TITLE = \"title\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_DOWNLOAD_DATE = \"downloaded\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_DOWNLOAD_URL = \"download_url\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_DURATION = \"duration\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_EXCLUDE_FILTER = \"exclude_filter\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED = \"feed\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEEDFILE = \"feedfile\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEEDFILETYPE = \"feedfile_type\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEEDITEM = \"feeditem\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED_IDENTIFIER = \"feed_identifier\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED_PLAYBACK_SPEED = \"feed_playback_speed\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED_SKIP_SILENCE = \"feed_skip_silence\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FILE_URL = \"file_url\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_HAS_CHAPTERS = \"has_simple_chapters\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_HAS_EMBEDDED_PICTURE = \"has_embedded_picture\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_HIDE = \"hide\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_IMAGE_URL = \"image_url\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_INCLUDE_FILTER = \"include_filter\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_IS_PAGED = \"is_paged\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_ITEM_IDENTIFIER = \"item_identifier\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_KEEP_UPDATED = \"keep_updated\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_LANGUAGE = \"language\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_LASTUPDATE = \"last_update\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_LAST_PLAYED_TIME_HISTORY = \"playback_completion_date\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_LAST_PLAYED_TIME_STATISTICS = \"last_played_time\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_LAST_REFRESH_ATTEMPT = \"downloaded\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_LAST_UPDATE_FAILED = \"last_update_failed\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_LINK = \"link\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_MEDIA = \"media\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_MIME_TYPE = \"mime_type\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_MINIMAL_DURATION_FILTER = \"minimal_duration_filter\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_NEXT_PAGE_LINK = \"next_page_link\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_PASSWORD = \"password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_PAYMENT_LINK = \"payment_link\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_PLAYED_DURATION = \"played_duration\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_PODCASTINDEX_CHAPTER_URL = \"podcastindex_chapter_url\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_PODCASTINDEX_TRANSCRIPT_TYPE = \"podcastindex_transcript_type\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_PODCASTINDEX_TRANSCRIPT_URL = \"podcastindex_transcript_url\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_POSITION = \"position\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_PUBDATE = \"pubDate\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_READ = \"read\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_REASON = \"reason\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_REASON_DETAILED = \"reason_detailed\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_SIZE = \"filesize\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_SOCIAL_INTERACT_URL = \"social_interact_url\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_SORT_ORDER = \"sort_order\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_START = \"start\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_SUCCESSFUL = \"successful\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_TITLE = \"title\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_TYPE = \"type\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_USERNAME = \"username\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String SELECT_KEY_FEED_ID = \"feed_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String SELECT_KEY_IS_FAVORITE = \"is_favorite\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String SELECT_KEY_IS_IN_QUEUE = \"is_in_queue\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String SELECT_KEY_ITEM_ID = \"item_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String SELECT_KEY_MEDIA_ID = \"media_id\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "private static final String TABLE_PRIMARY_KEY = \"id INTEGER PRIMARY KEY AUTOINCREMENT ,\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED_VOLUME_ADAPTION = \"feed_volume_adaption\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED_TAGS = \"tags\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED_SKIP_INTRO = \"feed_skip_intro\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_FEED_SKIP_ENDING = \"feed_skip_ending\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_EPISODE_NOTIFICATION = \"episode_notification\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_STATE = \"state\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "public static final String KEY_NEW_EPISODES_ACTION = \"new_episodes_action\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "de/danoeh/antennapod/storage/database/PodDBAdapter.java",
+      "evidence": "File file2 = new File(PodDBAdapter.context.getExternalFilesDir(null), \"CorruptedDatabaseBackup.db\");",
+      "label": "TP",
+      "reason": "Khi DB hỏng, chép TOÀN BỘ database (có cột username/password của feed) ra getExternalFilesDir; minSdk 23 → trên Android 6–9 app khác có quyền storage đọc được. Chỉ xảy ra khi DB hỏng"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/preferences/UserPreferences.java",
+      "evidence": "private static final String PREF_PROXY_PASSWORD = \"prefProxyPassword\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "de/danoeh/antennapod/storage/preferences/UserPreferences.java",
+      "evidence": "File file = new File(context.getExternalFilesDir(null), \".nomedia\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tạo tệp .nomedia để ẩn thư mục khỏi thư viện media, không chứa dữ liệu"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/preferences/SynchronizationCredentials.java",
+      "evidence": "private static final String PREF_PASSWORD = \"de.danoeh.antennapod.preferences.gpoddernet.password\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java",
+      "evidence": "private static final String OPML_BACKUP_KEY = \"opml\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java",
+      "evidence": "private static final String OPML_ENTITY_KEY = \"antennapod-feeds.opml\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java",
+      "evidence": "messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 làm checksum phát hiện thay đổi OPML khi sao lưu, không dùng cho bảo mật"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java",
+      "evidence": "messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 làm checksum phát hiện thay đổi OPML khi sao lưu, không dùng cho bảo mật"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/playback/service/MediaButtonReceiver.java",
+      "evidence": "public static final String EXTRA_KEYCODE = \"de.danoeh.antennapod.core.service.extra.MediaButtonReceiver.KEYCODE\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/playback/base/MediaItemAdapter.java",
+      "evidence": "public static final String KEY_AUTHORIZATION_HEADER = \"authorization_header\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/playback/base/MediaItemAdapter.java",
+      "evidence": "public static final String KEY_STREAM_URL = \"stream_url\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Hằng TÊN khoá (khoá SharedPreferences/Bundle, tên cột DB, nhãn) — giá trị không phải bí mật; luật khớp chữ 'key/pass/token' trong tên biến"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "file": "de/danoeh/antennapod/net/discovery/BuildConfig.java",
+      "evidence": "public static final String PODCASTINDEX_API_KEY = \"XTMMQGA2YZ4WJUBYY4HK\";",
+      "label": "TP",
+      "reason": "API key PodcastIndex nhúng cứng trong BuildConfig — trích được từ APK. Rủi ro thấp (khoá dịch vụ tra cứu podcast, lạm dụng hạn mức). Gán nhãn 2026-10-04 khi CRY-KEYLIT bắt đầu quét BuildConfig"
+    }
+  ]
+}

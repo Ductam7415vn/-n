@@ -1,0 +1,568 @@
+{
+  "meta": {
+    "time": "2026-11-10 18:13",
+    "min_confidence": "low",
+    "config": null
+  },
+  "apps": [
+    {
+      "apk": "at.bitfire.davdroid_405200005.apk",
+      "app": "at.bitfire.davdroid",
+      "sha256": "df387d8b3ddc3730d88d2bfea939aadb8906cc6cff7de46385a7751d1b536462",
+      "status": "ok",
+      "issues": 6,
+      "conf_high": 2,
+      "conf_medium": 4,
+      "conf_low": 0,
+      "sev_high": 4,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 12,
+      "attack_surface": 13,
+      "seconds": 0.61,
+      "rules": {
+        "CFG-EXPORT": 4,
+        "NET-NSC": 1,
+        "NET-TRUST": 1
+      },
+      "owasp": {
+        "M5": 2,
+        "M8": 4
+      },
+      "report": "at.bitfire.davdroid_405200005/report.html"
+    },
+    {
+      "apk": "com.beemdevelopment.aegis_82.apk",
+      "app": "com.beemdevelopment.aegis",
+      "sha256": "0eecec45de0da3ff1358004b51e2960d9178551643a6ed44f6496ea9ec999c19",
+      "status": "ok",
+      "issues": 3,
+      "conf_high": 2,
+      "conf_medium": 1,
+      "conf_low": 0,
+      "sev_high": 2,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 5,
+      "attack_surface": 2,
+      "seconds": 0.24,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CRY-IV0": 2
+      },
+      "owasp": {
+        "M10": 2,
+        "M8": 1
+      },
+      "report": "com.beemdevelopment.aegis_82/report.html"
+    },
+    {
+      "apk": "com.fsck.k9_39045.apk",
+      "app": "com.fsck.k9",
+      "sha256": "a9a6d4219fe44bfb4e47693efa973c0c173741074193d8e9d7e37a354e7aafca",
+      "status": "ok",
+      "issues": 7,
+      "conf_high": 3,
+      "conf_medium": 1,
+      "conf_low": 3,
+      "sev_high": 2,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 61,
+      "attack_surface": 3,
+      "seconds": 1.44,
+      "rules": {
+        "CFG-EXPORT": 1,
+        "CRY-HASH": 2,
+        "NET-CLEAR": 1,
+        "NET-HTTP": 1,
+        "NET-NSC": 1,
+        "NET-TRUST": 1
+      },
+      "owasp": {
+        "M10": 2,
+        "M5": 4,
+        "M8": 1
+      },
+      "report": "com.fsck.k9_39045/report.html"
+    },
+    {
+      "apk": "com.keylesspalace.tusky_142.apk",
+      "app": "com.keylesspalace.tusky",
+      "sha256": "3e8fcc49a80d4c30ab6f6037e51402c77e2694d27ec19ae5b8a93cd08b6caffa",
+      "status": "ok",
+      "issues": 2,
+      "conf_high": 0,
+      "conf_medium": 1,
+      "conf_low": 1,
+      "sev_high": 1,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 16,
+      "attack_surface": 5,
+      "seconds": 0.15,
+      "rules": {
+        "CFG-EXPORT": 1,
+        "WEB-JS": 1
+      },
+      "owasp": {
+        "M4": 1,
+        "M8": 1
+      },
+      "report": "com.keylesspalace.tusky_142/report.html"
+    },
+    {
+      "apk": "com.kunzisoft.keepass.libre_45500.apk",
+      "app": "com.kunzisoft.keepass.libre",
+      "sha256": "e8a118a0660fc89ca92c53041765631e72a580fb5e63477b400a5305eac5d633",
+      "status": "ok",
+      "issues": 50,
+      "conf_high": 0,
+      "conf_medium": 2,
+      "conf_low": 48,
+      "sev_high": 14,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 1,
+      "attack_surface": 5,
+      "seconds": 0.89,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CRY-HASH": 1,
+        "CRY-IV0": 1,
+        "CRY-KEYLIT": 13,
+        "LOG-SENS": 33,
+        "NET-HTTP": 1
+      },
+      "owasp": {
+        "M1": 13,
+        "M10": 2,
+        "M5": 1,
+        "M8": 1,
+        "M9": 33
+      },
+      "report": "com.kunzisoft.keepass.libre_45500/report.html"
+    },
+    {
+      "apk": "com.money.manager.ex_1118.apk",
+      "app": "com.money.manager.ex",
+      "sha256": "a2295d9b888a764ebd2be5abd3e700e2a33dd51c453add5ff64b97c1e1a33f0c",
+      "status": "ok",
+      "issues": 10,
+      "conf_high": 0,
+      "conf_medium": 8,
+      "conf_low": 2,
+      "sev_high": 3,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 12,
+      "attack_surface": 19,
+      "seconds": 0.16,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 3,
+        "NET-HTTP": 4,
+        "WEB-JS": 2
+      },
+      "owasp": {
+        "M4": 2,
+        "M5": 4,
+        "M8": 4
+      },
+      "report": "com.money.manager.ex_1118/report.html"
+    },
+    {
+      "apk": "com.nextcloud.client_350000090.apk",
+      "app": "com.nextcloud.client",
+      "sha256": "2d08059c9a0a94ef4316e5c8491e3c6aee99a87b58bb796163c44e08deb1615c",
+      "status": "ok",
+      "issues": 46,
+      "conf_high": 3,
+      "conf_medium": 15,
+      "conf_low": 28,
+      "sev_high": 25,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 30,
+      "attack_surface": 10,
+      "seconds": 4.71,
+      "rules": {
+        "CFG-EXPORT": 4,
+        "CRY-HASH": 1,
+        "CRY-KEYLIT": 19,
+        "CRY-WEAK": 1,
+        "NET-CLEAR": 1,
+        "NET-HTTP": 10,
+        "NET-NSC": 1,
+        "NET-TRUST": 1,
+        "STO-EXT": 3,
+        "WEB-IFACE": 2,
+        "WEB-JS": 3
+      },
+      "owasp": {
+        "M1": 19,
+        "M10": 2,
+        "M4": 5,
+        "M5": 13,
+        "M8": 4,
+        "M9": 3
+      },
+      "report": "com.nextcloud.client_350000090/report.html"
+    },
+    {
+      "apk": "com.nononsenseapps.feeder_4113.apk",
+      "app": "com.nononsenseapps.feeder",
+      "sha256": "0aa5eb094f94ca29ab7956d75b9e5d7c19785ebdac74b9ae512930084338bf3c",
+      "status": "ok",
+      "issues": 16,
+      "conf_high": 2,
+      "conf_medium": 7,
+      "conf_low": 7,
+      "sev_high": 5,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 33,
+      "attack_surface": 5,
+      "seconds": 1.17,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 3,
+        "CRY-KEYLIT": 1,
+        "NET-CLEAR": 1,
+        "NET-HTTP": 8,
+        "WEB-IFACE": 1,
+        "WEB-JS": 1
+      },
+      "owasp": {
+        "M1": 1,
+        "M4": 2,
+        "M5": 9,
+        "M8": 4
+      },
+      "report": "com.nononsenseapps.feeder_4113/report.html"
+    },
+    {
+      "apk": "com.termux_1002.apk",
+      "app": "com.termux",
+      "sha256": "e6265a57eb5ca363808488e3b01955958bed93bc0c8a0d281849b363b11027ec",
+      "status": "ok",
+      "issues": 3,
+      "conf_high": 0,
+      "conf_medium": 1,
+      "conf_low": 2,
+      "sev_high": 1,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 29,
+      "attack_surface": 3,
+      "seconds": 0.11,
+      "rules": {
+        "CFG-EXPORT": 1,
+        "STO-EXT": 2
+      },
+      "owasp": {
+        "M8": 1,
+        "M9": 2
+      },
+      "report": "com.termux_1002/report.html"
+    },
+    {
+      "apk": "de.danoeh.antennapod_3120295.apk",
+      "app": "de.danoeh.antennapod",
+      "sha256": "3f43a4337a693cdb49141afe06cb596e88c796009ed77bff51e9444ce2d1ebfc",
+      "status": "ok",
+      "issues": 15,
+      "conf_high": 4,
+      "conf_medium": 4,
+      "conf_low": 7,
+      "sev_high": 3,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 23,
+      "attack_surface": 12,
+      "seconds": 0.45,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 1,
+        "CRY-HASH": 4,
+        "CRY-KEYLIT": 1,
+        "LOG-SENS": 2,
+        "NET-CLEAR": 1,
+        "NET-HTTP": 1,
+        "NET-NSC": 1,
+        "NET-TRUST": 1,
+        "STO-EXT": 2
+      },
+      "owasp": {
+        "M1": 1,
+        "M10": 4,
+        "M5": 4,
+        "M8": 2,
+        "M9": 4
+      },
+      "report": "de.danoeh.antennapod_3120295/report.html"
+    },
+    {
+      "apk": "eu.siacs.conversations_4218104.apk",
+      "app": "eu.siacs.conversations",
+      "sha256": "3fae646e33b59b95f049ce9bd828022e2edbb374fa82e517bd782aced71ba980",
+      "status": "ok",
+      "issues": 22,
+      "conf_high": 4,
+      "conf_medium": 4,
+      "conf_low": 14,
+      "sev_high": 1,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 30,
+      "attack_surface": 8,
+      "seconds": 0.56,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 1,
+        "CRY-HASH": 2,
+        "LOG-SENS": 5,
+        "NET-NSC": 1,
+        "NET-TRUST": 1,
+        "STO-EXT": 11
+      },
+      "owasp": {
+        "M10": 2,
+        "M5": 2,
+        "M8": 2,
+        "M9": 16
+      },
+      "report": "eu.siacs.conversations_4218104/report.html"
+    },
+    {
+      "apk": "me.hackerchick.catima_1004.apk",
+      "app": "me.hackerchick.catima",
+      "sha256": "271980b62f73137db2d843fb4fc35f103c4126d769f816d365206c5c1adff3a9",
+      "status": "ok",
+      "issues": 4,
+      "conf_high": 1,
+      "conf_medium": 2,
+      "conf_low": 1,
+      "sev_high": 2,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 14,
+      "attack_surface": 4,
+      "seconds": 0.13,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 2,
+        "CRY-HASH": 1
+      },
+      "owasp": {
+        "M10": 1,
+        "M8": 3
+      },
+      "report": "me.hackerchick.catima_1004/report.html"
+    },
+    {
+      "apk": "nodomain.freeyourgadget.gadgetbridge_253.apk",
+      "app": "nodomain.freeyourgadget.gadgetbridge",
+      "sha256": "c0912ea6647bcad3f0b8f1f3be5181de7bdf0eafbd43cf930ab54572082aa165",
+      "status": "ok",
+      "issues": 100,
+      "conf_high": 5,
+      "conf_medium": 34,
+      "conf_low": 61,
+      "sev_high": 23,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 20,
+      "attack_surface": 12,
+      "seconds": 3.82,
+      "rules": {
+        "CFG-EXPORT": 14,
+        "CRY-HASH": 4,
+        "CRY-IV0": 2,
+        "CRY-KEYHARD": 1,
+        "CRY-WEAK": 6,
+        "NET-HTTP": 7,
+        "NET-NSC": 1,
+        "NET-TRUST": 1,
+        "STO-EXT": 52,
+        "WEB-IFACE": 8,
+        "WEB-JS": 4
+      },
+      "owasp": {
+        "M1": 1,
+        "M10": 12,
+        "M4": 12,
+        "M5": 9,
+        "M8": 14,
+        "M9": 52
+      },
+      "report": "nodomain.freeyourgadget.gadgetbridge_253/report.html"
+    },
+    {
+      "apk": "org.breezyweather_60202.apk",
+      "app": "org.breezyweather",
+      "sha256": "1369d817d426498715f8ccb6750baff19dadd78e85f707088e9bca43977570c0",
+      "status": "ok",
+      "issues": 4,
+      "conf_high": 0,
+      "conf_medium": 3,
+      "conf_low": 1,
+      "sev_high": 4,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 1,
+      "attack_surface": 26,
+      "seconds": 0.16,
+      "rules": {
+        "CFG-EXPORT": 4
+      },
+      "owasp": {
+        "M8": 4
+      },
+      "report": "org.breezyweather_60202/report.html"
+    },
+    {
+      "apk": "org.briarproject.briar.android_10521.apk",
+      "app": "org.briarproject.briar.android",
+      "sha256": "433a1d7bf871960b74eac162621586c223e07f66da5179a9e4c2c149b50a30d2",
+      "status": "ok",
+      "issues": 4,
+      "conf_high": 1,
+      "conf_medium": 2,
+      "conf_low": 1,
+      "sev_high": 2,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 8,
+      "attack_surface": 3,
+      "seconds": 0.31,
+      "rules": {
+        "CRY-KEYLIT": 2,
+        "NET-HTTP": 2
+      },
+      "owasp": {
+        "M1": 2,
+        "M5": 2
+      },
+      "report": "org.briarproject.briar.android_10521/report.html"
+    },
+    {
+      "apk": "org.jellyfin.mobile_2070399.apk",
+      "app": "org.jellyfin.mobile",
+      "sha256": "f9f4b3ab46cc9434df811194c2d4351417f4db83a4c1a0facd0a662d69533f7f",
+      "status": "ok",
+      "issues": 10,
+      "conf_high": 2,
+      "conf_medium": 7,
+      "conf_low": 1,
+      "sev_high": 2,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 0,
+      "attack_surface": 2,
+      "seconds": 0.2,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 2,
+        "NET-NSC": 1,
+        "NET-TRUST": 1,
+        "WEB-IFACE": 4,
+        "WEB-JS": 1
+      },
+      "owasp": {
+        "M4": 5,
+        "M5": 2,
+        "M8": 3
+      },
+      "report": "org.jellyfin.mobile_2070399/report.html"
+    },
+    {
+      "apk": "org.quantumbadger.redreader_118.apk",
+      "app": "org.quantumbadger.redreader",
+      "sha256": "641512cee55154cd0c811e435d5f60b9b9e6d65a2103e0a34389c9fe5b4484f2",
+      "status": "ok",
+      "issues": 19,
+      "conf_high": 1,
+      "conf_medium": 8,
+      "conf_low": 10,
+      "sev_high": 2,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 94,
+      "attack_surface": 4,
+      "seconds": 0.41,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 1,
+        "NET-CLEAR": 1,
+        "NET-HTTP": 5,
+        "STO-EXT": 2,
+        "WEB-IFACE": 6,
+        "WEB-JS": 3
+      },
+      "owasp": {
+        "M4": 9,
+        "M5": 6,
+        "M8": 2,
+        "M9": 2
+      },
+      "report": "org.quantumbadger.redreader_118/report.html"
+    },
+    {
+      "apk": "org.schabi.newpipe_1015.apk",
+      "app": "org.schabi.newpipe",
+      "sha256": "1d66d19eedbab969b1be2e44e0ea35f5f8921cbe83b5c5ac810767ca1a84b7e8",
+      "status": "ok",
+      "issues": 3,
+      "conf_high": 1,
+      "conf_medium": 0,
+      "conf_low": 2,
+      "sev_high": 0,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 145,
+      "attack_surface": 6,
+      "seconds": 0.62,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "STO-EXT": 1,
+        "WEB-JS": 1
+      },
+      "owasp": {
+        "M4": 1,
+        "M8": 1,
+        "M9": 1
+      },
+      "report": "org.schabi.newpipe_1015/report.html"
+    },
+    {
+      "apk": "org.wikipedia_50606.apk",
+      "app": "org.wikipedia",
+      "sha256": "eba82a0f77940d8a6be5bd2e53723675a59859a6c8a51be5e50bd034fc77101f",
+      "status": "ok",
+      "issues": 7,
+      "conf_high": 0,
+      "conf_medium": 3,
+      "conf_low": 4,
+      "sev_high": 1,
+      "hidden": 0,
+      "suppressed": 0,
+      "endpoints": 41,
+      "attack_surface": 7,
+      "seconds": 2.79,
+      "rules": {
+        "CFG-BACKUP": 1,
+        "CFG-EXPORT": 1,
+        "STO-EXT": 2,
+        "WEB-IFACE": 1,
+        "WEB-JS": 2
+      },
+      "owasp": {
+        "M4": 3,
+        "M8": 2,
+        "M9": 2
+      },
+      "report": "org.wikipedia_50606/report.html"
+    }
+  ]
+}

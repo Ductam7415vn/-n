@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "app": "com.beemdevelopment.aegis",
+    "time": "2026-10-04 00:46"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:24",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm."
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "owasp": "M10",
+      "title": "IV tĩnh (mảng byte khởi tạo bằng số 0)",
+      "severity": "high",
+      "location": "com/beemdevelopment/aegis/importers/TotpAuthenticatorImporter.java:49",
+      "evidence": "private static final byte[] IV = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};",
+      "note": "IV cố định làm mất tính ngẫu nhiên của CBC."
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "owasp": "M10",
+      "title": "IV tĩnh (mảng byte khởi tạo bằng số 0)",
+      "severity": "high",
+      "location": "com/beemdevelopment/aegis/importers/AuthyImporter.java:45",
+      "evidence": "private static final byte[] IV = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};",
+      "note": "IV cố định làm mất tính ngẫu nhiên của CBC."
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "com.beemdevelopment.aegis.ui.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:28"
+    },
+    {
+      "component": "com.beemdevelopment.aegis.ui.PanicResponderActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "info.guardianproject.panic.action.TRIGGER"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:55"
+    }
+  ],
+  "endpoints": [
+    "alexbakker.me",
+    "beem.dev/",
+    "github.com/beemdevelopment/Aegis",
+    "github.com/michaelschattgen",
+    "play.google.com/store/apps/details?id=com.beemdevelopment.aegis"
+  ]
+}

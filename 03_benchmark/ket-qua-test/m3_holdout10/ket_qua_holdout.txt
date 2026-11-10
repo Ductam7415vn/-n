@@ -1,0 +1,9 @@
+Số app: 4
+  v1: 17 cảnh báo, chưa nhãn 0 | mọi cảnh báo 11.8% (2/17) | chặt 5.9% (1/17) | ≥ medium 15.4% (2/13) | ≥ medium chặt 7.7% (1/13)
+  v2: 19 cảnh báo, chưa nhãn 0 | mọi cảnh báo 10.5% (2/19) | chặt 5.3% (1/19) | ≥ medium 13.3% (2/15) | ≥ medium chặt 6.7% (1/15)
+
+Thay đổi 1 — cảnh báo đổi tầng tin cậy: 0
+
+Thay đổi 2 — cảnh báo chỉ có ở v2: 2
+  Organic Maps 2026.09.29-32-FDroid: CFG-EXPORT app.organicmaps.car.AndroidAutoService | medium | FP
+  OpenTracks v4.29.0: CFG-EXPORT androidx.health.platform.client.impl.sdkservice.HealthDataSdkService | medium | FP

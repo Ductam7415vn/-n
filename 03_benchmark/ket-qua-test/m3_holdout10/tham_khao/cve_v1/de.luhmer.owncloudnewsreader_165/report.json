@@ -1,0 +1,489 @@
+{
+  "meta": {
+    "app": "de.luhmer.owncloudnewsreader",
+    "scope": [
+      "de.luhmer.owncloudnewsreader"
+    ],
+    "time": "2026-11-10 18:14",
+    "apk": "de.luhmer.owncloudnewsreader_165.apk",
+    "apk_sha256": "6fc631462b466cae7d552d97cbe0e796f5cb0ee84205f4f6f2417282cd562a10",
+    "analysis_seconds": 0.11
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:14",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm.",
+      "confidence": "high",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:14",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": "",
+      "confidence": "high",
+      "fingerprint": "506e7ca61e85"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: KeepAliveService",
+      "severity": "high",
+      "location": "AndroidManifest.xml:109",
+      "evidence": "de.luhmer.owncloudnewsreader.chrometabs.KeepAliveService",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "8ef3314aa43c"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "de/luhmer/owncloudnewsreader/NewFeedActivity.java:265",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), \"subscriptions-\" + new SimpleDateFormat(\"yyyy-MM-dd\").forma",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "0ec6372043fb"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "de/luhmer/owncloudnewsreader/NewsDetailFragment.java:63",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "916c36857cdb"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "de/luhmer/owncloudnewsreader/helper/NewsFileUtils.java:137",
+      "evidence": "return context.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath() + \"/podcasts\";",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "2d8bec39dd72"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/luhmer/owncloudnewsreader/authentication/AccountGeneral.java:9",
+      "evidence": "public static final String AUTHTOKEN_TYPE_FULL_ACCESS = \"Full access\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "b3b598d68f6f"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/luhmer/owncloudnewsreader/authentication/AccountGeneral.java:10",
+      "evidence": "public static final String AUTHTOKEN_TYPE_FULL_ACCESS_LABEL = \"Full access to an Nextcloud News account\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "medium",
+      "fingerprint": "1bab992c1eef"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/luhmer/owncloudnewsreader/authentication/AccountGeneral.java:11",
+      "evidence": "public static final String AUTHTOKEN_TYPE_READ_ONLY = \"Read only\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "7cae77eddd76"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/luhmer/owncloudnewsreader/authentication/AccountGeneral.java:12",
+      "evidence": "public static final String AUTHTOKEN_TYPE_READ_ONLY_LABEL = \"Read only access to an Nextcloud News account\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "medium",
+      "fingerprint": "7fb8f7173594"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/luhmer/owncloudnewsreader/authentication/OwnCloudAccountAuthenticator.java:55",
+      "evidence": "Log.d(\"udinic\", \"UdinicAuthenticator> peekAuthToken returned - \" + strPeekAuthToken);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "high",
+      "fingerprint": "2e2e79c9191b"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/luhmer/owncloudnewsreader/services/PodcastDownloadService.java:133",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "82565a153fdf"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "de.luhmer.owncloudnewsreader.NewsReaderListActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.media.action.MEDIA_PLAY_FROM_SEARCH"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:17"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.SettingsActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "de.luhmer.owncloudnewsreader.ACCOUNT_MANAGER_ENTRY"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:29"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.NewFeedActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:36"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.services.OwnCloudAuthenticatorService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.accounts.AccountAuthenticator"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:62"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.services.OwnCloudSyncService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:68"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.helper.NotificationActionReceiverDownloadWebPage",
+      "type": "receiver",
+      "exported": "ngầm định",
+      "actions": [
+        "YES_ACTION",
+        "STOP_ACTION"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:79"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.helper.NotificationActionReceiver",
+      "type": "receiver",
+      "exported": "ngầm định",
+      "actions": [
+        "NOTIFICATION_MARK_ALL_AS_READ"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:85"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.widget.WidgetProvider",
+      "type": "receiver",
+      "exported": "ngầm định",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:90"
+    },
+    {
+      "component": "de.luhmer.owncloudnewsreader.services.PodcastPlaybackService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.media.browse.MediaBrowserService"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:97"
+    },
+    {
+      "component": "androidx.media.session.MediaButtonReceiver",
+      "type": "receiver",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.MEDIA_BUTTON",
+        "android.media.AUDIO_BECOMING_NOISY"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:102"
+    }
+  ],
+  "endpoints": [
+    "github.com/nextcloud/news-android/issues/new?title=&body=",
+    "github.com/nextcloud/news/blob/master/docs/install.md#installing-from-the-app-store",
+    "pgl.yoyo.org/as/serverlist.php?hostformat=nohtml&showintro=0",
+    "raw.githubusercontent.com/nextcloud/news-android/master/CHANGELOG.md",
+    "www.youtube.com/watch?v="
+  ],
+  "requests": [
+    {
+      "method": "GET",
+      "path": "/cloud/user",
+      "params": [
+        {
+          "name": "format",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/OcsAPI.java:11"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/feeds",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:39"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/feeds",
+      "params": [
+        {
+          "name": "url",
+          "in": "form"
+        },
+        {
+          "name": "folderId",
+          "in": "form"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:30"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/feeds/{feedId}",
+      "params": [
+        {
+          "name": "feedId",
+          "in": "path"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:36"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/feeds/{feedId}/move",
+      "params": [
+        {
+          "name": "feedId",
+          "in": "path"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:60"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/feeds/{feedId}/rename",
+      "params": [
+        {
+          "name": "feedId",
+          "in": "path"
+        }
+      ],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:63"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/folders",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:42"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/folders",
+      "params": [],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:33"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/items",
+      "params": [
+        {
+          "name": "batchSize",
+          "in": "query"
+        },
+        {
+          "name": "offset",
+          "in": "query"
+        },
+        {
+          "name": "type",
+          "in": "query"
+        },
+        {
+          "name": "id",
+          "in": "query"
+        },
+        {
+          "name": "getRead",
+          "in": "query"
+        },
+        {
+          "name": "oldestFirst",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:45"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/items/read/multiple",
+      "params": [],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:48"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/items/star/multiple",
+      "params": [],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:51"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/items/unread/multiple",
+      "params": [],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:54"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/items/unstar/multiple",
+      "params": [],
+      "body": "json",
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:57"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/items/updated",
+      "params": [
+        {
+          "name": "lastModified",
+          "in": "query"
+        },
+        {
+          "name": "type",
+          "in": "query"
+        },
+        {
+          "name": "id",
+          "in": "query"
+        }
+      ],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:70"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/status",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:66"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/version",
+      "params": [],
+      "body": null,
+      "source": "Retrofit",
+      "locations": [
+        "de/luhmer/owncloudnewsreader/reader/nextcloud/NewsAPI.java:73"
+      ]
+    }
+  ]
+}

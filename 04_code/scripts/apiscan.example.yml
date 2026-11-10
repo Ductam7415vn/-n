@@ -1,0 +1,14 @@
+# Cấu hình mẫu cho apiscan — dùng: apiscan.py scan app.apk --config apiscan.yml
+# Sinh nhanh danh sách suppress từ một lần quét: apiscan.py baseline report.json -o apiscan.yml
+
+min_confidence: medium
+
+rules:
+  disable: [CRY-HASH]
+
+suppress:
+  - rule: CFG-EXPORT
+    evidence: "*.ShareActivity*"
+    reason: "Nhận intent SEND từ app khác là chức năng chính, đã rà cách xử lý dữ liệu đầu vào"
+  - id: 0123456789ab
+    reason: "Khoá công khai của Google Play, không phải bí mật"

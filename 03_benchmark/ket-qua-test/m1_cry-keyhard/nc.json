@@ -1,0 +1,205 @@
+{
+  "meta": {
+    "app": "com.nextcloud.client",
+    "time": "2026-10-04 00:44"
+  },
+  "issues": [
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:84",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ComposeActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:86",
+      "evidence": "com.nextcloud.ui.composeActivity.ComposeActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: FileContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:237",
+      "evidence": "com.owncloud.android.providers.FileContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: AccountManagerService",
+      "severity": "high",
+      "location": "AndroidManifest.xml:308",
+      "evidence": "com.owncloud.android.services.AccountManagerService",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: SsoGrantPermissionActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:309",
+      "evidence": "com.owncloud.android.ui.activity.SsoGrantPermissionActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": ""
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/nextcloud/client/utils/HashUtil.java:25",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/NotificationWork.java:166",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"RSA/ECB/OAEPWithSHA-1AndMGF1Padding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu."
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "com.nextcloud.ui.composeActivity.ComposeProcessTextAlias",
+      "type": "activity-alias",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.PROCESS_TEXT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:87"
+    },
+    {
+      "component": "com.owncloud.android.ui.activity.FileDisplayActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "com.nextcloud.intent.OPEN_ECOSYSTEM_APP",
+        "android.intent.action.SEARCH",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:95"
+    },
+    {
+      "component": "com.owncloud.android.ui.activity.ReceiveExternalFilesActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:199"
+    },
+    {
+      "component": "com.nextcloud.client.player.media3.PlaybackService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "androidx.media3.session.MediaSessionService"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:214"
+    },
+    {
+      "component": "androidx.media3.session.MediaButtonReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MEDIA_BUTTON"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:219"
+    },
+    {
+      "component": "com.owncloud.android.syncadapter.FileSyncService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:230"
+    },
+    {
+      "component": "com.owncloud.android.authentication.AuthenticatorActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "com.owncloud.android.workaround.accounts.CREATE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:262"
+    },
+    {
+      "component": "com.owncloud.android.authentication.DeepLinkLoginActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:268"
+    },
+    {
+      "component": "com.owncloud.android.files.BootupBroadcastReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED",
+        "android.intent.action.QUICKBOOT_POWERON",
+        "com.htc.intent.action.QUICKBOOT_POWERON",
+        "android.intent.action.MY_PACKAGE_REPLACED"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:288"
+    },
+    {
+      "component": "com.nmc.android.ui.LauncherActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:314"
+    }
+  ],
+  "endpoints": []
+}

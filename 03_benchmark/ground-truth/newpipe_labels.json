@@ -1,0 +1,168 @@
+{
+  "app": "NewPipe 0.29.1",
+  "apk_sha256": "1d66d19eedbab969b1be2e44e0ea35f5f8921cbe83b5c5ac810767ca1a84b7e8",
+  "labeled_on": "2026-10-03",
+  "labeled_from": "03_benchmark/ket-qua-test/m0_baseline/np.json",
+  "definition": "TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app.",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "TP",
+      "reason": "allowBackup=true, không có backup rules. Rủi ro thấp: targetSdk 35 nên adb backup bị hạn chế từ Android 12, app không lưu thông tin đăng nhập — giữ là TP mức nhẹ như phân tích gốc"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.schabi.newpipe.MainActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity LAUNCHER/LEANBACK_LAUNCHER bắt buộc exported"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "androidx.media.session.MediaButtonReceiver",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MEDIA_BUTTON receiver bắt buộc exported để nhận nút media"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.schabi.newpipe.player.PlayerService",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MediaBrowserService/MEDIA_BUTTON: bắt buộc exported cho Android Auto/điều khiển media"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.schabi.newpipe.PanicResponderActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Nhận intent panic TRIGGER (PanicKit), chỉ đóng/xoá app"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.schabi.newpipe.util.FilePickerActivityHelper",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Bộ chọn tệp GET_CONTENT: người dùng tự chọn tệp, không lộ dữ liệu app"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.schabi.newpipe.RouterActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Xử lý link VIEW/SEND http(s) từ app khác — chức năng chính"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/schabi/newpipe/settings/SettingsActivity.java",
+      "evidence": "xml.setFeature(\"http://xmlpull.org/v1/doc/features.html#process-namespaces\", true);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI feature của XmlPull, không phải kết nối mạng"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/schabi/newpipe/settings/SettingsActivity.java",
+      "evidence": "xml.setFeature(\"http://xmlpull.org/v1/doc/features.html#report-namespace-prefixes\", true);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI feature của XmlPull, không phải kết nối mạng"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/schabi/newpipe/settings/SettingsActivity.java",
+      "evidence": "if (!((List) printer4.accum).contains(xml.getName()) && searchResult.key.length() != 0 && str.length() != 0 && !\"true\".equals(xml.getAttributeValue(\"http://sche",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML (schemas.android.com), không phải kết nối mạng"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/schabi/newpipe/util/FilePickerActivityHelper.java",
+      "evidence": "externalStorageDirectory = Environment.getExternalStorageDirectory();",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Chỉ dùng làm thư mục gốc để duyệt, không ghi dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/schabi/newpipe/util/FilePickerActivityHelper.java",
+      "evidence": "externalStorageDirectory = string.contains(Environment.getExternalStorageDirectory().getPath()) ? Environment.getExternalStorageDirectory() : new File(string);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "So sánh đường dẫn, không ghi dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "org/schabi/newpipe/util/NavigationHelper$$ExternalSyntheticLambda5.java",
+      "evidence": "Log.i(\"NavigationHelper\", \"You unlocked a secret unicorn.\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Easter egg, khớp từ 'secret', không log dữ liệu"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/schabi/newpipe/streams/io/StoredFileHelper.java",
+      "evidence": "file = Environment.getExternalStorageDirectory();",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Thư mục mặc định để người dùng chọn nơi lưu video tải về"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/schabi/newpipe/streams/io/StoredFileHelper.java",
+      "evidence": "file = Environment.getExternalStorageDirectory();",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Thư mục mặc định để người dùng chọn nơi lưu video tải về"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/schabi/newpipe/extractor/utils/Utils.java",
+      "evidence": "return str.startsWith(\"http://\") ? \"https://\".concat(str.substring(7)) : str;",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Mã NÂNG CẤP http→https (code bảo mật tốt)"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/schabi/newpipe/extractor/services/youtube/YoutubeParsingHelper.java",
+      "evidence": "if (str.startsWith(\"http://\")) {",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Kiểm tra tiền tố http:// để chuẩn hoá URL"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "org/schabi/newpipe/error/ReCaptchaActivity.java",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView giải reCAPTCHA YouTube cần JS; activity không exported, URL từ nội bộ app"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/schabi/newpipe/player/Player$$ExternalSyntheticLambda41.java",
+      "evidence": "String strReplace = strArr[1].replace(\"http://\", \"https://\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Mã NÂNG CẤP http→https (code bảo mật tốt)"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/schabi/newpipe/player/helper/PlayerDataSource.java",
+      "evidence": "File file = new File(playerService.getExternalCacheDir(), \"exoplayer\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Thư mục cache ExoPlayer (video công khai) trong cache ngoài riêng của app, không chứa dữ liệu nhạy cảm. Gán nhãn 2026-10-04 khi mở rộng STO-EXT phủ getExternalCacheDir"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+=== InsecureBankv2 — RECALL (ràng buộc cứng = 100%) ===
+  [OK ] V01 khoá cứng
+  [OK ] V02 cleartext
+  [OK ] V05 mật mã yếu (IV)
+  [OK ] V06 exported
+  [OK ] V07 cửa hậu devlogin
+  [OK ] V11 allowBackup
+  => Recall tĩnh: 100%  (6/6 mục tĩnh của đáp án)
+  [+  ] (thêm) V04 lưu trữ không an toàn
+  [+  ] (thêm) V10 rò rỉ qua log
+
+=== InsecureBankv2 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 24  |  TP: 24  FP: 0  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 100.0%  (24/24)
+
+=== Briar 1.5.21 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 5  |  TP: 0  FP: 5  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 0.0%  (0/5)
+
+=== Money Manager Ex 5.5.13 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 11  |  TP: 4  FP: 7  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 36.4%  (4/11)
+
+=== TỔNG 2 APP THẬT (Briar 1.5.21, Money Manager Ex 5.5.13) ===
+  TP: 4  FP: 12  chưa gán nhãn: 0
+  => Precision gộp (micro): 25.0%  (4/16)
+  => Precision trung bình theo app (macro): 18.2%
+
+=== 2 APP THẬT — PRECISION THEO ĐỘ TIN CẬY ===
+  mức      | riêng mức            | từ mức này trở lên
+  high     |   0.0% (0/3)         |   0.0% (0/3)
+  medium   |  40.0% (4/10)        |  30.8% (4/13)
+  low      |   0.0% (0/3)         |  25.0% (4/16)
+
+PASS: recall InsecureBankv2 = 100%, không mất TP đã gán nhãn.

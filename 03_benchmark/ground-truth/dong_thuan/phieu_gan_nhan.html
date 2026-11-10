@@ -1,0 +1,835 @@
+<!doctype html><html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Phiếu gán nhãn apiscan</title>
+<style>body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#f7f8fa;color:#1a2233;margin:0}
+main{max-width:1000px;margin:0 auto;padding:24px}section{background:#fff;border:1px solid #e4e7ec;border-radius:10px;
+padding:12px 16px;margin:12px 0}h2{font-size:16px;margin:0 0 6px}pre{background:#0f172a;color:#e2e8f0;padding:10px;
+border-radius:8px;overflow-x:auto;font-size:12px}.ev{font-family:monospace;font-size:12px;color:#475467}
+.m{color:#667;font-size:13px}</style></head><body><main>
+<h1>Phiếu gán nhãn độc lập — 80 cảnh báo</h1>
+<p>Đọc <b>HUONG_DAN.md</b> trước. Điền nhãn vào <b>phieu_gan_nhan.csv</b> (cột label, fp_type, borderline, reason).
+Thứ tự đã xáo trộn; tỉ lệ TP/FP trong phiếu không phản ánh tỉ lệ thật.</p>
+<section><h2>M001 · Nextcloud 35.0.0 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/nextcloud/android/sso/Constants.java:10</code></p><p class='ev'>public static final String EXCEPTION_INVALID_TOKEN = &quot;CE_1&quot;;</p><pre>     4  public final class Constants {
+     5      public static final String DELIMITER = &quot;_&quot;;
+     6      public static final String EXCEPTION_ACCOUNT_ACCESS_DECLINED = &quot;CE_6&quot;;
+     7      public static final String EXCEPTION_ACCOUNT_NOT_FOUND = &quot;CE_2&quot;;
+     8      public static final String EXCEPTION_HTTP_REQUEST_FAILED = &quot;CE_5&quot;;
+     9      public static final String EXCEPTION_INVALID_REQUEST_URL = &quot;CE_4&quot;;
+&gt;   10      public static final String EXCEPTION_INVALID_TOKEN = &quot;CE_1&quot;;
+    11      public static final String EXCEPTION_UNSUPPORTED_METHOD = &quot;CE_3&quot;;
+    12      public static final String NEXTCLOUD_FILES_ACCOUNT = &quot;NextcloudFilesAccount&quot;;
+    13      public static final String NEXTCLOUD_SSO = &quot;NextcloudSSO&quot;;
+    14      public static final String NEXTCLOUD_SSO_EXCEPTION = &quot;NextcloudSsoException&quot;;
+    15      public static final String SSO_SERVER_URL = &quot;server_url&quot;;
+    16      public static final String SSO_SHARED_PREFERENCE = &quot;single-sign-on&quot;;</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M002 · Nextcloud 35.0.0 · <code>NET-NSC</code></h2><p><b>network_security_config cho phép cleartext</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>cleartextTrafficPermitted=&quot;true&quot;</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M003 · Money Manager Ex 5.5.13 · <code>NET-HTTP</code></h2><p><b>Chuỗi http:// trong mã (cleartext)</b><br><code>com/money/manager/ex/about/AboutFragment.java:218</code></p><p class='ev'>gVar7.e = &quot;http://www.gnu.org/licenses/old-licenses/gpl-2.0.html&quot;;</p><pre>   212          g gVar6 = new g(this);
+   213          gVar6.e = &quot;https://twitter.com/MoneyManagerEx&quot;;
+   214          ((ImageView) viewInflate.findViewById(ij1.imageViewTwitter)).setOnClickListener(gVar6);
+   215          TextView textView7 = (TextView) viewInflate.findViewById(ij1.textViewLicense);
+   216          textView7.setText(Html.fromHtml(&quot;&lt;u&gt;&quot; + ((Object) textView7.getText()) + &quot;&lt;/u&gt;&quot;, 0));
+   217          g gVar7 = new g(this);
+&gt;  218          gVar7.e = &quot;http://www.gnu.org/licenses/old-licenses/gpl-2.0.html&quot;;
+   219          textView7.setOnClickListener(gVar7);
+   220          TextView textView8 = (TextView) viewInflate.findViewById(ij1.textViewLogcat);
+   221          textView8.setText(Html.fromHtml(&quot;&lt;u&gt;&quot; + ((Object) textView8.getText()) + &quot;&lt;/u&gt;&quot;, 0));
+   222          textView8.setOnClickListener(new View.OnClickListener(this) { // from class: f
+   223              public final /* synthetic */ AboutFragment e;
+   224  </pre><p class='m'>Ghi chú của công cụ: Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).</p></section><section><h2>M004 · Conversations 2.20.4 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>eu/siacs/conversations/xmpp/jingle/JingleRtpConnection.java:2017</code></p><p class='ev'>Log.d(Config.LOGTAG, &quot;received offer to restart ICE &quot; + distinctCredentials);</p><pre>  2011                      while (it.hasNext()) {
+  2012                          i += ((RegularImmutableList) ((IceUdpTransportInfo) ((DescriptionTransport) it.next()).transport).getCandidates()).size;
+  2013                      }
+  2014                      z = i == 0;
+  2015                      try {
+  2016                          if (z) {
+&gt; 2017                              Log.d(Config.LOGTAG, &quot;received offer to restart ICE &quot; + distinctCredentials);
+  2018                              rtpContentMapModifiedCredentials = remoteContentMap2.modifiedCredentials(distinctCredentials, IceUdpTransportInfo.Setup.ACTPASS);
+  2019                          } else {
+  2020                              IceUdpTransportInfo.Setup peerDtlsSetup = getPeerDtlsSetup();
+  2021                              Log.d(Config.LOGTAG, &quot;received confirmation of ICE restart&quot; + distinctCredentials + &quot; peer_setup=&quot; + peerDtlsSetup);
+  2022                              rtpContentMapModifiedCredentials = remoteContentMap2.modifiedCredentials(distinctCredentials, peerDtlsSetup);
+  2023                          }</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M005 · Termux 0.118.3 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>com/termux/app/TermuxInstaller.java:369</code></p><p class='ev'>Logger.logInfo(&quot;termux-storage&quot;, &quot;Setting up storage symlinks at ~/storage/shared, ~/storage/downloads, ~/storage/dcim, ~/storage/pictures, ~/storage/music and </p><pre>   363                      if (errorClearDirectory != null) {
+   364                          Logger.logErrorAndShowToast(context, &quot;termux-storage&quot;, errorClearDirectory.getMessage());
+   365                          Logger.logErrorExtended(&quot;termux-storage&quot;, &quot;Setup Storage Error\n&quot; + errorClearDirectory.toString());
+   366                          CrashUtils.sendCrashReportNotification(context, &quot;termux-storage&quot;, &quot;## Setup Storage Error\n\n&quot; + Error.getErrorMarkdownString(errorClearDirectory), true, true);
+   367                          return;
+   368                      }
+&gt;  369                      Logger.logInfo(&quot;termux-storage&quot;, &quot;Setting up storage symlinks at ~/storage/shared, ~/storage/downloads, ~/storage/dcim, ~/storage/pictures, ~/storage/music and ~/storage/movies for directories in \&quot;&quot; + Environment.getExternalStorageDirectory().getAbsolutePath() + &quot;\&quot;.&quot;);
+   370                      Os.symlink(Environment.getExternalStorageDirectory().getAbsolutePath(), new File(file, &quot;shared&quot;).getAbsolutePath());
+   371                      Os.symlink(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath(), new File(file, &quot;downloads&quot;).getAbsolutePath());
+   372                      Os.symlink(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).getAbsolutePath(), new File(file, &quot;dcim&quot;).getAbsolutePath());
+   373                      Os.symlink(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).getAbsolutePath(), new File(file, &quot;pictures&quot;).getAbsolutePath());
+   374                      Os.symlink(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getAbsolutePath(), new File(file, &quot;music&quot;).getAbsolutePath());
+   375                      Os.symlink(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MOVIES).getAbsolutePath(), new File(file, &quot;movies&quot;).getAbsolutePath());</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M006 · KeePassDX 4.5.5 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:789</code></p><p class='ev'>Log.d(TAG, &quot;Autofill username android text type: &quot; + showHexInputType(inputType));</p><pre>   783                      result2.setUsernameId(autofillId);
+   784                  }
+   785                  Result result3 = this.result;
+   786                  if (result3 != null) {
+   787                      result3.setUsernameValue(node.getAutofillValue());
+   788                  }
+&gt;  789                  Log.d(TAG, &quot;Autofill username android text type: &quot; + showHexInputType(inputType));
+   790              }
+   791          } else if (inputIsVariationType(inputType, 0, 96, 160)) {
+   792              Result result4 = this.result;
+   793              if ((result4 != null ? result4.getPasswordId() : null) == null) {
+   794                  this.usernameIdCandidate = autofillId;
+   795                  this.usernameValueCandidate = node.getAutofillValue();</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M007 · Nextcloud 35.0.0 · <code>CFG-EXPORT</code></h2><p><b>Thành phần exported không bảo vệ: FileContentProvider</b><br><code>AndroidManifest.xml:237</code></p><p class='ev'>com.owncloud.android.providers.FileContentProvider</p><pre>   231              &lt;intent-filter&gt;
+   232                  &lt;action android:name=&quot;android.content.SyncAdapter&quot;/&gt;
+   233              &lt;/intent-filter&gt;
+   234              &lt;meta-data android:name=&quot;android.content.SyncAdapter&quot; android:resource=&quot;@xml/syncadapter_files&quot;/&gt;
+   235          &lt;/service&gt;
+   236          &lt;service android:exported=&quot;true&quot; android:name=&quot;com.nextcloud.client.widget.DashboardWidgetService&quot; android:permission=&quot;android.permission.BIND_REMOTEVIEWS&quot;/&gt;
+&gt;  237          &lt;provider android:authorities=&quot;@string/authority&quot; android:enabled=&quot;true&quot; android:exported=&quot;true&quot; android:label=&quot;@string/sync_string_files&quot; android:name=&quot;com.owncloud.android.providers.FileContentProvider&quot; android:syncable=&quot;true&quot;&gt;
+   238              &lt;path-permission android:pathPrefix=&quot;/shares&quot; android:readPermission=&quot;false&quot; android:writePermission=&quot;false&quot;/&gt;
+   239              &lt;path-permission android:pathPrefix=&quot;/capabilities&quot; android:readPermission=&quot;false&quot; android:writePermission=&quot;false&quot;/&gt;
+   240              &lt;path-permission android:pathPrefix=&quot;/uploads&quot; android:readPermission=&quot;false&quot; android:writePermission=&quot;false&quot;/&gt;
+   241              &lt;path-permission android:pathPrefix=&quot;/synced_folders&quot; android:readPermission=&quot;false&quot; android:writePermission=&quot;false&quot;/&gt;
+   242              &lt;path-permission android:pathPrefix=&quot;/external_links&quot; android:readPermission=&quot;false&quot; android:writePermission=&quot;false&quot;/&gt;
+   243              &lt;path-permission android:pathPrefix=&quot;/virtual&quot; android:readPermission=&quot;false&quot; android:writePermission=&quot;false&quot;/&gt;</pre><p class='m'>Ghi chú của công cụ: Không có intent-filter: không có lý do để app khác gọi trực tiếp. Mã có kiểm tra danh tính app gọi.</p></section><section><h2>M008 · Aegis 3.4.3 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:24</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    18          &lt;package android:name=&quot;com.duosecurity.duomobile&quot;/&gt;
+    19          &lt;package android:name=&quot;com.blizzard.messenger&quot;/&gt;
+    20      &lt;/queries&gt;
+    21      &lt;uses-permission android:name=&quot;android.permission.USE_FINGERPRINT&quot;/&gt;
+    22      &lt;permission android:name=&quot;com.beemdevelopment.aegis.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    23      &lt;uses-permission android:name=&quot;com.beemdevelopment.aegis.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   24      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:backupAgent=&quot;com.beemdevelopment.aegis.AegisBackupAgent&quot; android:dataExtractionRules=&quot;@xml/backup_rules&quot; android:enableOnBackInvokedCallback=&quot;true&quot; android:extractNativeLibs=&quot;false&quot; android:fullBackupContent=&quot;@xml/backup_rules_old&quot; android:fullBackupOnly=&quot;true&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;Aegis&quot; android:largeHeap=&quot;true&quot; android:name=&quot;com.beemdevelopment.aegis.AegisApplication&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/Theme.Aegis.Launch&quot;&gt;
+    25          &lt;activity android:label=&quot;@string/title_activity_transfer&quot; android:name=&quot;com.beemdevelopment.aegis.ui.TransferEntriesActivity&quot;/&gt;
+    26          &lt;activity android:label=&quot;@string/title_activity_about&quot; android:name=&quot;com.beemdevelopment.aegis.ui.AboutActivity&quot;/&gt;
+    27          &lt;activity android:label=&quot;@string/title_activity_import_entries&quot; android:name=&quot;com.beemdevelopment.aegis.ui.ImportEntriesActivity&quot;/&gt;
+    28          &lt;activity android:exported=&quot;true&quot; android:label=&quot;Aegis&quot; android:name=&quot;com.beemdevelopment.aegis.ui.MainActivity&quot;&gt;
+    29              &lt;intent-filter&gt;
+    30                  &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.</p></section><section><h2>M009 · KeePassDX 4.5.5 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>com/kunzisoft/keepass/credentialprovider/viewmodel/PasswordLauncherViewModel.java:893</code></p><p class='ev'>Log.d(PasswordLauncherViewModel.TAG, &quot;Password registration result&quot;);</p><pre>   887              @Override // kotlin.coroutines.jvm.internal.BaseContinuationImpl
+   888              public final Object invokeSuspend(Object obj) {
+   889                  Object coroutine_suspended = IntrinsicsKt.getCOROUTINE_SUSPENDED();
+   890                  int i = this.label;
+   891                  if (i == 0) {
+   892                      ResultKt.throwOnFailure(obj);
+&gt;  893                      Log.d(PasswordLauncherViewModel.TAG, &quot;Password registration result&quot;);
+   894                      Intent intent = this.$intent;
+   895                      PasswordInfo passwordInfoRetrievePasswordInfo = intent != null ? PasswordHelper.INSTANCE.retrievePasswordInfo(intent) : null;
+   896                      Intent intent2 = this.$intent;
+   897                      if (intent2 != null) {
+   898                          PasswordHelper.INSTANCE.removePasswordInfo(intent2);
+   899                      }</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M010 · KeePassDX 4.5.5 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>com/kunzisoft/keepass/database/element/MasterCredential.java:452</code></p><p class='ev'>Log.e(MasterCredential.TAG, &quot;XML Keyfile version cannot be read : &quot; + strRemoveSpaceChars, e);</p><pre>   446                                                  Intrinsics.checkNotNullExpressionValue(textContent, &quot;getTextContent(...)&quot;);
+   447                                                  String strRemoveSpaceChars = stringUtil.removeSpaceChars(textContent);
+   448                                                  try {
+   449                                                      f2 = Float.parseFloat(strRemoveSpaceChars);
+   450                                                      Log.i(MasterCredential.TAG, &quot;Reading XML KeyFile version : &quot; + f2);
+   451                                                  } catch (Exception e) {
+&gt;  452                                                      Log.e(MasterCredential.TAG, &quot;XML Keyfile version cannot be read : &quot; + strRemoveSpaceChars, e);
+   453                                                  }
+   454                                              }
+   455                                              i3++;
+   456                                              s = 3;
+   457                                          }
+   458                                          f = f2;</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M011 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/banglejs/BangleJSDeviceSupport.java:681</code></p><p class='ev'>File file = new File(FileUtils.getExternalFilesDir() + &quot;/&quot; + this.gbDevice.mName.replaceAll(&quot;[\u0000/:\\r\\n\\\\]&quot;, &quot;_&quot;));</p><pre>   675          }
+   676      }
+   677  
+   678      public final void handleFile(JSONObject jSONObject) throws JSONException {
+   679          Logger logger = LOG;
+   680          try {
+&gt;  681              File file = new File(FileUtils.getExternalFilesDir() + &quot;/&quot; + this.gbDevice.mName.replaceAll(&quot;[\u0000/:\\r\\n\\\\]&quot;, &quot;_&quot;));
+   682              if (!file.isDirectory() &amp;&amp; !file.mkdir()) {
+   683                  throw new IOException(&quot;Cannot create device specific directory for &quot; + this.gbDevice.mName);
+   684              }
+   685              String string = jSONObject.getString(&quot;n&quot;);
+   686              String strReplaceAll = string.replaceAll(&quot;/&quot;, CoreConstants.EMPTY_STRING);
+   687              logger.debug(&quot;Compare filename and filenameThatCantEscapeDir:\n&quot; + string + &quot;\n&quot; + strReplaceAll);</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M012 · Jellyfin 2.7.3 · <code>NET-NSC</code></h2><p><b>network_security_config cho phép cleartext</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>cleartextTrafficPermitted=&quot;true&quot;</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M013 · Gadgetbridge 0.94.0 · <code>NET-TRUST</code></h2><p><b>Tin cậy CA do người dùng cài (user trust anchor)</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>user certificates trusted</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M014 · Nextcloud 35.0.0 · <code>NET-CLEAR</code></h2><p><b>Cho phép lưu lượng HTTP không mã hoá</b><br><code>AndroidManifest.xml:84</code></p><p class='ev'>android:usesCleartextTraffic=&quot;true&quot;</p><pre>    78      &lt;uses-permission android:name=&quot;com.nextcloud.client.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+    79      &lt;supports-screens android:anyDensity=&quot;true&quot; android:largeScreens=&quot;true&quot; android:normalScreens=&quot;true&quot;/&gt;
+    80      &lt;uses-feature android:name=&quot;android.hardware.location.network&quot; android:required=&quot;false&quot;/&gt;
+    81      &lt;uses-feature android:name=&quot;android.hardware.location.gps&quot; android:required=&quot;false&quot;/&gt;
+    82      &lt;uses-feature android:name=&quot;android.hardware.telephony&quot; android:required=&quot;false&quot;/&gt;
+    83      &lt;uses-feature android:name=&quot;android.hardware.wifi&quot; android:required=&quot;false&quot;/&gt;
+&gt;   84      &lt;application android:allowBackup=&quot;false&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:dataExtractionRules=&quot;@xml/backup_rules&quot; android:enableOnBackInvokedCallback=&quot;true&quot; android:extractNativeLibs=&quot;false&quot; android:fullBackupContent=&quot;@xml/backup_config&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:installLocation=&quot;internalOnly&quot; android:label=&quot;@string/app_name&quot; android:localeConfig=&quot;@xml/_generated_res_locale_config&quot; android:manageSpaceActivity=&quot;com.owncloud.android.ui.activity.ManageSpaceActivity&quot; android:memtagMode=&quot;async&quot; android:name=&quot;com.owncloud.android.MainApp&quot; android:networkSecurityConfig=&quot;@xml/network_security_config&quot; android:requestLegacyExternalStorage=&quot;true&quot; android:roundIcon=&quot;@mipmap/ic_launcher&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/Theme.ownCloud.Toolbar&quot; android:usesCleartextTraffic=&quot;true&quot;&gt;
+    85          &lt;meta-data android:name=&quot;android.content.APP_RESTRICTIONS&quot; android:resource=&quot;@xml/app_config&quot;/&gt;
+    86          &lt;activity android:exported=&quot;true&quot; android:label=&quot;@string/compose_activity_label&quot; android:name=&quot;com.nextcloud.ui.composeActivity.ComposeActivity&quot;/&gt;
+    87          &lt;activity-alias android:exported=&quot;true&quot; android:name=&quot;com.nextcloud.ui.composeActivity.ComposeProcessTextAlias&quot; android:targetActivity=&quot;com.nextcloud.ui.composeActivity.ComposeActivity&quot;&gt;
+    88              &lt;intent-filter&gt;
+    89                  &lt;action android:name=&quot;android.intent.action.PROCESS_TEXT&quot;/&gt;
+    90                  &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;</pre></section><section><h2>M015 · Conversations 2.20.4 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>eu/siacs/conversations/persistance/DatabaseBackend.java:803</code></p><p class='ev'>File file3 = new File(Environment.getExternalStorageDirectory() + &quot;/Conversations/Media/Conversations Files/&quot;);</p><pre>   797              sQLiteDatabase.update(&quot;identities&quot;, createFingerprintStatusContentValues(FingerprintStatus.Trust.VERIFIED, true), &quot;ownkey=1&quot;, null);
+   798          }
+   799          if (i &lt; 34 &amp;&amp; i2 &gt;= 34) {
+   800              sQLiteDatabase.execSQL(&quot;CREATE INDEX message_time_index ON messages(timeSent)&quot;);
+   801              File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + &quot;/Conversations/&quot;);
+   802              File file2 = new File(Environment.getExternalStorageDirectory() + &quot;/Conversations/&quot;);
+&gt;  803              File file3 = new File(Environment.getExternalStorageDirectory() + &quot;/Conversations/Media/Conversations Files/&quot;);
+   804              File file4 = new File(Environment.getExternalStorageDirectory() + &quot;/Conversations/Media/Conversations Videos/&quot;);
+   805              if (file.exists() &amp;&amp; file.isDirectory()) {
+   806                  File file5 = new File(Environment.getExternalStorageDirectory() + &quot;/Conversations/Media/Conversations Images/&quot;);
+   807                  file5.getParentFile().mkdirs();
+   808                  if (file.renameTo(file5)) {
+   809                      Log.d(Config.LOGTAG, &quot;moved &quot; + file.getAbsolutePath() + &quot; to &quot; + file5.getAbsolutePath());</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M016 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:483</code></p><p class='ev'>ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), &quot;Export_preference&quot;));</p><pre>   477                                              GB.toast(dataManagementActivity2, dataManagementActivity2.getString(R.string.dbmanagementactivity_import_successful), 1, 1, null);
+   478                                          } catch (Exception e5) {
+   479                                              GB.toast(dataManagementActivity2, dataManagementActivity2.getString(R.string.dbmanagementactivity_error_importing_db, e5.getLocalizedMessage()), 1, 3, e5);
+   480                                          }
+   481                                          Logger logger9 = DataManagementActivity.LOG;
+   482                                          try {
+&gt;  483                                              ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), &quot;Export_preference&quot;));
+   484                                          } catch (Exception e6) {
+   485                                              GB.toast(dataManagementActivity2, dataManagementActivity2.getString(R.string.dbmanagementactivity_error_importing_db, e6.getLocalizedMessage()), 1, 3, e6);
+   486                                          }
+   487                                          try {
+   488                                              Logger logger10 = GBApplication.LOG;
+   489                                              LockHandler lockHandlerAcquireWrite2 = GBDatabaseManager.acquireWrite();</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M017 · KeePassDX 4.5.5 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/kunzisoft/keepass/database/element/security/MemoryProtectionConfig.java:18</code></p><p class='ev'>public static final String PASSWORD_FIELD = &quot;Password&quot;;</p><pre>    12      public static final boolean DEFAULT_PROTECT_NOTES = true;
+    13      public static final boolean DEFAULT_PROTECT_PASSWORD = true;
+    14      public static final boolean DEFAULT_PROTECT_TITLE = false;
+    15      public static final boolean DEFAULT_PROTECT_URL = false;
+    16      public static final boolean DEFAULT_PROTECT_USERNAME = false;
+    17      public static final String NOTES_FIELD = &quot;Notes&quot;;
+&gt;   18      public static final String PASSWORD_FIELD = &quot;Password&quot;;
+    19      public static final String TITLE_FIELD = &quot;Title&quot;;
+    20      public static final String URL_FIELD = &quot;URL&quot;;
+    21      public static final String USERNAME_FIELD = &quot;UserName&quot;;
+    22      private boolean autoEnableVisualHiding;
+    23      private boolean protectTitle;
+    24      private boolean protectUrl;</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M018 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:216</code></p><p class='ev'>File file = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference&quot;);</p><pre>   210                                  int i8 = i6;
+   211                                  DataManagementActivity dataManagementActivity2 = dataManagementActivity;
+   212                                  Logger logger2 = DataManagementActivity.LOG;
+   213                                  switch (i8) {
+   214                                      case 0:
+   215                                          try {
+&gt;  216                                              File file = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference&quot;);
+   217                                              SharedPreferences sharedPreferences = DataManagementActivity.sharedPrefs;
+   218                                              Logger logger3 = ImportExportSharedPreferences.LOG;
+   219                                              FileWriter fileWriter = new FileWriter(file);
+   220                                              try {
+   221                                                  ImportExportSharedPreferences.export(sharedPreferences, fileWriter);
+   222                                                  fileWriter.close();</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M019 · Nextcloud 35.0.0 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/owncloud/android/lib/resources/users/DeletePrivateKeyRemoteOperation.java:18</code></p><p class='ev'>private static final String PRIVATE_KEY_URL = &quot;/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key&quot;;</p><pre>    12  import kotlin.jvm.internal.Intrinsics;
+    13  
+    14  /* JADX INFO: compiled from: DeletePrivateKeyRemoteOperation.kt */
+    15  /* JADX INFO: loaded from: classes4.dex */
+    16  @Metadata(d1 = {&quot;\u0000\&quot;\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\u0010\u0002\n\u0002\b\u0003\n\u0002\u0018\u0002\n\u0000\n\u0002\u0018\u0002\n\u0002\u0018\u0002\n\u0002\b\u0004\u0018\u0000 \f2\b\u0012\u0004\u0012\u00020\u00020\u0001:\u0001\fB\u0007¢\u0006\u0004\b\u0003\u0010\u0004J$\u0010\u0005\u001a\b\u0012\u0004\u0012\u00020\u00020\u00062\u0006\u0010\u0007\u001a\u00020\bH\u0017b\f\b\t\u0012\b\b\n\u0012\u0004\b\b(\u000b¨\u0006\r&quot;}, d2 = {&quot;Lcom/owncloud/android/lib/resources/users/DeletePrivateKeyRemoteOperation;&quot;, &quot;Lcom/owncloud/android/lib/common/operations/RemoteOperation;&quot;, &quot;&quot;, &quot;&lt;init&gt;&quot;, &quot;()V&quot;, &quot;run&quot;, &quot;Lcom/owncloud/android/lib/common/operations/RemoteOperationResult;&quot;, &quot;client&quot;, &quot;Lcom/nextcloud/common/NextcloudClient;&quot;, &quot;Lkotlin/Deprecated;&quot;, &quot;message&quot;, &quot;Deprecated in Java&quot;, &quot;Companion&quot;, &quot;library&quot;}, k = 1, mv = {2, 4, 0}, xi = 48)
+    17  public final class DeletePrivateKeyRemoteOperation extends RemoteOperation&lt;Unit&gt; {
+&gt;   18      private static final String PRIVATE_KEY_URL = &quot;/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key&quot;;
+    19      private static final String TAG = &quot;DeletePrivateKeyRemoteOperation&quot;;
+    20  
+    21      @Override // com.owncloud.android.lib.common.operations.RemoteOperation
+    22      @Deprecated(message = &quot;Deprecated in Java&quot;)
+    23      public RemoteOperationResult&lt;Unit&gt; run(NextcloudClient client) throws Throwable {
+    24          Intrinsics.checkNotNullParameter(client, &quot;client&quot;);</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M020 · K-9 Mail 23.1 · <code>NET-TRUST</code></h2><p><b>Tin cậy CA do người dùng cài (user trust anchor)</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>user certificates trusted</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M021 · DAVx5 4.5.20-ose · <code>NET-NSC</code></h2><p><b>network_security_config cho phép cleartext</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>cleartextTrafficPermitted=&quot;true&quot;</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M022 · RedReader 1.26 · <code>NET-CLEAR</code></h2><p><b>Cho phép lưu lượng HTTP không mã hoá</b><br><code>AndroidManifest.xml:18</code></p><p class='ev'>android:usesCleartextTraffic=&quot;true&quot;</p><pre>    12              &lt;action android:name=&quot;android.intent.action.PROCESS_TEXT&quot;/&gt;
+    13              &lt;data android:mimeType=&quot;text/plain&quot;/&gt;
+    14          &lt;/intent&gt;
+    15      &lt;/queries&gt;
+    16      &lt;permission android:name=&quot;org.quantumbadger.redreader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    17      &lt;uses-permission android:name=&quot;org.quantumbadger.redreader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   18      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:dataExtractionRules=&quot;@xml/data_extraction_rules&quot; android:extractNativeLibs=&quot;true&quot; android:fullBackupContent=&quot;@xml/backup_rules&quot; android:hardwareAccelerated=&quot;true&quot; android:icon=&quot;@mipmap/icon&quot; android:label=&quot;@string/app_name&quot; android:largeHeap=&quot;true&quot; android:localeConfig=&quot;@xml/locales_config&quot; android:name=&quot;org.quantumbadger.redreader.RedReader&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/RR.Startup&quot; android:usesCleartextTraffic=&quot;true&quot;&gt;
+    19          &lt;meta-data android:name=&quot;android.max_aspect&quot; android:value=&quot;3.0&quot;/&gt;
+    20          &lt;meta-data android:name=&quot;com.lge.support.SPLIT_WINDOW&quot; android:value=&quot;true&quot;/&gt;
+    21          &lt;meta-data android:name=&quot;android.webkit.WebView.MetricsOptOut&quot; android:value=&quot;true&quot;/&gt;
+    22          &lt;activity android:alwaysRetainTaskState=&quot;true&quot; android:clearTaskOnLaunch=&quot;false&quot; android:configChanges=&quot;keyboardHidden|orientation|screenSize&quot; android:exported=&quot;true&quot; android:finishOnTaskLaunch=&quot;false&quot; android:name=&quot;org.quantumbadger.redreader.activities.MainActivity&quot;&gt;
+    23              &lt;intent-filter&gt;
+    24                  &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</pre></section><section><h2>M023 · Gadgetbridge 0.94.0 · <code>CRY-HASH</code></h2><p><b>Hàm băm yếu cho dữ liệu nhạy cảm</b><br><code>nodomain/freeyourgadget/gadgetbridge/util/CheckSums.java:108</code></p><p class='ev'>MessageDigest messageDigest = MessageDigest.getInstance(&quot;MD5&quot;);</p><pre>   102          crc32.update(bArr);
+   103          return (int) crc32.getValue();
+   104      }
+   105  
+   106      public static byte[] md5(byte[] bArr) {
+   107          try {
+&gt;  108              MessageDigest messageDigest = MessageDigest.getInstance(&quot;MD5&quot;);
+   109              messageDigest.update(bArr);
+   110              return messageDigest.digest();
+   111          } catch (NoSuchAlgorithmException e) {
+   112              LOG.error(&quot;Failed to get md5 digest&quot;, (Throwable) e);
+   113              return null;
+   114          }</pre><p class='m'>Ghi chú của công cụ: MD5/SHA-1 không nên dùng để băm mật khẩu.</p></section><section><h2>M024 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/util/FileUtils.java:182</code></p><p class='ev'>File file = new File(getExternalFilesDir(), str);</p><pre>   176              }
+   177          }
+   178          return file.delete();
+   179      }
+   180  
+   181      public static File getExternalFile(String str) throws IOException {
+&gt;  182          File file = new File(getExternalFilesDir(), str);
+   183          File parentFile = file.getParentFile();
+   184          if (parentFile.exists() || parentFile.mkdirs()) {
+   185              return file;
+   186          }
+   187          _UtilJvmKt$$ExternalSyntheticLambda0.m$2(file.getParent(), &quot;Unable to create directory &quot;);
+   188          return null;</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M025 · Gadgetbridge 0.94.0 · <code>WEB-IFACE</code></h2><p><b>WebView addJavascriptInterface</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java:113</code></p><p class='ev'>this.myWebView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), &quot;GBReqInt&quot;);</p><pre>   107          settings.setDatabaseEnabled(true);
+   108          settings.setAllowContentAccess(true);
+   109          settings.setAllowFileAccess(true);
+   110          settings.setAllowFileAccessFromFileURLs(true);
+   111          this.myWebView.addJavascriptInterface(new JSInterface(gBDevice, uuidFromString), &quot;GBjs&quot;);
+   112          this.myWebView.addJavascriptInterface(new ActivityJSInterface(), &quot;GBActivity&quot;);
+&gt;  113          this.myWebView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), &quot;GBReqInt&quot;);
+   114          this.myWebView.loadUrl(&quot;file:///android_asset/app_config/configure.html?rand=&quot; + (Math.random() * 500.0d));
+   115      }
+   116  
+   117      @Override // androidx.activity.ComponentActivity, android.app.Activity
+   118      public final void onNewIntent(Intent intent) {
+   119          intent.setFlags(268468224);</pre><p class='m'>Ghi chú của công cụ: Có thể cho JS gọi vào mã native.</p></section><section><h2>M026 · Gadgetbridge 0.94.0 · <code>CFG-EXPORT</code></h2><p><b>Thành phần exported không bảo vệ: CyclingLiveDataActivity</b><br><code>AndroidManifest.xml:519</code></p><p class='ev'>nodomain.freeyourgadget.gadgetbridge.devices.cycling_sensor.activity.CyclingLiveDataActivity</p><pre>   513          &lt;activity android:label=&quot;WakeActivity&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.WakeActivity&quot;/&gt;
+   514          &lt;activity android:exported=&quot;true&quot; android:label=&quot;OpenTracks controller and intent receiver&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.externalevents.opentracks.OpenTracksController&quot;/&gt;
+   515          &lt;activity android:label=&quot;@string/menuitem_calendar&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardCalendarActivity&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2&quot;/&gt;
+   516          &lt;activity android:label=&quot;@string/pref_dashboard_manage_widgets_title&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardWidgetsActivity&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.DashboardPreferencesActivity&quot;/&gt;
+   517          &lt;activity android:label=&quot;@string/pref_dashboard_widget_settings&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.dashboard.WidgetInstanceSettingsActivity&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.dashboard.DashboardWidgetsActivity&quot;/&gt;
+   518          &lt;activity android:exported=&quot;false&quot; android:launchMode=&quot;singleInstance&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.CameraActivity&quot;/&gt;
+&gt;  519          &lt;activity android:exported=&quot;true&quot; android:launchMode=&quot;singleInstance&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.devices.cycling_sensor.activity.CyclingLiveDataActivity&quot;/&gt;
+   520          &lt;activity android:exported=&quot;true&quot; android:label=&quot;@string/activity_send_waypoint_titel&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.devices.garmin.actions.GarminSendWaypointActivity&quot;&gt;
+   521              &lt;intent-filter&gt;
+   522                  &lt;action android:name=&quot;android.intent.action.VIEW&quot;/&gt;
+   523                  &lt;action android:name=&quot;android.intent.action.SEND&quot;/&gt;
+   524                  &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+   525                  &lt;category android:name=&quot;android.intent.category.BROWSABLE&quot;/&gt;</pre><p class='m'>Ghi chú của công cụ: Không có intent-filter: không có lý do để app khác gọi trực tiếp.</p></section><section><h2>M027 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:386</code></p><p class='ev'>File file = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference&quot;);</p><pre>   380                                  int i8 = i5;
+   381                                  DataManagementActivity dataManagementActivity2 = dataManagementActivity;
+   382                                  Logger logger3 = DataManagementActivity.LOG;
+   383                                  switch (i8) {
+   384                                      case 0:
+   385                                          try {
+&gt;  386                                              File file = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference&quot;);
+   387                                              SharedPreferences sharedPreferences = DataManagementActivity.sharedPrefs;
+   388                                              Logger logger4 = ImportExportSharedPreferences.LOG;
+   389                                              FileWriter fileWriter = new FileWriter(file);
+   390                                              try {
+   391                                                  ImportExportSharedPreferences.export(sharedPreferences, fileWriter);
+   392                                                  fileWriter.close();</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M028 · Jellyfin 2.7.3 · <code>WEB-IFACE</code></h2><p><b>WebView addJavascriptInterface</b><br><code>org/jellyfin/mobile/webapp/WebViewFragment.java:418</code></p><p class='ev'>webView.addJavascriptInterface(externalPlayer, &quot;ExternalPlayer&quot;);</p><pre>   412          webView.addJavascriptInterface(getNativePlayer(), &quot;NativePlayer&quot;);
+   413          ExternalPlayer externalPlayer = this.externalPlayer;
+   414          if (externalPlayer == null) {
+   415              no1.k0(&quot;externalPlayer&quot;);
+   416              throw null;
+   417          }
+&gt;  418          webView.addJavascriptInterface(externalPlayer, &quot;ExternalPlayer&quot;);
+   419          webView.addJavascriptInterface(getMediaSegments(), &quot;MediaSegments&quot;);
+   420          webView.loadUrl(zt3.c1(getServer().getHostname(), &#x27;/&#x27;) + &quot;/&quot;);
+   421          webView.postDelayed(this.timeoutRunnable, 10000L);
+   422          webView.postDelayed(this.showLoadingContainerRunnable, 1000L);
+   423      }
+   424  </pre><p class='m'>Ghi chú của công cụ: Có thể cho JS gọi vào mã native.</p></section><section><h2>M029 · KeePassDX 4.5.5 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:583</code></p><p class='ev'>Log.d(str, &quot;Autofill OTP token web id: &quot; + tag + &quot; &quot; + (htmlInfo3 != null ? htmlInfo3.getAttributes() : null));</p><pre>   577                      } else {
+   578                          tag = null;
+   579                      }
+   580                      ViewStructure.HtmlInfo htmlInfo3 = node.getHtmlInfo();
+   581                      if (htmlInfo3 != null) {
+   582                      }
+&gt;  583                      Log.d(str, &quot;Autofill OTP token web id: &quot; + tag + &quot; &quot; + (htmlInfo3 != null ? htmlInfo3.getAttributes() : null));
+   584                      return true;
+   585                  }
+   586                  continue;
+   587              } else if (iHashCode == 3373707) {
+   588                  if (lowerCase3.equals(HintConstants.AUTOFILL_HINT_NAME)) {
+   589                      Object second2 = pair.second;</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M030 · KeePassDX 4.5.5 · <code>NET-HTTP</code></h2><p><b>Chuỗi http:// trong mã (cleartext)</b><br><code>com/kunzisoft/keepass/utils/UriUtil.java:216</code></p><p class='ev'>str = &quot;http://&quot; + str;</p><pre>   210      public final void openUrl(Context context, String str) {
+   211          Intrinsics.checkNotNullParameter(context, &quot;&lt;this&gt;&quot;);
+   212          try {
+   213              String str2 = str;
+   214              if (str2 != null &amp;&amp; str2.length() != 0) {
+   215                  if (!StringsKt.contains$default((CharSequence) str, (CharSequence) WebOrigin.WEB_ORIGIN_SCHEME_SEPARATOR, false, 2, (Object) null)) {
+&gt;  216                      str = &quot;http://&quot; + str;
+   217                  }
+   218                  context.startActivity(new Intent(&quot;android.intent.action.VIEW&quot;, Uri.parse(str)));
+   219              }
+   220          } catch (Exception unused) {
+   221              Toast.makeText(context, R.string.no_url_handler, 1).show();
+   222          }</pre><p class='m'>Ghi chú của công cụ: Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).</p></section><section><h2>M031 · Jellyfin 2.7.3 · <code>WEB-IFACE</code></h2><p><b>WebView addJavascriptInterface</b><br><code>org/jellyfin/mobile/webapp/WebViewFragment.java:412</code></p><p class='ev'>webView.addJavascriptInterface(getNativePlayer(), &quot;NativePlayer&quot;);</p><pre>   406          WebSettings settings = webView.getSettings();
+   407          settings.getClass();
+   408          WebViewUtilsKt.applyDefault(settings);
+   409          Context contextRequireContext = requireContext();
+   410          contextRequireContext.getClass();
+   411          webView.addJavascriptInterface(new NativeInterface(contextRequireContext), &quot;NativeInterface&quot;);
+&gt;  412          webView.addJavascriptInterface(getNativePlayer(), &quot;NativePlayer&quot;);
+   413          ExternalPlayer externalPlayer = this.externalPlayer;
+   414          if (externalPlayer == null) {
+   415              no1.k0(&quot;externalPlayer&quot;);
+   416              throw null;
+   417          }
+   418          webView.addJavascriptInterface(externalPlayer, &quot;ExternalPlayer&quot;);</pre><p class='m'>Ghi chú của công cụ: Có thể cho JS gọi vào mã native.</p></section><section><h2>M032 · Nextcloud 35.0.0 · <code>NET-TRUST</code></h2><p><b>Tin cậy CA do người dùng cài (user trust anchor)</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>user certificates trusted</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M033 · Nextcloud 35.0.0 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/nextcloud/android/sso/Constants.java:17</code></p><p class='ev'>public static final String SSO_TOKEN = &quot;token&quot;;</p><pre>    11      public static final String EXCEPTION_UNSUPPORTED_METHOD = &quot;CE_3&quot;;
+    12      public static final String NEXTCLOUD_FILES_ACCOUNT = &quot;NextcloudFilesAccount&quot;;
+    13      public static final String NEXTCLOUD_SSO = &quot;NextcloudSSO&quot;;
+    14      public static final String NEXTCLOUD_SSO_EXCEPTION = &quot;NextcloudSsoException&quot;;
+    15      public static final String SSO_SERVER_URL = &quot;server_url&quot;;
+    16      public static final String SSO_SHARED_PREFERENCE = &quot;single-sign-on&quot;;
+&gt;   17      public static final String SSO_TOKEN = &quot;token&quot;;
+    18      public static final String SSO_USER_ID = &quot;user_id&quot;;
+    19  
+    20      private Constants() {
+    21      }
+    22  }</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M034 · Gadgetbridge 0.94.0 · <code>CRY-HASH</code></h2><p><b>Hàm băm yếu cho dữ liệu nhạy cảm</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/pebble/webview/JSInterface.java:121</code></p><p class='ev'>MessageDigest messageDigest = MessageDigest.getInstance(&quot;SHA-1&quot;);</p><pre>   115      }
+   116  
+   117      @JavascriptInterface
+   118      public String getAppLocalstoragePrefix() {
+   119          String str = this.device.mAddress + this.mUuid.toString();
+   120          try {
+&gt;  121              MessageDigest messageDigest = MessageDigest.getInstance(&quot;SHA-1&quot;);
+   122              byte[] bytes = str.getBytes(StandardCharsets.UTF_8);
+   123              messageDigest.update(bytes, 0, bytes.length);
+   124              byte[] bArrDigest = messageDigest.digest();
+   125              StringBuilder sb = new StringBuilder();
+   126              for (byte b : bArrDigest) {
+   127                  sb.append(String.format(&quot;%02X&quot;, Byte.valueOf(b)));</pre><p class='m'>Ghi chú của công cụ: MD5/SHA-1 không nên dùng để băm mật khẩu.</p></section><section><h2>M035 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/adapter/fossil_hr/FossilHRWatchAdapter.java:2531</code></p><p class='ev'>new FileOutputStream(new File(qHybridSupport.context.getExternalFilesDir(null), &quot;hr_background.bin&quot;), false).write(bArr);</p><pre>  2525          if (bArr == null) {
+  2526              new File(qHybridSupport.context.getExternalFilesDir(null), &quot;hr_background.bin&quot;).delete();
+  2527              loadBackground();
+  2528          } else {
+  2529              this.backGroundImage = new AssetImage(0, 0, 0, bArr);
+  2530              try {
+&gt; 2531                  new FileOutputStream(new File(qHybridSupport.context.getExternalFilesDir(null), &quot;hr_background.bin&quot;), false).write(bArr);
+  2532              } catch (IOException e) {
+  2533                  this.LOG.error(&quot;error saving background&quot;, (Throwable) e);
+  2534                  GB.toast(&quot;error persistent saving background&quot;, 1, 3);
+  2535              }
+  2536          }
+  2537          renderWidgets();</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M036 · AntennaPod 3.12.2 · <code>NET-TRUST</code></h2><p><b>Tin cậy CA do người dùng cài (user trust anchor)</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>user certificates trusted</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M037 · AntennaPod 3.12.2 · <code>NET-NSC</code></h2><p><b>network_security_config cho phép cleartext</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>cleartextTrafficPermitted=&quot;true&quot;</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M038 · Conversations 2.20.4 · <code>CRY-HASH</code></h2><p><b>Hàm băm yếu cho dữ liệu nhạy cảm</b><br><code>eu/siacs/conversations/services/XmppConnectionService.java:1695</code></p><p class='ev'>strBytesToHex = CryptoHelper.bytesToHex(MessageDigest.getInstance(&quot;SHA-1&quot;).digest((account.jid.asBareJid().toString() + &quot;\u0000&quot; + string2).getBytes(StandardCha</p><pre>  1689          while (i &lt; size) {
+  1690              int i2 = i + 1;
+  1691              Account account = (Account) arrayList.get(i);
+  1692              if (string2 != null) {
+  1693                  Pattern pattern = CryptoHelper.UUID_PATTERN;
+  1694                  try {
+&gt; 1695                      strBytesToHex = CryptoHelper.bytesToHex(MessageDigest.getInstance(&quot;SHA-1&quot;).digest((account.jid.asBareJid().toString() + &quot;\u0000&quot; + string2).getBytes(StandardCharsets.UTF_8)));
+  1696                  } catch (Exception unused) {
+  1697                      strBytesToHex = &quot;&quot;;
+  1698                  }
+  1699                  if (strBytesToHex.equals(string)) {
+  1700                      z = true;
+  1701                  } else {</pre><p class='m'>Ghi chú của công cụ: MD5/SHA-1 không nên dùng để băm mật khẩu.</p></section><section><h2>M039 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/util/healthconnect/GadgetbridgeDataExporter.java:115</code></p><p class='ev'>File file = new File(FileUtils.getExternalFilesDir(), Config.CC.m(&quot;gb_export_&quot;, StringsKt__StringsJVMKt.replace$default(aliasOrName, &quot; &quot;, &quot;_&quot;), &quot;_&quot;, str2, &quot;.jso</p><pre>   109              jSONObject4.put(&quot;exercise_sessions&quot;, exportWorkouts(lockHandlerAcquireReadOnly, gBDevice, epochMilli, epochMilli2));
+   110              CollectionsKt__CollectionsKt.closeFinally(lockHandlerAcquireReadOnly, null);
+   111              jSONObject.put(&quot;data&quot;, jSONObject4);
+   112              String str2 = ZonedDateTime.now().format(DateTimeFormatter.ofPattern(&quot;yyyyMMdd_HHmmss&quot;));
+   113              String aliasOrName = gBDevice.getAliasOrName();
+   114              aliasOrName.getClass();
+&gt;  115              File file = new File(FileUtils.getExternalFilesDir(), Config.CC.m(&quot;gb_export_&quot;, StringsKt__StringsJVMKt.replace$default(aliasOrName, &quot; &quot;, &quot;_&quot;), &quot;_&quot;, str2, &quot;.json&quot;));
+   116              String string = jSONObject.toString(2);
+   117              string.getClass();
+   118              OperationKt.writeText$default(file, string);
+   119              logger.info(&quot;[HC_SYNC] Export complete: {}&quot;, file.getAbsolutePath());
+   120              return file;
+   121          } catch (Throwable th) {</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M040 · RedReader 1.26 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:18</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    12              &lt;action android:name=&quot;android.intent.action.PROCESS_TEXT&quot;/&gt;
+    13              &lt;data android:mimeType=&quot;text/plain&quot;/&gt;
+    14          &lt;/intent&gt;
+    15      &lt;/queries&gt;
+    16      &lt;permission android:name=&quot;org.quantumbadger.redreader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    17      &lt;uses-permission android:name=&quot;org.quantumbadger.redreader.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   18      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:dataExtractionRules=&quot;@xml/data_extraction_rules&quot; android:extractNativeLibs=&quot;true&quot; android:fullBackupContent=&quot;@xml/backup_rules&quot; android:hardwareAccelerated=&quot;true&quot; android:icon=&quot;@mipmap/icon&quot; android:label=&quot;@string/app_name&quot; android:largeHeap=&quot;true&quot; android:localeConfig=&quot;@xml/locales_config&quot; android:name=&quot;org.quantumbadger.redreader.RedReader&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/RR.Startup&quot; android:usesCleartextTraffic=&quot;true&quot;&gt;
+    19          &lt;meta-data android:name=&quot;android.max_aspect&quot; android:value=&quot;3.0&quot;/&gt;
+    20          &lt;meta-data android:name=&quot;com.lge.support.SPLIT_WINDOW&quot; android:value=&quot;true&quot;/&gt;
+    21          &lt;meta-data android:name=&quot;android.webkit.WebView.MetricsOptOut&quot; android:value=&quot;true&quot;/&gt;
+    22          &lt;activity android:alwaysRetainTaskState=&quot;true&quot; android:clearTaskOnLaunch=&quot;false&quot; android:configChanges=&quot;keyboardHidden|orientation|screenSize&quot; android:exported=&quot;true&quot; android:finishOnTaskLaunch=&quot;false&quot; android:name=&quot;org.quantumbadger.redreader.activities.MainActivity&quot;&gt;
+    23              &lt;intent-filter&gt;
+    24                  &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.</p></section><section><h2>M041 · Gadgetbridge 0.94.0 · <code>WEB-IFACE</code></h2><p><b>WebView addJavascriptInterface</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java:111</code></p><p class='ev'>this.myWebView.addJavascriptInterface(new JSInterface(gBDevice, uuidFromString), &quot;GBjs&quot;);</p><pre>   105          settings.setJavaScriptEnabled(true);
+   106          settings.setDomStorageEnabled(true);
+   107          settings.setDatabaseEnabled(true);
+   108          settings.setAllowContentAccess(true);
+   109          settings.setAllowFileAccess(true);
+   110          settings.setAllowFileAccessFromFileURLs(true);
+&gt;  111          this.myWebView.addJavascriptInterface(new JSInterface(gBDevice, uuidFromString), &quot;GBjs&quot;);
+   112          this.myWebView.addJavascriptInterface(new ActivityJSInterface(), &quot;GBActivity&quot;);
+   113          this.myWebView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), &quot;GBReqInt&quot;);
+   114          this.myWebView.loadUrl(&quot;file:///android_asset/app_config/configure.html?rand=&quot; + (Math.random() * 500.0d));
+   115      }
+   116  
+   117      @Override // androidx.activity.ComponentActivity, android.app.Activity</pre><p class='m'>Ghi chú của công cụ: Có thể cho JS gọi vào mã native.</p></section><section><h2>M042 · Gadgetbridge 0.94.0 · <code>CRY-HASH</code></h2><p><b>Hàm băm yếu cho dữ liệu nhạy cảm</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/withingssteelhr/AuthenticationHandler.java:34</code></p><p class='ev'>return MessageDigest.getInstance(&quot;SHA1&quot;).digest(byteBufferAllocate.array());</p><pre>    28      public static byte[] createResponse(Challenge challenge) {
+    29          try {
+    30              ByteBuffer byteBufferAllocate = ByteBuffer.allocate(challenge.challenge.length + challenge.macAddress.getBytes().length + &quot;2EM5zNP37QzM00hmP6BFTD92nG15XwNd&quot;.getBytes().length);
+    31              byteBufferAllocate.put(challenge.challenge);
+    32              byteBufferAllocate.put(challenge.macAddress.getBytes());
+    33              byteBufferAllocate.put(&quot;2EM5zNP37QzM00hmP6BFTD92nG15XwNd&quot;.getBytes());
+&gt;   34              return MessageDigest.getInstance(&quot;SHA1&quot;).digest(byteBufferAllocate.array());
+    35          } catch (NoSuchAlgorithmException e) {
+    36              logger.error(&quot;Failed to create response to challenge: &quot; + e.getMessage());
+    37              return new byte[0];
+    38          }
+    39      }
+    40  </pre><p class='m'>Ghi chú của công cụ: MD5/SHA-1 không nên dùng để băm mật khẩu.</p></section><section><h2>M043 · KeePassDX 4.5.5 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>com/kunzisoft/keepass/activities/dialogs/SetMainCredentialDialogFragment.java:967</code></p><p class='ev'>Log.e(SetMainCredentialDialogFragment.TAG, &quot;Unable  to create the KeyFile.&quot;, e);</p><pre>   961                              CloseableKt.closeFinally(outputStream, th);
+   962                              throw th2;
+   963                          }
+   964                      }
+   965                  }
+   966              } catch (IOException e) {
+&gt;  967                  Log.e(SetMainCredentialDialogFragment.TAG, &quot;Unable  to create the KeyFile.&quot;, e);
+   968              }
+   969              return Unit.INSTANCE;
+   970          }
+   971      }
+   972  
+   973      private final void createKeyFile(Uri uri) {</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M044 · Nextcloud 35.0.0 · <code>WEB-JS</code></h2><p><b>WebView bật JavaScript</b><br><code>com/owncloud/android/ui/activity/ExternalSiteWebView.java:147</code></p><p class='ev'>webSettings.setJavaScriptEnabled(true);</p><pre>   141          webSettings.setDisplayZoomControls(false);
+   142          webSettings.setUseWideViewPort(true);
+   143          webSettings.setLoadWithOverviewMode(true);
+   144          webSettings.setUserAgentString(MainApp.getUserAgent());
+   145          webSettings.setSaveFormData(false);
+   146          webSettings.setAllowFileAccess(false);
+&gt;  147          webSettings.setJavaScriptEnabled(true);
+   148          webSettings.setDomStorageEnabled(true);
+   149          if ((getApplicationInfo().flags &amp; 2) != 0) {
+   150              webSettings.setCacheMode(2);
+   151          }
+   152      }
+   153  </pre><p class='m'>Ghi chú của công cụ: Rủi ro khi kết hợp tải nội dung không tin cậy / file://.</p></section><section><h2>M045 · DAVx5 4.5.20-ose · <code>NET-TRUST</code></h2><p><b>Tin cậy CA do người dùng cài (user trust anchor)</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>user certificates trusted</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M046 · RedReader 1.26 · <code>NET-HTTP</code></h2><p><b>Chuỗi http:// trong mã (cleartext)</b><br><code>org/quantumbadger/redreader/common/LinkHandler.java:526</code></p><p class='ev'>return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, &quot;http://i.qkme.me/%s.jpg&quot;, Arrays.copyOf(new Object[]{strGroup3}, 1))), imageSize, </p><pre>   520                      if (str3.endsWith(&quot;.gif&quot;)) {
+   521                          return new ImageInfo(new ImageUrlInfo(uriString, imageSize, i), null, null, null, null, null, null, null, null, null, mediaType3, StringsKt.contains$default(strAsciiLowercase, &quot;.redd.it&quot;) ? hasAudio : hasAudio2, 1022);
+   522                      }
+   523                  }
+   524                  Matcher matcher5 = qkmePattern1.matcher(str);
+   525                  if (matcher5.find() &amp;&amp; (strGroup3 = matcher5.group(1)) != null &amp;&amp; strGroup3.length() &gt; 2) {
+&gt;  526                      return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, &quot;http://i.qkme.me/%s.jpg&quot;, Arrays.copyOf(new Object[]{strGroup3}, 1))), imageSize, i), null, null, null, null, null, null, null, null, null, mediaType, hasAudio, 1022);
+   527                  }
+   528                  Matcher matcher6 = qkmePattern2.matcher(str);
+   529                  if (matcher6.find() &amp;&amp; (strGroup2 = matcher6.group(1)) != null &amp;&amp; strGroup2.length() &gt; 2) {
+   530                      return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, &quot;http://i.qkme.me/%s.jpg&quot;, Arrays.copyOf(new Object[]{strGroup2}, 1))), imageSize, i), null, null, null, null, null, null, null, null, null, mediaType, hasAudio, 1022);
+   531                  }
+   532                  Matcher matcher7 = lvmePattern.matcher(str);</pre><p class='m'>Ghi chú của công cụ: Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).</p></section><section><h2>M047 · RedReader 1.26 · <code>NET-HTTP</code></h2><p><b>Chuỗi http:// trong mã (cleartext)</b><br><code>org/quantumbadger/redreader/common/LinkHandler.java:530</code></p><p class='ev'>return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, &quot;http://i.qkme.me/%s.jpg&quot;, Arrays.copyOf(new Object[]{strGroup2}, 1))), imageSize, </p><pre>   524                  Matcher matcher5 = qkmePattern1.matcher(str);
+   525                  if (matcher5.find() &amp;&amp; (strGroup3 = matcher5.group(1)) != null &amp;&amp; strGroup3.length() &gt; 2) {
+   526                      return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, &quot;http://i.qkme.me/%s.jpg&quot;, Arrays.copyOf(new Object[]{strGroup3}, 1))), imageSize, i), null, null, null, null, null, null, null, null, null, mediaType, hasAudio, 1022);
+   527                  }
+   528                  Matcher matcher6 = qkmePattern2.matcher(str);
+   529                  if (matcher6.find() &amp;&amp; (strGroup2 = matcher6.group(1)) != null &amp;&amp; strGroup2.length() &gt; 2) {
+&gt;  530                      return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, &quot;http://i.qkme.me/%s.jpg&quot;, Arrays.copyOf(new Object[]{strGroup2}, 1))), imageSize, i), null, null, null, null, null, null, null, null, null, mediaType, hasAudio, 1022);
+   531                  }
+   532                  Matcher matcher7 = lvmePattern.matcher(str);
+   533                  if (!matcher7.find() || (strGroup = matcher7.group(1)) == null || strGroup.length() &lt;= 2) {
+   534                      return null;
+   535                  }
+   536                  return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, &quot;http://www.livememe.com/%s.jpg&quot;, Arrays.copyOf(new Object[]{strGroup}, 1))), imageSize, i), null, null, null, null, null, null, null, null, null, mediaType, hasAudio, 1022);</pre><p class='m'>Ghi chú của công cụ: Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).</p></section><section><h2>M048 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/AsynchronousResponse.java:644</code></p><p class='ev'>File file = new File(huaweiSupportProvider2.context.getExternalFilesDir(null), &quot;ephemeris.zip&quot;);</p><pre>   638                  logger5.error(&quot;Error to send sendEphemerisSingleFileInfoResponse&quot;);
+   639                  return;
+   640              }
+   641          }
+   642          ((ArrayList) huaweiEphemerisManager.currentRequest.tracer).add(str4);
+   643          try {
+&gt;  644              File file = new File(huaweiSupportProvider2.context.getExternalFilesDir(null), &quot;ephemeris.zip&quot;);
+   645              if (!file.exists()) {
+   646                  throw new Exception(&quot;Ephemeris handleSingleFileIncomingRequest file does not exists&quot;);
+   647              }
+   648              byte[] zIPFileContent = HuaweiEphemerisManager.getZIPFileContent(file, ((String) huaweiEphemerisManager.currentRequest.executor) + File.separator + str4);
+   649              if (zIPFileContent == null || zIPFileContent.length == 0) {
+   650                  throw new Exception(&quot;Ephemeris handleSingleFileIncomingRequest file is empty&quot;);</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M049 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1145</code></p><p class='ev'>File file2 = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference_&quot; + device.identifier.replaceAll(&quot;[\u0000/:\\r\\n\\\\]&quot;, &quot;_&quot;));</p><pre>  1139                                                  int i10 = 0;
+  1140                                                  while (i10 &lt; size) {
+  1141                                                      int i11 = i10 + 1;
+  1142                                                      Device device = (Device) arrayListLoadAll.get(i10);
+  1143                                                      SharedPreferences deviceSpecificSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(device.identifier);
+  1144                                                      if (DataManagementActivity.sharedPrefs != null) {
+&gt; 1145                                                          File file2 = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference_&quot; + device.identifier.replaceAll(&quot;[\u0000/:\\r\\n\\\\]&quot;, &quot;_&quot;));
+  1146                                                          try {
+  1147                                                              Logger logger7 = ImportExportSharedPreferences.LOG;
+  1148                                                              FileWriter fileWriter2 = new FileWriter(file2);
+  1149                                                              try {
+  1150                                                                  ImportExportSharedPreferences.export(deviceSpecificSharedPrefs, fileWriter2);
+  1151                                                                  fileWriter2.close();</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M050 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/AsynchronousResponse.java:391</code></p><p class='ev'>File file = new File(huaweiSupportProvider.context.getExternalFilesDir(null), &quot;ephemeris.zip&quot;);</p><pre>   385              HuaweiSupportProvider huaweiSupportProvider = huaweiEphemerisManager.support;
+   386              Logger logger = HuaweiEphemerisManager.LOG;
+   387              logger.debug(&quot;handleOperatorRequest: operationInfo {} operationTime: {}&quot;, Byte.valueOf(b), Integer.valueOf(i));
+   388              if (b == 1) {
+   389                  huaweiEphemerisManager.currentRequest = null;
+   390                  try {
+&gt;  391                      File file = new File(huaweiSupportProvider.context.getExternalFilesDir(null), &quot;ephemeris.zip&quot;);
+   392                      if (!file.exists()) {
+   393                          throw new Exception(&quot;Ephemeris file does not exists&quot;);
+   394                      }
+   395                      byte[] zIPFileContent = HuaweiEphemerisManager.getZIPFileContent(file, &quot;time&quot;);
+   396                      byte[] zIPFileContent2 = HuaweiEphemerisManager.getZIPFileContent(file, &quot;ephemeris_config.json&quot;);
+   397                      if (zIPFileContent == null || zIPFileContent2 == null) {</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M051 · KeePassDX 4.5.5 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:41</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    35              &lt;data android:mimeType=&quot;application/octet-stream&quot;/&gt;
+    36          &lt;/intent&gt;
+    37      &lt;/queries&gt;
+    38      &lt;uses-permission android:name=&quot;android.permission.USE_FINGERPRINT&quot;/&gt;
+    39      &lt;permission android:name=&quot;com.kunzisoft.keepass.libre.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    40      &lt;uses-permission android:name=&quot;com.kunzisoft.keepass.libre.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   41      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:backupAgent=&quot;com.kunzisoft.keepass.backup.SettingsBackupAgent&quot; android:dataExtractionRules=&quot;@xml/backup_rules&quot; android:extractNativeLibs=&quot;true&quot; android:fullBackupContent=&quot;@xml/old_backup_rules&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;@string/app_name&quot; android:largeHeap=&quot;true&quot; android:localeConfig=&quot;@xml/_generated_res_locale_config&quot; android:name=&quot;com.kunzisoft.keepass.app.App&quot; android:resizeableActivity=&quot;true&quot; android:roundIcon=&quot;@mipmap/ic_launcher_round&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/KeepassDXStyle.Night&quot;&gt;
+    42          &lt;meta-data android:name=&quot;com.google.android.backup.api_key&quot; android:value=&quot;unused&quot;/&gt;
+    43          &lt;activity android:configChanges=&quot;keyboardHidden&quot; android:exported=&quot;true&quot; android:launchMode=&quot;singleTop&quot; android:name=&quot;com.kunzisoft.keepass.activities.FileDatabaseSelectActivity&quot; android:windowSoftInputMode=&quot;stateAlwaysHidden&quot;&gt;
+    44              &lt;intent-filter&gt;
+    45                  &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+    46                  &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+    47              &lt;/intent-filter&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.</p></section><section><h2>M052 · Nextcloud 35.0.0 · <code>NET-HTTP</code></h2><p><b>Chuỗi http:// trong mã (cleartext)</b><br><code>com/nextcloud/ui/ClientIntegrationScreenKt.java:500</code></p><p class='ev'>ClientIntegrationScreen(new ClientIntegrationUI(0.1d, new Layout(LayoutOrientation.HORIZONTAL, CollectionsKt.emptyList())), &quot;http://nextcloud.local&quot;, composerSt</p><pre>   494          if (!composerStartRestartGroup.shouldExecute(i != 0, i &amp; 1)) {
+   495              composerStartRestartGroup.skipToGroupEnd();
+   496          } else {
+   497              if (ComposerKt.isTraceInProgress()) {
+   498                  ComposerKt.traceEventStart(-903695376, i, -1, &quot;com.nextcloud.ui.ClientIntegrationScreenPreviewEmpty (ClientIntegrationScreen.kt:162)&quot;);
+   499              }
+&gt;  500              ClientIntegrationScreen(new ClientIntegrationUI(0.1d, new Layout(LayoutOrientation.HORIZONTAL, CollectionsKt.emptyList())), &quot;http://nextcloud.local&quot;, composerStartRestartGroup, 48);
+   501              if (ComposerKt.isTraceInProgress()) {
+   502                  ComposerKt.traceEventEnd();
+   503              }
+   504          }
+   505          ScopeUpdateScope scopeUpdateScopeEndRestartGroup = composerStartRestartGroup.endRestartGroup();
+   506          if (scopeUpdateScopeEndRestartGroup != null) {</pre><p class='m'>Ghi chú của công cụ: Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).</p></section><section><h2>M053 · RedReader 1.26 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>org/quantumbadger/redreader/fragments/WebViewFragment$$ExternalSyntheticLambda0.java:90</code></p><p class='ev'>File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), strFilenameFromString);</p><pre>    84  
+    85      @Override // org.quantumbadger.redreader.common.FileUtils.DownloadImageToSaveSuccessCallback
+    86      public void onSuccess(ImageInfo imageInfo, CacheManager.ReadableCacheFile readableCacheFile, String str) {
+    87          LegacySaveImageCallback legacySaveImageCallback = (LegacySaveImageCallback) this.f$0;
+    88          BaseActivity baseActivity = legacySaveImageCallback.activity;
+    89          String strFilenameFromString = General.filenameFromString(imageInfo.original.url.value);
+&gt;   90          File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), strFilenameFromString);
+    91          if (file.exists()) {
+    92              int i = 0;
+    93              while (file.exists()) {
+    94                  i++;
+    95                  file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), i + &quot;_&quot; + strFilenameFromString.substring(1));
+    96              }</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M054 · KeePassDX 4.5.5 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/kunzisoft/keepass/database/element/template/TemplateField.java:34</code></p><p class='ev'>public static final String LABEL_PUBLIC_KEY = &quot;Public key&quot;;</p><pre>    28      public static final String LABEL_NOTES = &quot;Notes&quot;;
+    29      public static final String LABEL_NUMBER = &quot;Number&quot;;
+    30      public static final String LABEL_PASSWORD = &quot;Password&quot;;
+    31      public static final String LABEL_PIN = &quot;PIN&quot;;
+    32      public static final String LABEL_PLACE_OF_ISSUE = &quot;Place of issue&quot;;
+    33      public static final String LABEL_PRIVATE_KEY = &quot;Private key&quot;;
+&gt;   34      public static final String LABEL_PUBLIC_KEY = &quot;Public key&quot;;
+    35      public static final String LABEL_SECURE_NOTE = &quot;Secure Note&quot;;
+    36      public static final String LABEL_SEED = &quot;Seed&quot;;
+    37      public static final String LABEL_SSID = &quot;SSID&quot;;
+    38      public static final String LABEL_STANDARD = &quot;Standard&quot;;
+    39      public static final String LABEL_TEMPLATE = &quot;Template&quot;;
+    40      public static final String LABEL_TITLE = &quot;Title&quot;;</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M055 · Nextcloud 35.0.0 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/owncloud/android/lib/resources/shares/UpdateShareRemoteOperation.java:27</code></p><p class='ev'>private static final String PARAM_PASSWORD = &quot;password&quot;;</p><pre>    21      private static final String FORMAT_EXPIRATION_DATE = &quot;yyyy-MM-dd&quot;;
+    22      private static final String PARAM_ATTRIBUTES = &quot;attributes&quot;;
+    23      private static final String PARAM_EXPIRATION_DATE = &quot;expireDate&quot;;
+    24      private static final String PARAM_HIDE_DOWNLOAD = &quot;hideDownload&quot;;
+    25      private static final String PARAM_LABEL = &quot;label&quot;;
+    26      private static final String PARAM_NOTE = &quot;note&quot;;
+&gt;   27      private static final String PARAM_PASSWORD = &quot;password&quot;;
+    28      private static final String PARAM_PERMISSIONS = &quot;permissions&quot;;
+    29      private static final String TAG = &quot;GetShareRemoteOperation&quot;;
+    30      private String attributes;
+    31      private Boolean hideFileDownload;
+    32      private int permissions;
+    33      private final long remoteId;</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M056 · Nextcloud 35.0.0 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/owncloud/android/lib/resources/users/StorePrivateKeyRemoteOperation.java:18</code></p><p class='ev'>private static final String PRIVATE_KEY_URL = &quot;/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key&quot;;</p><pre>    12  /* JADX INFO: loaded from: classes4.dex */
+    13  public class StorePrivateKeyRemoteOperation extends RemoteOperation&lt;String&gt; {
+    14      private static final String NODE_DATA = &quot;data&quot;;
+    15      private static final String NODE_OCS = &quot;ocs&quot;;
+    16      private static final String NODE_PRIVATE_KEY = &quot;private-key&quot;;
+    17      private static final String PRIVATE_KEY = &quot;privateKey&quot;;
+&gt;   18      private static final String PRIVATE_KEY_URL = &quot;/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key&quot;;
+    19      private static final String TAG = &quot;StorePrivateKeyRemoteOperation&quot;;
+    20      private final String privateKey;
+    21  
+    22      public StorePrivateKeyRemoteOperation(String str) {
+    23          this.privateKey = str;
+    24      }</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M057 · Gadgetbridge 0.94.0 · <code>CRY-WEAK</code></h2><p><b>Thuật toán/chế độ mã hoá yếu</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java:187</code></p><p class='ev'>Cipher cipher2 = Cipher.getInstance(&quot;AES/ECB/PKCS5Padding&quot;);</p><pre>   181                  if (this.bindKey == null) {
+   182                      logger.error(&quot;No bind key, unable to encrypt&quot;);
+   183                      return;
+   184                  }
+   185                  byte[] bytes2 = string.getBytes(StandardCharsets.UTF_8);
+   186                  byte[] bArr2 = this.bindKey;
+&gt;  187                  Cipher cipher2 = Cipher.getInstance(&quot;AES/ECB/PKCS5Padding&quot;);
+   188                  cipher2.init(1, new SecretKeySpec(bArr2, &quot;AES&quot;));
+   189                  bArrDoFinal = cipher2.doFinal(bytes2);
+   190                  i = 0;
+   191              }
+   192              writeMessage(transactionBuilder, new GreePackMessage(Base64.encodeToString(bArrDoFinal, 0).replace(&quot;\n&quot;, CoreConstants.EMPTY_STRING).trim(), i));
+   193          } catch (GeneralSecurityException e) {</pre><p class='m'>Ghi chú của công cụ: ECB/DES/RC4 bị coi là yếu.</p></section><section><h2>M058 · Feeder 2.23.2 · <code>NET-HTTP</code></h2><p><b>Chuỗi http:// trong mã (cleartext)</b><br><code>com/nononsenseapps/feeder/util/LinkUtilsKt.java:74</code></p><p class='ev'>return new URL(&quot;http://&quot;);</p><pre>    68  
+    69      public static final URL sloppyLinkToStrictURLNoThrows(String str) {
+    70          str.getClass();
+    71          try {
+    72              return sloppyLinkToStrictURL(str);
+    73          } catch (MalformedURLException unused) {
+&gt;   74              return new URL(&quot;http://&quot;);
+    75          }
+    76      }
+    77  
+    78      public static final URL sloppyLinkToStrictURLOrNull(String str) {
+    79          str.getClass();
+    80          try {</pre><p class='m'>Ghi chú của công cụ: Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).</p></section><section><h2>M059 · Gadgetbridge 0.94.0 · <code>CFG-EXPORT</code></h2><p><b>Thành phần exported không bảo vệ: PebbleContentProvider</b><br><code>AndroidManifest.xml:441</code></p><p class='ev'>nodomain.freeyourgadget.gadgetbridge.contentprovider.PebbleContentProvider</p><pre>   435          &lt;activity android:label=&quot;@string/title_activity_contact_details&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.ContactDetails&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.ConfigureReminders&quot; android:screenOrientation=&quot;portrait&quot; android:windowSoftInputMode=&quot;adjustResize&quot;/&gt;
+   436          &lt;activity android:label=&quot;@string/widget_screen&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreenDetailsActivity&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.widgets.WidgetScreensListActivity&quot; android:screenOrientation=&quot;portrait&quot; android:windowSoftInputMode=&quot;adjustResize&quot;/&gt;
+   437          &lt;activity android:label=&quot;@string/title_activity_world_clock_details&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.WorldClockDetails&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.ConfigureWorldClocks&quot; android:screenOrientation=&quot;portrait&quot; android:windowSoftInputMode=&quot;adjustResize&quot;/&gt;
+   438          &lt;activity android:label=&quot;@string/title_activity_vibration&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.VibrationActivity&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.ControlCenterv2&quot;/&gt;
+   439          &lt;activity android:label=&quot;@string/title_activity_notification_filter&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.NotificationFilterActivity&quot; android:parentActivityName=&quot;nodomain.freeyourgadget.gadgetbridge.activities.AppBlacklistActivity&quot; android:windowSoftInputMode=&quot;stateHidden|adjustPan&quot;/&gt;
+   440          &lt;activity android:label=&quot;@string/prefs_find_phone&quot; android:launchMode=&quot;singleTask&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.activities.FindPhoneActivity&quot;/&gt;
+&gt;  441          &lt;provider android:authorities=&quot;@string/pebble_content_provider&quot; android:exported=&quot;true&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.contentprovider.PebbleContentProvider&quot;/&gt;
+   442          &lt;provider android:authorities=&quot;nodomain.freeyourgadget.gadgetbridge.screenshot_provider&quot; android:exported=&quot;false&quot; android:grantUriPermissions=&quot;true&quot; android:name=&quot;androidx.core.content.FileProvider&quot;&gt;
+   443              &lt;meta-data android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot; android:resource=&quot;@xml/shared_paths&quot;/&gt;
+   444          &lt;/provider&gt;
+   445          &lt;receiver android:exported=&quot;false&quot; android:label=&quot;@string/appwidget_sleep_alarm_widget_label&quot; android:name=&quot;nodomain.freeyourgadget.gadgetbridge.SleepAlarmWidget&quot;&gt;
+   446              &lt;intent-filter&gt;
+   447                  &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot;/&gt;</pre><p class='m'>Ghi chú của công cụ: Không có intent-filter: không có lý do để app khác gọi trực tiếp.</p></section><section><h2>M060 · Catima 2.45.1 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:35</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    29          &lt;/intent&gt;
+    30      &lt;/queries&gt;
+    31      &lt;uses-feature android:name=&quot;android.hardware.camera.front&quot; android:required=&quot;false&quot;/&gt;
+    32      &lt;uses-feature android:name=&quot;android.hardware.camera.flash&quot; android:required=&quot;false&quot;/&gt;
+    33      &lt;uses-feature android:name=&quot;android.hardware.screen.landscape&quot; android:required=&quot;false&quot;/&gt;
+    34      &lt;uses-feature android:name=&quot;android.hardware.wifi&quot; android:required=&quot;false&quot;/&gt;
+&gt;   35      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:enableOnBackInvokedCallback=&quot;true&quot; android:extractNativeLibs=&quot;false&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;@string/app_name&quot; android:localeConfig=&quot;@xml/locales_config&quot; android:name=&quot;protect.card_locker.LoyaltyCardLockerApplication&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/AppTheme&quot;&gt;
+    36          &lt;receiver android:exported=&quot;false&quot; android:label=&quot;@string/card_list_widget_name&quot; android:name=&quot;protect.card_locker.ListWidget&quot;&gt;
+    37              &lt;intent-filter&gt;
+    38                  &lt;action android:name=&quot;android.appwidget.action.APPWIDGET_UPDATE&quot;/&gt;
+    39              &lt;/intent-filter&gt;
+    40              &lt;meta-data android:name=&quot;android.appwidget.provider&quot; android:resource=&quot;@xml/list_widget_info&quot;/&gt;
+    41          &lt;/receiver&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm.</p></section><section><h2>M061 · KeePassDX 4.5.5 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:860</code></p><p class='ev'>Log.d(TAG, &quot;Autofill password android number type: &quot; + showHexInputType(inputType));</p><pre>   854                      result.setPasswordId(autofillId);
+   855                  }
+   856                  Result result2 = this.result;
+   857                  if (result2 != null) {
+   858                      result2.setPasswordValue(node.getAutofillValue());
+   859                  }
+&gt;  860                  Log.d(TAG, &quot;Autofill password android number type: &quot; + showHexInputType(inputType));
+   861                  return true;
+   862              }
+   863              Log.d(TAG, &quot;Autofill unknown android number type: &quot; + showHexInputType(inputType));
+   864          }
+   865          return false;
+   866      }</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M062 · Jellyfin 2.7.3 · <code>NET-TRUST</code></h2><p><b>Tin cậy CA do người dùng cài (user trust anchor)</b><br><code>res/xml/network_security_config.xml</code></p><p class='ev'>user certificates trusted</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M063 · AntennaPod 3.12.2 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>de/danoeh/antennapod/net/discovery/BuildConfig.java:9</code></p><p class='ev'>public static final String PODCASTINDEX_API_KEY = &quot;XTMMQGA2YZ4WJUBYY4HK&quot;;</p><pre>     3  /* JADX INFO: loaded from: classes.dex */
+     4  public final class BuildConfig {
+     5      public static final String BUILD_TYPE = &quot;release&quot;;
+     6      public static final boolean DEBUG = false;
+     7      public static final String FLAVOR = &quot;free&quot;;
+     8      public static final String LIBRARY_PACKAGE_NAME = &quot;de.danoeh.antennapod.net.discovery&quot;;
+&gt;    9      public static final String PODCASTINDEX_API_KEY = &quot;XTMMQGA2YZ4WJUBYY4HK&quot;;
+    10      public static final String PODCASTINDEX_API_SECRET = &quot;XAaAhk4^2YBsTE33vdbwbZNj82ZRLABDDqFdKe7x&quot;;
+    11      public static final boolean USE_MEDIA3_PLAYBACK_SERVICE = true;
+    12  }</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M064 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:1029</code></p><p class='ev'>File file4 = new File(FileUtils.getExternalFilesDir(), &quot;Gadgetbridge&quot;);</p><pre>  1023                                          } catch (Exception e4) {
+  1024                                              GB.toast(dataManagementActivity2, dataManagementActivity2.getString(R.string.dbmanagementactivity_error_exporting_db, e4.getLocalizedMessage()), 1, 3, e4);
+  1025                                              return;
+  1026                                          }
+  1027                                      default:
+  1028                                          try {
+&gt; 1029                                              File file4 = new File(FileUtils.getExternalFilesDir(), &quot;Gadgetbridge&quot;);
+  1030                                              Logger logger8 = GBDatabaseManager.LOG;
+  1031                                              GBDatabaseManager.importDB(new FileInputStream(file4));
+  1032                                              GB.toast(dataManagementActivity2, dataManagementActivity2.getString(R.string.dbmanagementactivity_import_successful), 1, 1, null);
+  1033                                          } catch (Exception e5) {
+  1034                                              GB.toast(dataManagementActivity2, dataManagementActivity2.getString(R.string.dbmanagementactivity_error_importing_db, e5.getLocalizedMessage()), 1, 3, e5);
+  1035                                          }</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M065 · Nextcloud 35.0.0 · <code>NET-HTTP</code></h2><p><b>Chuỗi http:// trong mã (cleartext)</b><br><code>com/owncloud/android/lib/resources/status/GetStatusRemoteOperation.java:209</code></p><p class='ev'>ownCloudClient.setBaseUri(Uri.parse(&quot;http://&quot; + string));</p><pre>   203          if (string.startsWith(&quot;http://&quot;) || string.startsWith(&quot;https://&quot;)) {
+   204              tryConnection(ownCloudClient);
+   205          } else {
+   206              ownCloudClient.setBaseUri(Uri.parse(&quot;https://&quot; + string));
+   207              if (!tryConnection(ownCloudClient) &amp;&amp; !this.mLatestResult.isSslRecoverableException()) {
+   208                  Log_OC.d(TAG, &quot;establishing secure connection failed, trying non secure connection&quot;);
+&gt;  209                  ownCloudClient.setBaseUri(Uri.parse(&quot;http://&quot; + string));
+   210                  tryConnection(ownCloudClient);
+   211              }
+   212          }
+   213          return this.mLatestResult;
+   214      }
+   215  }</pre><p class='m'>Ghi chú của công cụ: Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).</p></section><section><h2>M066 · Jellyfin 2.7.3 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:27</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    21          &lt;package android:name=&quot;org.videolan.vlc&quot;/&gt;
+    22          &lt;package android:name=&quot;live.mehiz.mpvkt&quot;/&gt;
+    23      &lt;/queries&gt;
+    24      &lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot;/&gt;
+    25      &lt;permission android:name=&quot;org.jellyfin.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    26      &lt;uses-permission android:name=&quot;org.jellyfin.mobile.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   27      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:extractNativeLibs=&quot;true&quot; android:fullBackupContent=&quot;@xml/backup_content&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;@string/app_name&quot; android:localeConfig=&quot;@xml/_generated_res_locale_config&quot; android:name=&quot;org.jellyfin.mobile.JellyfinApplication&quot; android:networkSecurityConfig=&quot;@xml/network_security_config&quot; android:roundIcon=&quot;@mipmap/ic_launcher_round&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/AppTheme.Starting&quot;&gt;
+    28          &lt;activity android:configChanges=&quot;keyboard|keyboardHidden|navigation|orientation|screenLayout|uiMode|screenSize|smallestScreenSize&quot; android:exported=&quot;true&quot; android:launchMode=&quot;singleTask&quot; android:name=&quot;org.jellyfin.mobile.MainActivity&quot; android:supportsPictureInPicture=&quot;true&quot;&gt;
+    29              &lt;intent-filter&gt;
+    30                  &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+    31                  &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+    32              &lt;/intent-filter&gt;
+    33              &lt;intent-filter&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.</p></section><section><h2>M067 · Money Manager Ex 5.5.13 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:18</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    12      &lt;uses-permission android:name=&quot;android.permission.FOREGROUND_SERVICE_DATA_SYNC&quot;/&gt;
+    13      &lt;uses-permission android:name=&quot;android.permission.FOREGROUND_SERVICE&quot;/&gt;
+    14      &lt;supports-screens android:largeScreens=&quot;true&quot; android:xlargeScreens=&quot;true&quot;/&gt;
+    15      &lt;uses-permission android:name=&quot;android.permission.USE_FINGERPRINT&quot;/&gt;
+    16      &lt;permission android:name=&quot;com.money.manager.ex.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    17      &lt;uses-permission android:name=&quot;com.money.manager.ex.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   18      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:backupAgent=&quot;com.money.manager.ex.core.MoneyManagerBackupAgentHelper&quot; android:extractNativeLibs=&quot;false&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;@string/application_name&quot; android:name=&quot;com.money.manager.ex.MmexApplication&quot; android:networkSecurityConfig=&quot;@xml/network_security_config&quot; android:roundIcon=&quot;@mipmap/ic_launcher_round&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/Theme.Splash&quot;&gt;
+    19          &lt;receiver android:exported=&quot;true&quot; android:label=&quot;SMS Receiver&quot; android:name=&quot;com.money.manager.ex.notifications.SmsReceiverTransactions&quot; android:permission=&quot;android.permission.BROADCAST_SMS&quot;&gt;
+    20              &lt;intent-filter&gt;
+    21                  &lt;action android:name=&quot;android.provider.Telephony.SMS_RECEIVED&quot;/&gt;
+    22              &lt;/intent-filter&gt;
+    23          &lt;/receiver&gt;
+    24          &lt;activity android:name=&quot;com.money.manager.ex.reports.GeneralReportActivity&quot;/&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.</p></section><section><h2>M068 · KeePassDX 4.5.5 · <code>LOG-SENS</code></h2><p><b>Ghi log có thể chứa dữ liệu nhạy cảm</b><br><code>com/kunzisoft/keepass/credentialprovider/autofill/StructureParser.java:718</code></p><p class='ev'>Log.d(str3, &quot;Autofill username candidate web type: &quot; + tag3 + &quot; &quot; + (htmlInfo6 != null ? htmlInfo6.getAttributes() : null));</p><pre>   712                                  this.usernameIdCandidate = autofillId;
+   713                                  this.usernameValueCandidate = node.getAutofillValue();
+   714                                  String str3 = TAG;
+   715                                  ViewStructure.HtmlInfo htmlInfo5 = node.getHtmlInfo();
+   716                                  String tag3 = htmlInfo5 != null ? htmlInfo5.getTag() : null;
+   717                                  ViewStructure.HtmlInfo htmlInfo6 = node.getHtmlInfo();
+&gt;  718                                  Log.d(str3, &quot;Autofill username candidate web type: &quot; + tag3 + &quot; &quot; + (htmlInfo6 != null ? htmlInfo6.getAttributes() : null));
+   719                              }
+   720                          } else {
+   721                              continue;
+   722                          }
+   723                          break;
+   724                      case 96619420:</pre><p class='m'>Ghi chú của công cụ: Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.</p></section><section><h2>M069 · AntennaPod 3.12.2 · <code>NET-CLEAR</code></h2><p><b>Cho phép lưu lượng HTTP không mã hoá</b><br><code>AndroidManifest.xml:25</code></p><p class='ev'>android:usesCleartextTraffic=&quot;true&quot;</p><pre>    19              &lt;data android:scheme=&quot;https&quot;/&gt;
+    20          &lt;/intent&gt;
+    21          &lt;provider android:authorities=&quot;androidx.car.app.connection&quot; android:name=&quot;androidx.car.app.connection.provider&quot;/&gt;
+    22      &lt;/queries&gt;
+    23      &lt;permission android:name=&quot;de.danoeh.antennapod.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    24      &lt;uses-permission android:name=&quot;de.danoeh.antennapod.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   25      &lt;application android:allowAudioPlaybackCapture=&quot;true&quot; android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:backupAgent=&quot;de.danoeh.antennapod.storage.importexport.OpmlBackupAgent&quot; android:enableOnBackInvokedCallback=&quot;true&quot; android:extractNativeLibs=&quot;false&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;@string/app_name&quot; android:localeConfig=&quot;@xml/locale_config&quot; android:logo=&quot;@mipmap/ic_launcher&quot; android:name=&quot;de.danoeh.antennapod.PodcastApp&quot; android:networkSecurityConfig=&quot;@xml/network_security_config&quot; android:resizeableActivity=&quot;true&quot; android:restoreAnyVersion=&quot;true&quot; android:roundIcon=&quot;@mipmap/ic_launcher&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/Theme.AntennaPod.Splash&quot; android:usesCleartextTraffic=&quot;true&quot;&gt;
+    26          &lt;activity android:excludeFromRecents=&quot;true&quot; android:exported=&quot;false&quot; android:name=&quot;de.danoeh.antennapod.ui.screen.playback.PlaybackSpeedDialogActivity&quot; android:noHistory=&quot;true&quot; android:theme=&quot;@style/Theme.AntennaPod.Splash.Translucent&quot;&gt;
+    27              &lt;intent-filter&gt;
+    28                  &lt;action android:name=&quot;de.danoeh.antennapod.intents.PLAYBACK_SPEED&quot;/&gt;
+    29                  &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+    30              &lt;/intent-filter&gt;
+    31          &lt;/activity&gt;</pre></section><section><h2>M070 · Nextcloud 35.0.0 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/owncloud/android/lib/resources/users/GetPrivateKeyRemoteOperation.java:15</code></p><p class='ev'>private static final String PRIVATE_KEY_URL = &quot;/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key&quot;;</p><pre>     9  import com.owncloud.android.lib.ocs.ServerResponse;
+    10  import com.owncloud.android.lib.ocs.responses.PrivateKey;
+    11  import com.owncloud.android.lib.resources.OCSRemoteOperation;
+    12  
+    13  /* JADX INFO: loaded from: classes4.dex */
+    14  public class GetPrivateKeyRemoteOperation extends OCSRemoteOperation&lt;PrivateKey&gt; {
+&gt;   15      private static final String PRIVATE_KEY_URL = &quot;/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key&quot;;
+    16      private static final String TAG = &quot;GetPrivateKeyRemoteOperation&quot;;
+    17  
+    18      /* JADX WARN: Multi-variable type inference failed */
+    19      @Override // com.owncloud.android.lib.common.operations.RemoteOperation
+    20      public RemoteOperationResult&lt;PrivateKey&gt; run(NextcloudClient nextcloudClient) throws Throwable {
+    21          RemoteOperationResult&lt;PrivateKey&gt; remoteOperationResult;</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section><section><h2>M071 · Gadgetbridge 0.94.0 · <code>STO-EXT</code></h2><p><b>Ghi dữ liệu ra bộ nhớ ngoài</b><br><code>nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java:975</code></p><p class='ev'>File file2 = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference_&quot; + device.identifier.replaceAll(&quot;[\u0000/:\\r\\n\\\\]&quot;, &quot;_&quot;));</p><pre>   969                                                  int i10 = 0;
+   970                                                  while (i10 &lt; size) {
+   971                                                      int i11 = i10 + 1;
+   972                                                      Device device = (Device) arrayListLoadAll.get(i10);
+   973                                                      SharedPreferences deviceSpecificSharedPrefs = GBApplication.getDeviceSpecificSharedPrefs(device.identifier);
+   974                                                      if (DataManagementActivity.sharedPrefs != null) {
+&gt;  975                                                          File file2 = new File(FileUtils.getExternalFilesDir(), &quot;Export_preference_&quot; + device.identifier.replaceAll(&quot;[\u0000/:\\r\\n\\\\]&quot;, &quot;_&quot;));
+   976                                                          try {
+   977                                                              Logger logger7 = ImportExportSharedPreferences.LOG;
+   978                                                              FileWriter fileWriter2 = new FileWriter(file2);
+   979                                                              try {
+   980                                                                  ImportExportSharedPreferences.export(deviceSpecificSharedPrefs, fileWriter2);
+   981                                                                  fileWriter2.close();</pre><p class='m'>Ghi chú của công cụ: App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.</p></section><section><h2>M072 · RedReader 1.26 · <code>WEB-IFACE</code></h2><p><b>WebView addJavascriptInterface</b><br><code>org/quantumbadger/redreader/views/webview/WebViewFixed.java:80</code></p><p class='ev'>addJavascriptInterface();</p><pre>    74          addJavascriptInterface();
+    75          super.loadDataWithBaseURL(str, str2, str3, str4, str5);
+    76      }
+    77  
+    78      @Override // android.webkit.WebView
+    79      public final void loadUrl(String str) {
+&gt;   80          addJavascriptInterface();
+    81          super.loadUrl(str);
+    82      }
+    83  
+    84      @Override // android.webkit.WebView, android.view.View
+    85      public final void onWindowFocusChanged(boolean z) {
+    86          try {</pre><p class='m'>Ghi chú của công cụ: Có thể cho JS gọi vào mã native.</p></section><section><h2>M073 · Conversations 2.20.4 · <code>NET-NSC</code></h2><p><b>network_security_config cho phép cleartext</b><br><code>res/xml/network_security_configuration.xml</code></p><p class='ev'>cleartextTrafficPermitted=&quot;true&quot;</p><p class='m'>Không có đoạn mã kèm theo — mở APK đã dịch ngược để xem.</p><p class='m'>Ghi chú của công cụ: base-config: áp cho mọi kết nối.</p></section><section><h2>M074 · Nextcloud 35.0.0 · <code>WEB-JS</code></h2><p><b>WebView bật JavaScript</b><br><code>com/owncloud/android/ui/fragment/FeatureWebFragment.java:36</code></p><p class='ev'>webView.getSettings().setJavaScriptEnabled(true);</p><pre>    30      }
+    31  
+    32      @Override // androidx.fragment.app.Fragment
+    33      public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    34          View viewInflate = inflater.inflate(R.layout.whats_new_webview_element, container, false);
+    35          WebView webView = (WebView) viewInflate.findViewById(R.id.whatsNewWebView);
+&gt;   36          webView.getSettings().setJavaScriptEnabled(true);
+    37          webView.getSettings().setDomStorageEnabled(true);
+    38          webView.getSettings().setAllowFileAccess(false);
+    39          webView.setWebViewClient(new SafeWebViewClient());
+    40          webView.loadUrl(this.mWebUrl);
+    41          return viewInflate;
+    42      }</pre><p class='m'>Ghi chú của công cụ: Rủi ro khi kết hợp tải nội dung không tin cậy / file://.</p></section><section><h2>M075 · Gadgetbridge 0.94.0 · <code>CRY-WEAK</code></h2><p><b>Thuật toán/chế độ mã hoá yếu</b><br><code>nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java:177</code></p><p class='ev'>Cipher cipher = Cipher.getInstance(&quot;AES/ECB/PKCS5Padding&quot;);</p><pre>   171          }
+   172          try {
+   173              int i = 1;
+   174              if (abstractGreeMessage instanceof GreeBindMessage) {
+   175                  byte[] bytes = string.getBytes(StandardCharsets.UTF_8);
+   176                  byte[] bArr = DEFAULT_KEY;
+&gt;  177                  Cipher cipher = Cipher.getInstance(&quot;AES/ECB/PKCS5Padding&quot;);
+   178                  cipher.init(1, new SecretKeySpec(bArr, &quot;AES&quot;));
+   179                  bArrDoFinal = cipher.doFinal(bytes);
+   180              } else {
+   181                  if (this.bindKey == null) {
+   182                      logger.error(&quot;No bind key, unable to encrypt&quot;);
+   183                      return;</pre><p class='m'>Ghi chú của công cụ: ECB/DES/RC4 bị coi là yếu.</p></section><section><h2>M076 · NewPipe 0.29.1 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:23</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    17      &lt;/queries&gt;
+    18      &lt;uses-feature android:name=&quot;android.hardware.touchscreen&quot; android:required=&quot;false&quot;/&gt;
+    19      &lt;uses-feature android:name=&quot;android.software.leanback&quot; android:required=&quot;false&quot;/&gt;
+    20      &lt;uses-permission android:name=&quot;android.permission.RECEIVE_BOOT_COMPLETED&quot;/&gt;
+    21      &lt;permission android:name=&quot;org.schabi.newpipe.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    22      &lt;uses-permission android:name=&quot;org.schabi.newpipe.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   23      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:banner=&quot;@mipmap/newpipe_tv_banner&quot; android:extractNativeLibs=&quot;false&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;@string/app_name&quot; android:localeConfig=&quot;@xml/_generated_res_locale_config&quot; android:logo=&quot;@mipmap/ic_launcher&quot; android:name=&quot;org.schabi.newpipe.App&quot; android:resizeableActivity=&quot;true&quot; android:theme=&quot;@style/OpeningTheme&quot;&gt;
+    24          &lt;activity android:exported=&quot;true&quot; android:label=&quot;@string/app_name&quot; android:launchMode=&quot;singleTask&quot; android:name=&quot;org.schabi.newpipe.MainActivity&quot;&gt;
+    25              &lt;intent-filter&gt;
+    26                  &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+    27                  &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+    28                  &lt;category android:name=&quot;android.intent.category.LEANBACK_LAUNCHER&quot;/&gt;
+    29              &lt;/intent-filter&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm.</p></section><section><h2>M077 · Tusky 32.2 · <code>CFG-EXPORT</code></h2><p><b>Thành phần exported không bảo vệ: CropImageActivity</b><br><code>AndroidManifest.xml:144</code></p><p class='ev'>com.canhub.cropper.CropImageActivity</p><pre>   138              &lt;meta-data android:name=&quot;okhttp3.internal.platform.PlatformInitializer&quot; android:value=&quot;androidx.startup&quot;/&gt;
+   139              &lt;meta-data android:name=&quot;androidx.profileinstaller.ProfileInstallerInitializer&quot; android:value=&quot;androidx.startup&quot;/&gt;
+   140          &lt;/provider&gt;
+   141          &lt;provider android:authorities=&quot;com.keylesspalace.tusky.cropper.fileprovider&quot; android:exported=&quot;false&quot; android:grantUriPermissions=&quot;true&quot; android:name=&quot;com.canhub.cropper.CropFileProvider&quot;&gt;
+   142              &lt;meta-data android:name=&quot;android.support.FILE_PROVIDER_PATHS&quot; android:resource=&quot;@xml/cropper_library_file_paths&quot;/&gt;
+   143          &lt;/provider&gt;
+&gt;  144          &lt;activity android:exported=&quot;true&quot; android:name=&quot;com.canhub.cropper.CropImageActivity&quot;/&gt;
+   145          &lt;service android:directBootAware=&quot;false&quot; android:enabled=&quot;@bool/enable_system_job_service_default&quot; android:exported=&quot;true&quot; android:name=&quot;androidx.work.impl.background.systemjob.SystemJobService&quot; android:permission=&quot;android.permission.BIND_JOB_SERVICE&quot;/&gt;
+   146          &lt;service android:directBootAware=&quot;false&quot; android:enabled=&quot;@bool/enable_system_foreground_service_default&quot; android:exported=&quot;false&quot; android:name=&quot;androidx.work.impl.foreground.SystemForegroundService&quot;/&gt;
+   147          &lt;receiver android:directBootAware=&quot;false&quot; android:enabled=&quot;true&quot; android:exported=&quot;false&quot; android:name=&quot;androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver&quot;/&gt;
+   148          &lt;receiver android:directBootAware=&quot;false&quot; android:enabled=&quot;false&quot; android:exported=&quot;false&quot; android:name=&quot;androidx.work.impl.background.systemalarm.RescheduleReceiver&quot;&gt;
+   149              &lt;intent-filter&gt;
+   150                  &lt;action android:name=&quot;android.intent.action.BOOT_COMPLETED&quot;/&gt;</pre><p class='m'>Ghi chú của công cụ: Không có intent-filter: không có lý do để app khác gọi trực tiếp.</p></section><section><h2>M078 · Conversations 2.20.4 · <code>CRY-HASH</code></h2><p><b>Hàm băm yếu cho dữ liệu nhạy cảm</b><br><code>eu/siacs/conversations/services/BarcodeProvider.java:1101</code></p><p class='ev'>strBytesToHex = CryptoHelper.bytesToHex(MessageDigest.getInstance(&quot;SHA-1&quot;).digest(string.getBytes(StandardCharsets.UTF_8)));</p><pre>  1095                      Log.d(str2, &quot;connected to background service&quot;);
+  1096                      try {
+  1097                          Account accountFindAccountByJid = this.mXmppConnectionService.findAccountByJid(Jid.of(strSubstring));
+  1098                          if (accountFindAccountByJid != null) {
+  1099                              String string = Uri.parse(accountFindAccountByJid.getShareableUri().raw).toString();
+  1100                              try {
+&gt; 1101                                  strBytesToHex = CryptoHelper.bytesToHex(MessageDigest.getInstance(&quot;SHA-1&quot;).digest(string.getBytes(StandardCharsets.UTF_8)));
+  1102                              } catch (Exception unused) {
+  1103                                  strBytesToHex = &quot;&quot;;
+  1104                              }
+  1105                              File file = new File(getContext().getCacheDir().getAbsolutePath() + &quot;/barcodes/&quot; + strBytesToHex);
+  1106                              if (file.exists()) {
+  1107                                  return ParcelFileDescriptor.open(file, 268435456);</pre><p class='m'>Ghi chú của công cụ: MD5/SHA-1 không nên dùng để băm mật khẩu.</p></section><section><h2>M079 · Feeder 2.23.2 · <code>CFG-BACKUP</code></h2><p><b>Cho phép sao lưu dữ liệu ứng dụng</b><br><code>AndroidManifest.xml:25</code></p><p class='ev'>android:allowBackup=&quot;true&quot;</p><pre>    19          &lt;/intent&gt;
+    20      &lt;/queries&gt;
+    21      &lt;uses-permission android:name=&quot;android.permission.WAKE_LOCK&quot;/&gt;
+    22      &lt;uses-permission android:name=&quot;android.permission.FOREGROUND_SERVICE&quot;/&gt;
+    23      &lt;permission android:name=&quot;com.nononsenseapps.feeder.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot; android:protectionLevel=&quot;signature&quot;/&gt;
+    24      &lt;uses-permission android:name=&quot;com.nononsenseapps.feeder.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION&quot;/&gt;
+&gt;   25      &lt;application android:allowBackup=&quot;true&quot; android:appComponentFactory=&quot;androidx.core.app.CoreComponentFactory&quot; android:enableOnBackInvokedCallback=&quot;true&quot; android:extractNativeLibs=&quot;false&quot; android:icon=&quot;@mipmap/ic_launcher&quot; android:label=&quot;@string/app_name&quot; android:localeConfig=&quot;@xml/locales_config&quot; android:memtagMode=&quot;async&quot; android:name=&quot;com.nononsenseapps.feeder.FeederApplication&quot; android:roundIcon=&quot;@mipmap/ic_launcher_round&quot; android:supportsRtl=&quot;true&quot; android:theme=&quot;@style/AppThemeDayNoActionBar&quot; android:usesCleartextTraffic=&quot;true&quot;&gt;
+    26          &lt;meta-data android:name=&quot;android.webkit.WebView.MetricsOptOut&quot; android:value=&quot;true&quot;/&gt;
+    27          &lt;activity android:exported=&quot;true&quot; android:label=&quot;@string/app_name&quot; android:launchMode=&quot;singleTop&quot; android:name=&quot;com.nononsenseapps.feeder.ui.MainActivity&quot;&gt;
+    28              &lt;intent-filter&gt;
+    29                  &lt;action android:name=&quot;android.intent.action.MAIN&quot;/&gt;
+    30                  &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot;/&gt;
+    31              &lt;/intent-filter&gt;</pre><p class='m'>Ghi chú của công cụ: Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm.</p></section><section><h2>M080 · KeePassDX 4.5.5 · <code>CRY-KEYLIT</code></h2><p><b>Khoá/bí mật viết cứng dạng chuỗi</b><br><code>com/kunzisoft/keepass/database/element/template/TemplateEngineCompatible.java:41</code></p><p class='ev'>private static final String TEMPLATE_ATTRIBUTE_PASSWORD = &quot;Password&quot;;</p><pre>    35      private static final String TAG = TemplateEngineCompatible.class.getName();
+    36      private static final String TEMPLATE_ATTRIBUTE_EXPIRES = &quot;Expires&quot;;
+    37      private static final String TEMPLATE_ATTRIBUTE_EXP_DATE = &quot;@exp_date&quot;;
+    38      private static final String TEMPLATE_ATTRIBUTE_NOTES = &quot;Notes&quot;;
+    39      private static final String TEMPLATE_ATTRIBUTE_OPTIONS_PREFIX = &quot;_etm_options_&quot;;
+    40      private static final String TEMPLATE_ATTRIBUTE_OPTIONS_TEMP = &quot;temp_option&quot;;
+&gt;   41      private static final String TEMPLATE_ATTRIBUTE_PASSWORD = &quot;Password&quot;;
+    42      private static final String TEMPLATE_ATTRIBUTE_POSITION_PREFIX = &quot;_etm_position_&quot;;
+    43      private static final String TEMPLATE_ATTRIBUTE_TITLE = &quot;Title&quot;;
+    44      private static final String TEMPLATE_ATTRIBUTE_TITLE_PREFIX = &quot;_etm_title_&quot;;
+    45      private static final String TEMPLATE_ATTRIBUTE_TYPE_DATE = &quot;Date&quot;;
+    46      private static final String TEMPLATE_ATTRIBUTE_TYPE_DATE_TIME = &quot;Date Time&quot;;
+    47      private static final String TEMPLATE_ATTRIBUTE_TYPE_DIVIDER = &quot;Divider&quot;;</pre><p class='m'>Ghi chú của công cụ: Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).</p></section></main></body></html>

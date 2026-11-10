@@ -1,0 +1,29 @@
+=== InsecureBankv2 — RECALL (ràng buộc cứng = 100%) ===
+  [OK ] V01 khoá cứng
+  [OK ] V02 cleartext
+  [OK ] V05 mật mã yếu (IV)
+  [OK ] V06 exported
+  [OK ] V07 cửa hậu devlogin
+  [OK ] V11 allowBackup
+  => Recall tĩnh: 100%  (6/6 mục tĩnh của đáp án)
+  [+  ] (thêm) V04 lưu trữ không an toàn
+  [+  ] (thêm) V10 rò rỉ qua log
+
+=== InsecureBankv2 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 24  |  TP: 24  FP: 0  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 100.0%  (24/24)
+
+=== Conversations 2.20.4 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 75  |  TP: 6  FP: 69  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 8.0%  (6/75)
+
+=== Jellyfin 2.7.3 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 10  |  TP: 7  FP: 3  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 70.0%  (7/10)
+
+=== TỔNG 2 APP THẬT (Conversations 2.20.4, Jellyfin 2.7.3) ===
+  TP: 13  FP: 72  chưa gán nhãn: 0
+  => Precision gộp (micro): 15.3%  (13/85)
+  => Precision trung bình theo app (macro): 39.0%
+
+PASS: recall InsecureBankv2 = 100%, không mất TP đã gán nhãn.

@@ -1,0 +1,41 @@
+{
+  "app": "Catima 2.45.1",
+  "apk_sha256": "271980b62f73137db2d843fb4fc35f103c4126d769f816d365206c5c1adff3a9",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m2_holdout9/catima/report.json",
+  "note": "Holdout đợt 9: quét bằng `apiscan.py scan` (phạm vi tự suy: ['protect.card_locker']), luật + điểm tin cậy + suy phạm vi đóng băng ở commit 7135621, KHÔNG dùng để chỉnh.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "TP",
+      "reason": "allowBackup=true không có backup rules/backupAgent; database chứa dữ liệu thẻ (số thẻ, mã vạch) → adb backup/cloud backup không yêu cầu mã hoá — nhất quán với NewPipe/Feeder"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "protect.card_locker.cardview.LoyaltyCardViewActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity hiển thị thẻ theo id (dùng cho lối tắt/widget) — chỉ mở UI, không trả dữ liệu cho app gọi"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "protect.card_locker.contentprovider.CardsContentProvider",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Provider có readPermission protectionLevel=dangerous (người dùng cấp); insert/update/delete không làm gì — thiết kế chia sẻ thẻ cho app khác, nhất quán với Feeder/Breezy"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "protect/card_locker/Utils.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-1\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "SHA-1 làm checksum tệp nhập/xuất, không dùng cho bảo mật"
+    }
+  ]
+}

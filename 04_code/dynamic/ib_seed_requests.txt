@@ -1,0 +1,8 @@
+# Yêu cầu mẫu cho backend InsecureBankv2 (AndroLabServer, chạy cục bộ) — tham số lấy từ mã dịch ngược:
+# DoLogin.java:101-102, DoTransfer.java:119-126 và 232-233, ChangePassword.java:107-108.
+# Tài khoản demo theo README của InsecureBankv2; kiểm tra lại với mydb.db trước khi chạy.
+POST /login username=dinesh&password=Dinesh%40123%24
+POST /devlogin username=devadmin&password=x
+POST /getaccounts username=dinesh&password=Dinesh%40123%24
+POST /dotransfer username=dinesh&password=Dinesh%40123%24&from_acc=888888888&to_acc=666666666&amount=10
+POST /changepassword username=dinesh&newpassword=Dinesh%40123%24

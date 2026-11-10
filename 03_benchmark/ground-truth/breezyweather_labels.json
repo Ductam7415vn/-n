@@ -1,0 +1,41 @@
+{
+  "app": "Breezy Weather 6.2.2",
+  "apk_sha256": "1369d817d426498715f8ccb6750baff19dadd78e85f707088e9bca43977570c0",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m2_holdout6/bw.json",
+  "note": "Holdout đợt 6: luật phát hiện + bảng độ tin cậy đóng băng ở commit 226af5a, KHÔNG dùng để chỉnh. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.breezyweather.ui.main.MainActivity",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "MainActivity là LAUNCHER (vốn bắt buộc exported); action nội bộ org.breezyweather.Main chỉ thêm điều hướng UI — heuristic 'app tự gửi action' không xét component đã bắt buộc exported"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.breezyweather.wallpaper.LiveWallpaperConfigActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình live wallpaper — hệ thống mở từ màn hình chọn hình nền"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.breezyweather.background.provider.WeatherContentProvider",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Provider chia sẻ dữ liệu thời tiết cho app khác (Gadgetbridge…), có readPermission protectionLevel=dangerous (người dùng cấp)"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "androidx.compose.ui.tooling.PreviewActivity",
+      "label": "TP",
+      "reason": "androidx.compose.ui.tooling.PreviewActivity (debug) lọt vào release và exported — lần thứ 3 (sau Feeder, RedReader). Độ tin cậy trung bình"
+    }
+  ]
+}

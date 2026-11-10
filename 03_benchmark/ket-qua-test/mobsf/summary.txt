@@ -1,0 +1,69 @@
+=== MobSF v4.5.4 (Docker ARM64, cấu hình mặc định) so với apiscan (commit 7135621), 19 app thật — 2026-10-04 ===
+app            MobSF rule  MobSF đv  trong pv   info  secrets  apiscan   TP  MobSF phủ   giây
+newpipe                10        38        12    105      211        3    1       1/1      39
+tusky                  12        59        11    177       94        2    1       1/1      83
+k9mail                 16        76        32    214      158        7    3       3/3     144
+antennapod             17        58        43    215       20       15    6       5/6      57
+nextcloud              16       176        91    152      829       46    6       4/6     510
+conversations          16        74        40    232      449       22    6       4/6     145
+jellyfin               11        49         8    153       10       10    7       3/7      95
+davx5                  11        58        22     38      168        6    3       3/3      85
+feeder                 11        50        17    182       50       16    7       5/7     160
+aegis                  11        26        16     62      180        3    0       0/0      35
+redreader              14        20        15     55      317       19    7       3/7      46
+keepassdx              13        62        55    134     1123       50    1       0/1      83
+breezyweather          10        71        33     23       29        4    1       1/1      84
+gadgetbridge           18       178       154     84      422      100    3       3/3     256
+wikipedia              15        49        27     42      465        7    0       0/0     133
+briar                  11        45         9     64      381        4    0       0/0     121
+mmex                   10        56        27    172       65       10    4       4/4      54
+termux                  9        18        17      6        4        3    0       0/0      49
+catima                 10        19        13     67       25        4    1       1/1      38
+TỔNG                  241      1182       642   2177     5000      331   57      41/57
+Thời gian MobSF/app: trung vị 84 s, lớn nhất 510 s (gồm upload + giải nén + phân tích, có cache giải nén nếu đã quét)
+TP của apiscan được MobSF báo ở mức high/warning: 41/57; chỉ ở mức info/secrets: 7
+TP của apiscan MobSF không báo ở mức cảnh báo:
+    antennapod NET-HTTP de/danoeh/antennapod/net/common/UrlChecker.java:61 không
+    nextcloud WEB-IFACE com/owncloud/android/ui/activity/RichDocumentsEditorWebView.java:59 không
+    nextcloud NET-HTTP com/owncloud/android/lib/resources/status/GetStatusRemoteOperation.java:209 không
+    conversations LOG-SENS eu/siacs/conversations/xmpp/jingle/JingleRtpConnection.java:2017 info
+    conversations LOG-SENS eu/siacs/conversations/xmpp/jingle/JingleRtpConnection.java:2021 info
+    jellyfin WEB-IFACE org/jellyfin/mobile/webapp/WebViewFragment.java:411 không
+    jellyfin WEB-IFACE org/jellyfin/mobile/webapp/WebViewFragment.java:412 không
+    jellyfin WEB-IFACE org/jellyfin/mobile/webapp/WebViewFragment.java:418 không
+    jellyfin WEB-IFACE org/jellyfin/mobile/webapp/WebViewFragment.java:419 không
+    feeder NET-HTTP com/nononsenseapps/feeder/ui/text/VideoTagHunterKt.java:23 info
+    feeder NET-HTTP com/nononsenseapps/feeder/util/LinkUtilsKt.java:65 không
+    redreader NET-HTTP org/quantumbadger/redreader/common/LinkHandler.java:264 info
+    redreader NET-HTTP org/quantumbadger/redreader/common/LinkHandler.java:526 info
+    redreader NET-HTTP org/quantumbadger/redreader/common/LinkHandler.java:530 info
+    redreader NET-HTTP org/quantumbadger/redreader/common/LinkHandler.java:536 info
+    keepassdx NET-HTTP com/kunzisoft/keepass/utils/UriUtil.java:216 không
+
+=== Precision MobSF theo mẫu gán nhãn ===
+Mẫu 100/1182 đơn vị cảnh báo MobSF (seed 42)
+  tất cả                     TP   5/100 =   5.0%  KTC95% [2.2; 11.2]%  chặt 5.0%
+  trong phạm vi app          TP   2/53  =   3.8%  KTC95% [1.0; 12.8]%  chặt 3.8%
+  ngoài phạm vi (thư viện)   TP   3/47  =   6.4%  KTC95% [2.2; 17.2]%  chặt 6.4%
+  nguồn code                 TP   1/75  =   1.3%  KTC95% [0.2; 7.2]%  chặt 1.3%
+  nguồn manifest             TP   3/21  =  14.3%  KTC95% [5.0; 34.6]%  chặt 14.3%
+  nguồn network              TP   1/3   =  33.3%  KTC95% [6.1; 79.2]%  chặt 33.3%
+  nguồn certificate          TP   0/1   =   0.0%  KTC95% [0.0; 79.3]%  chặt 0.0%
+Theo luật MobSF (TP/mẫu):
+  android_hardcoded                             0/36
+  explicitly_exported                           2/13
+  android_insecure_random                       0/12
+  android_ip_disclosure                         0/9
+  android_sql_raw_query                         0/6
+  exported_protected_permission_not_defined     0/5
+  android_read_write_external                   1/4
+  nsc                                           1/3
+  android_temp_file                             0/3
+  android_sha1                                  0/2
+  cbc_padding_oracle                            0/1
+  task_affinity_set                             0/1
+  clear_text_traffic                            1/1
+  android_aes_ecb                               0/1
+  exported_protected_permission_dangerous       0/1
+  android_webview                               0/1
+  Certificate algorithm might be vulnerable to hash collision  0/1

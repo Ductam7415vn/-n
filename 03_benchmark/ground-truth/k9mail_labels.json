@@ -1,0 +1,135 @@
+{
+  "app": "K-9 Mail 23.1",
+  "apk_sha256": "a9a6d4219fe44bfb4e47693efa973c0c173741074193d8e9d7e37a354e7aafca",
+  "labeled_on": "2026-10-03",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_4apps/k9.json",
+  "note": "App kiểm tra độc lập (holdout): chưa dùng để viết luật lọc. Phạm vi quét = package trong manifest.",
+  "definition": "TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app.",
+  "labels": [
+    {
+      "rule_id": "NET-CLEAR",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "label": "TP",
+      "reason": "Cho phép HTTP cleartext toàn cục (NSC base-config cũng true): mọi request HTTP như ảnh từ xa trong email, autoconfig có thể đi không mã hoá. Cố ý vì tương thích, rủi ro thấp–trung bình"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "app.k9mail.feature.migration.provider.SettingsProvider",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Provider exported nhưng openFile() tự kiểm tra chữ ký app gọi theo allowlist (K-9/Thunderbird), các thao tác khác ném UnsupportedOperationException — luật tĩnh không thấy kiểm tra trong mã"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "label": "TP",
+      "reason": "base-config cleartextTrafficPermitted=true (cùng gốc với usesCleartextTraffic)"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "label": "TP",
+      "reason": "base-config tin CA do người dùng cài cho mọi kết nối → MITM được nếu thiết bị có CA lạ. Cố ý để hỗ trợ máy chủ mail tự ký, nhưng là điểm yếu TLS thật"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "com/fsck/k9/ui/settings/AboutViewModelKt.java",
+      "evidence": "public static final AbstractPersistentList USED_LIBRARIES = MathKt.persistentListOf(new Library(\"Android Jetpack libraries\", \"https://developer.android.com/jetp",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URL trang chủ thư viện trong màn hình Giới thiệu (chỉ hiển thị, không kết nối)"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/activity/MessageCompose$13$1.java",
+      "evidence": "Log.e(\"Tried to refresh invalid view token!\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "'view token' là token giao diện người nhận, không phải bí mật; không log giá trị"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/activity/MessageCompose$13$1.java",
+      "evidence": "Log.e(\"Tried to refresh invalid view token!\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "'view token' là token giao diện người nhận, không phải bí mật; không log giá trị"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "com/fsck/k9/mail/K9MailLib.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "HMAC-MD5 cho xác thực CRAM-MD5 theo RFC 2195 — do giao thức quy định, không phải băm mật khẩu để lưu"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/mail/transport/smtp/SmtpTransport.java",
+      "evidence": "Log.v(negativeSmtpReplyException2, \"Authentication exception, re-trying with new token\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp tĩnh có từ 'token', chỉ log exception, không log giá trị token"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/mail/transport/smtp/SmtpTransport.java",
+      "evidence": "Log.v(e2, \"Authentication exception for new token, permanent error assumed\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp tĩnh có từ 'token', chỉ log exception, không log giá trị token"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/mail/store/imap/RealImapConnection.java",
+      "evidence": "Log.v(e, \"Permanent failure during authentication using OAuth token\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp tĩnh có từ 'token', chỉ log exception, không log giá trị token"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/mail/store/imap/RealImapConnection.java",
+      "evidence": "Log.v(e, \"Temporary failure - retrying with new token\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp tĩnh có từ 'token', chỉ log exception, không log giá trị token"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/mail/store/imap/RealImapConnection.java",
+      "evidence": "Log.v(e, \"Authentication exception for new token, permanent error assumed\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp tĩnh có từ 'token', chỉ log exception, không log giá trị token"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/mail/store/imap/RealImapConnection.java",
+      "evidence": "Log.v(e2, \"Permanent failure during authentication using OAuth token\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp tĩnh có từ 'token', chỉ log exception, không log giá trị token"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "com/fsck/k9/mail/store/pop3/Pop3Connection.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 cho xác thực APOP theo RFC 1939 — do giao thức quy định, chỉ dùng khi người dùng chọn APOP"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "file": "com/fsck/k9/mailstore/LocalFolder.java",
+      "evidence": "Log.w(e, \"Failed to fetch an access token. Clearing authorization state.\", new Object[0]);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Thông điệp tĩnh có từ 'token', chỉ log exception, không log giá trị token"
+    }
+  ]
+}

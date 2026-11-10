@@ -1,0 +1,484 @@
+{
+  "meta": {
+    "app": "com.nextcloud.client",
+    "time": "2026-10-04 00:11"
+  },
+  "issues": [
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:84",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ComposeActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:86",
+      "evidence": "com.nextcloud.ui.composeActivity.ComposeActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: FileContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:237",
+      "evidence": "com.owncloud.android.providers.FileContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: AccountManagerService",
+      "severity": "high",
+      "location": "AndroidManifest.xml:308",
+      "evidence": "com.owncloud.android.services.AccountManagerService",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: SsoGrantPermissionActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:309",
+      "evidence": "com.owncloud.android.ui.activity.SsoGrantPermissionActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": ""
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/database/migrations/DatabaseMigrationUtil.java:20",
+      "evidence": "public static final String KEYWORD_NOT_NULL = \"NOT NULL\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/database/migrations/DatabaseMigrationUtil.java:22",
+      "evidence": "public static final String TYPE_INTEGER_PRIMARY_KEY = \"INTEGER PRIMARY KEY\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/migrations/MigrationsDb.java:17",
+      "evidence": "public static final String DB_KEY_APPLIED_MIGRATIONS = \"applied_migrations\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/migrations/MigrationsDb.java:18",
+      "evidence": "public static final String DB_KEY_FAILED = \"failed\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/migrations/MigrationsDb.java:19",
+      "evidence": "public static final String DB_KEY_FAILED_MIGRATION_ERROR_MESSAGE = \"failed_migration_error\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/migrations/MigrationsDb.java:20",
+      "evidence": "public static final String DB_KEY_FAILED_MIGRATION_ID = \"failed_migration_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/migrations/MigrationsDb.java:21",
+      "evidence": "public static final String DB_KEY_LAST_MIGRATED_VERSION = \"last_migrated_version\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/preferences/AppPreferencesImpl.java:56",
+      "evidence": "private static final String PREF__KEYS_MIGRATION = \"keysMigration\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/preferences/AppPreferencesImpl.java:57",
+      "evidence": "private static final String PREF__KEYS_REINIT = \"keysReinit\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/preferences/AppPreferencesImpl.java:63",
+      "evidence": "private static final String PREF__PASSCODE_DELAY_IN_SECONDS = \"passcode_delay_in_seconds\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/preferences/AppPreferencesImpl.java:66",
+      "evidence": "private static final String PREF__PUSH_TOKEN = \"pushToken\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/nextcloud/client/utils/HashUtil.java:25",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/MediaFoldersDetectionWork.java:51",
+      "evidence": "private static final String KEY_MEDIA_FOLDERS = \"media_folders\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/MediaFoldersDetectionWork.java:52",
+      "evidence": "public static final String KEY_MEDIA_FOLDER_PATH = \"KEY_MEDIA_FOLDER_PATH\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/MediaFoldersDetectionWork.java:53",
+      "evidence": "public static final String KEY_MEDIA_FOLDER_TYPE = \"KEY_MEDIA_FOLDER_TYPE\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/NotificationWork.java:79",
+      "evidence": "public static final String KEY_NOTIFICATION_ACCOUNT = \"KEY_NOTIFICATION_ACCOUNT\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/NotificationWork.java:80",
+      "evidence": "private static final String KEY_NOTIFICATION_ACTION_LINK = \"KEY_NOTIFICATION_ACTION_LINK\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/NotificationWork.java:81",
+      "evidence": "private static final String KEY_NOTIFICATION_ACTION_TYPE = \"KEY_NOTIFICATION_ACTION_TYPE\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/NotificationWork.java:82",
+      "evidence": "public static final String KEY_NOTIFICATION_SIGNATURE = \"signature\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/NotificationWork.java:83",
+      "evidence": "public static final String KEY_NOTIFICATION_SUBJECT = \"subject\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "owasp": "M10",
+      "title": "Thuật toán/chế độ mã hoá yếu",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/NotificationWork.java:166",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"RSA/ECB/OAEPWithSHA-1AndMGF1Padding\");",
+      "note": "ECB/DES/RC4 bị coi là yếu."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/TestJob.java:18",
+      "evidence": "private static final String PROGRESS_KEY = \"progress\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/ContactsBackupWork.java:57",
+      "evidence": "public static final String KEY_ACCOUNT = \"account\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/ContactsBackupWork.java:58",
+      "evidence": "public static final String KEY_FORCE = \"force\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/jobs/download/SendShareDownloader.java:34",
+      "evidence": "private static final String KEY_FILE_WAITING_TO_SEND = \"KEY_FILE_WAITING_TO_SEND\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/account/UserAccountManager.java:17",
+      "evidence": "public static final String ACCOUNT_USES_STANDARD_PASSWORD = \"ACCOUNT_USES_STANDARD_PASSWORD\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/player/util/PlayerUtil.java:69",
+      "evidence": "private static final String PLAYBACK_FILE_KEY = \"playback_file\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/player/model/PlaybackSettings.java:16",
+      "evidence": "private static final String REPEAT_MODE_ID_KEY = \"repeat_mode_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/player/model/PlaybackSettings.java:17",
+      "evidence": "private static final String SHUFFLE_KEY = \"shuffle\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java:19",
+      "evidence": "private static final String COLLECTION_KEY = \"collection\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java:20",
+      "evidence": "private static final String CURRENT_FILE_ID_KEY = \"current_file_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java:21",
+      "evidence": "private static final String FILE_TYPE_KEY = \"file_type\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/nextcloud/client/player/media3/resumption/PlaybackResumptionConfigStore.java:22",
+      "evidence": "private static final String FOLDER_ID_KEY = \"folder_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "com.nextcloud.ui.composeActivity.ComposeProcessTextAlias",
+      "type": "activity-alias",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.PROCESS_TEXT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:87"
+    },
+    {
+      "component": "com.owncloud.android.ui.activity.FileDisplayActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "com.nextcloud.intent.OPEN_ECOSYSTEM_APP",
+        "android.intent.action.SEARCH",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:95"
+    },
+    {
+      "component": "com.owncloud.android.ui.activity.ReceiveExternalFilesActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:199"
+    },
+    {
+      "component": "com.nextcloud.client.player.media3.PlaybackService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "androidx.media3.session.MediaSessionService"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:214"
+    },
+    {
+      "component": "androidx.media3.session.MediaButtonReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MEDIA_BUTTON"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:219"
+    },
+    {
+      "component": "com.owncloud.android.syncadapter.FileSyncService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:230"
+    },
+    {
+      "component": "com.owncloud.android.authentication.AuthenticatorActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "com.owncloud.android.workaround.accounts.CREATE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:262"
+    },
+    {
+      "component": "com.owncloud.android.authentication.DeepLinkLoginActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:268"
+    },
+    {
+      "component": "com.owncloud.android.files.BootupBroadcastReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED",
+        "android.intent.action.QUICKBOOT_POWERON",
+        "com.htc.intent.action.QUICKBOOT_POWERON",
+        "android.intent.action.MY_PACKAGE_REPLACED"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:288"
+    },
+    {
+      "component": "com.nmc.android.ui.LauncherActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:314"
+    }
+  ],
+  "endpoints": []
+}

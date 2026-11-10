@@ -1,0 +1,210 @@
+{
+  "meta": {
+    "app": "org.wikipedia",
+    "scope": [
+      "org.wikipedia"
+    ],
+    "time": "2026-11-08 11:50",
+    "apk": "org.wikipedia_50606.apk",
+    "apk_sha256": "eba82a0f77940d8a6be5bd2e53723675a59859a6c8a51be5e50bd034fc77101f",
+    "analysis_seconds": 7.18
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:35",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: MainActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:40",
+      "evidence": "org.wikipedia.main.MainActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "4fa7ba819b4c"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "org/wikipedia/util/FileUtil.java:168",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), str);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "c26a28da36d8"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/wikipedia/activity/SingleWebViewActivity.java:193",
+      "evidence": "((ObservableWebView) hCaptchaHelper4.dialogCancelableRunnable).getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "6ea81261ef6f"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/wikipedia/bridge/CommunicationBridge.java:150",
+      "evidence": "communicationBridgeListener.getWebView().getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "e3ed633c1401"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/wikipedia/bridge/CommunicationBridge.java:154",
+      "evidence": "communicationBridgeListener.getWebView().addJavascriptInterface(new PcsClientJavascriptInterface(), \"pcsClient\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "2324c2841898"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "org/wikipedia/gallery/MediaDownloadReceiver.java:108",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(str), string);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "29d3354f9959"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "org.wikipedia.DefaultIcon",
+      "type": "activity-alias",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:48"
+    },
+    {
+      "component": "org.wikipedia.page.PageActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:55"
+    },
+    {
+      "component": "org.wikipedia.search.SearchActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.PROCESS_TEXT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:92"
+    },
+    {
+      "component": "org.wikipedia.widgets.WidgetProviderSearch",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:161"
+    },
+    {
+      "component": "org.wikipedia.widgets.WidgetProviderFeaturedPage",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:167"
+    },
+    {
+      "component": "org.wikipedia.widgets.readingchallenge.ReadingChallengeWidgetReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:173"
+    },
+    {
+      "component": "org.wikipedia.notifications.NotificationPollBroadcastReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED",
+        ".notifications.NotificationPollBroadcastReceiver.ACTION_POLL"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:179"
+    }
+  ],
+  "endpoints": [
+    "/api/",
+    "/raw/",
+    "/v1/events",
+    "/w/",
+    "/wiki/",
+    "/wikipedia/commons/",
+    "api.wikimedia.org/service/lw/inference/v1/",
+    "assets-hcaptcha.wikimedia.org",
+    "assets-hcaptcha.wikimedia.org/1/api.js",
+    "commons.wikimedia.org/",
+    "donate.wikimedia.org/wiki/MediaWiki:AppsCampaignConfig.json?action=raw",
+    "donate.wikimedia.org/wiki/MediaWiki:AppsDonationConfig.json?action=raw",
+    "en.wikipedia.org/wiki/Help:Introduction_to_editing_with_Wiki_Markup/1",
+    "github.com/jhy/jsoup",
+    "github.com/skydoves/Balloon/blob/main/LICENSE/",
+    "github.com/wikimedia/apps-android-wikipedia/releases/download/latest/app-alpha-universal-release.apk",
+    "github.com/wikimedia/apps-android-wikipedia/releases/download/latest/rev-hash.txt",
+    "hcaptcha.wikimedia.org",
+    "imgs-hcaptcha.wikimedia.org",
+    "meta.wikimedia.org",
+    "report-hcaptcha.wikimedia.org",
+    "semantic-search.wmcloud.org/",
+    "square.github.io/okhttp/",
+    "square.github.io/retrofit/",
+    "test.wikipedia.org/wiki/MediaWiki:AppsCampaignConfig.json?action=raw",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/0/04/Rio_de_Janeiro_skyline_and_Sugarloaf_Mountain_at_sunset%2C_Brazil_3.jpg",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Africa_and_Europe_from_a_Million_Miles_Away.png/500px-Africa_and_Europe",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/1/16/Pyramids_of_Giza%2C_Giza%2C_GG%2C_EGY_%2846986591195%29.jpg/500px-Pyram",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/1/17/Monet_w861.jpg/500px-Monet_w861.jpg",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/2/22/Edele_Tronier_Ruins_of_St_Catherine%27s_Church_in_Visby%2C_Gotland.jpg/",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/2/2c/Pavillon_Sully_du_Louvre_002.jpg/500px-Pavillon_Sully_du_Louvre_002.jpg",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/3/30/Mercury_in_color_-_Prockter07_centered.jpg/500px-Mercury_in_color_-_Pro",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/4/4f/Snowy_Mountains_In_Sky_%28Unsplash%29.jpg/500px-Snowy_Mountains_In_Sky_",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/9/94/Palais_de_l%27Industrie_-_%C3%89douard_Baldus.jpg/500px-Palais_de_l%27I",
+    "thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Red_eyed_tree_frog_edit2.jpg/500px-Red_eyed_tree_frog_edit2.jpg",
+    "wikimedia.org/",
+    "wikipedia.org/",
+    "www.mediawiki.org/wiki/Specs/Summary/1.2.0\\",
+    "www.mediawiki.org/wiki/Specs/aggregated-feed/0.5.0\\",
+    "www.mediawiki.org/wiki/Specs/definition/0.7.2\\",
+    "www.wikidata.org/"
+  ]
+}

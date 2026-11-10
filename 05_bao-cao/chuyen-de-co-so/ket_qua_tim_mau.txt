@@ -1,0 +1,8 @@
+Mẫu                                  dòng(app)   tệp  dòng(APK)   tệp
+http://                                      3     3         38    14
+Cipher\.getInstance                          2     1          3     2
+Log\.[dievw]\(                               1     1        644   146
+(?i)password                                70     7        118    17
+getExternalStorage                           4     2         12     7
+getSharedPreferences\([^,]+, *1\)            1     1          2     2
+Tệp .java toàn APK: 2992; thuộc package ứng dụng: 14

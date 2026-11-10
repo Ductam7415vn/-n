@@ -1,0 +1,807 @@
+{
+  "app": "Gadgetbridge 0.94.0",
+  "apk_sha256": "c0912ea6647bcad3f0b8f1f3be5181de7bdf0eafbd43cf930ab54572082aa165",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m2_holdout7/gb.json",
+  "note": "Holdout đợt 7: luật phát hiện + điểm tin cậy theo từng cảnh báo đóng băng ở commit 9c71644, KHÔNG dùng để chỉnh. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.activities.fit.FitViewerActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Trình xem tệp FIT theo đường dẫn — chỉ hiển thị cho người dùng, không trả dữ liệu về app gọi"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.contentprovider.PebbleContentProvider",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Provider trạng thái kết nối Pebble cho app đồng hành theo chuẩn Pebble SDK"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridNotificationsConfigActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.QHybridAppChooserActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.HRConfigActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.ImageEditActivity",
+      "label": "TP",
+      "reason": "ImageEditActivity exported không permission: đọc URI ảnh từ intent và trả pixel đã giải mã qua setResult → app khác nhờ đọc ảnh bằng quyền của Gadgetbridge — giống CanHub CropImageActivity (Tusky). Độ tin cậy trung bình"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.FileManagementActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.qhybrid.AppsManagementActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.um25.Activity.DataActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.supercars.ControlActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.SolarEquipmentStatusActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.binary_sensor.activity.DataActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.externalevents.opentracks.OpenTracksController",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Bộ nhận intent tích hợp với app OpenTracks (giao thức liên app có chủ đích)"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "nodomain.freeyourgadget.gadgetbridge.devices.cycling_sensor.activity.CyclingLiveDataActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Activity cấu hình/hiển thị chỉ mở UI (nhận tham số thiết bị), thao tác vẫn do người dùng thực hiện — nhất quán với DAVx5 AccountActivity"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "label": "TP",
+      "reason": "base-config cleartextTrafficPermitted=true. Cố ý nhưng là điểm yếu thật — gán TP nhất quán với các app trước"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "label": "TP",
+      "reason": "base-config tin CA người dùng cài → MITM được. Cố ý nhưng là điểm yếu thật — gán TP nhất quán với các app trước"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/CheckSums.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 làm checksum tệp firmware/dữ liệu, không dùng cho bảo mật"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/CheckSums.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MD5 làm checksum tệp firmware/dữ liệu, không dùng cho bảo mật"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/WaypointHelper.java",
+      "evidence": "Uri uri2 = Uri.parse(\"http://dummy/\" + uri.getEncodedSchemeSpecificPart());",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Uri.parse(\"http://dummy/\" + …) chỉ để mượn bộ phân tích URI, không kết nối"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/FileUtils.java",
+      "evidence": "File file = new File(getExternalFilesDir(), str);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/UriUtils.java",
+      "evidence": "return Environment.getExternalStorageDirectory() + \"/\" + listSplit$default.get(1);",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Chỉ tính đường dẫn tuyệt đối từ URI document, không ghi dữ liệu"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/BcdUtil.java",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/NoPadding\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/BcdUtil.java",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/NoPadding\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/GB.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), str);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/AndroidUtils.java",
+      "evidence": "return Environment.getExternalStorageDirectory() + \"/\" + DocumentsContract.getDocumentId(uri).split(\":\")[1];",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Chỉ tính đường dẫn tuyệt đối từ URI document, không ghi dữ liệu"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/PebbleUtils.java",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"pbw-cache\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/util/healthconnect/GadgetbridgeDataExporter.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), Config.CC.m(\"gb_export_\", StringsKt__StringsJVMKt.replace$default(aliasOrName, \" \", \"_\"), \"_\", str2, \".jso",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/externalevents/opentracks/OpenTracksController.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"gpx\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java",
+      "evidence": "this.myWebView.addJavascriptInterface(new JSInterface(gBDevice, uuidFromString), \"GBjs\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java",
+      "evidence": "this.myWebView.addJavascriptInterface(new ActivityJSInterface(), \"GBActivity\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/ExternalPebbleJSActivity.java",
+      "evidence": "this.myWebView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/GpxReceiverActivity.java",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"gpx\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"Export_preference\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file2 = new File(FileUtils.getExternalFilesDir(), \"Export_preference_\" + device.identifier.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "File file4 = new File(FileUtils.getExternalFilesDir(), \"Gadgetbridge\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/DataManagementActivity.java",
+      "evidence": "ImportExportSharedPreferences.importFromFile(DataManagementActivity.sharedPrefs, new File(FileUtils.getExternalFilesDir(), \"Export_preference\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/RebbleAppStoreActivity.java",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/RebbleAppStoreActivity.java",
+      "evidence": "webView4.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/AppManagerActivity.java",
+      "evidence": "BufferedReader bufferedReader = new BufferedReader(new FileReader(FileUtils.getExternalFilesDir() + \"/\" + str));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/appmanager/AppManagerActivity.java",
+      "evidence": "BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(FileUtils.getExternalFilesDir() + \"/\" + str));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/workouts/WorkoutDetailsFragment$takeSharedScreenshot$1.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), str.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/activities/charts/StepStreaksDashboard.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), str.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java",
+      "evidence": "String str7 = \"http://www.garmin.com/xmlschemas/TrackPointExtension/v2\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML của GPX/Garmin (xmlschemas) dùng trong setPrefix — không phải kết nối mạng; SPEC_URI chưa nhận 'xmlschemas'"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(\"gpxtpx\", \"http://www.garmin.com/xmlschemas/TrackPointExtension/v2\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML của GPX/Garmin (xmlschemas) dùng trong setPrefix — không phải kết nối mạng; SPEC_URI chưa nhận 'xmlschemas'"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java",
+      "evidence": "String str9 = \"http://www.garmin.com/xmlschemas/PowerExtension/v1\";",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML của GPX/Garmin (xmlschemas) dùng trong setPrefix — không phải kết nối mạng; SPEC_URI chưa nhận 'xmlschemas'"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(\"gpxpx\", \"http://www.garmin.com/xmlschemas/PowerExtension/v1\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML của GPX/Garmin (xmlschemas) dùng trong setPrefix — không phải kết nối mạng; SPEC_URI chưa nhận 'xmlschemas'"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(CoreConstants.EMPTY_STRING, \"http://www.topografix.com/GPX/1/1\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML của GPX/Garmin (xmlschemas) dùng trong setPrefix — không phải kết nối mạng; SPEC_URI chưa nhận 'xmlschemas'"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "nodomain/freeyourgadget/gadgetbridge/export/GPXExporter.java",
+      "evidence": "xmlSerializerNewSerializer.setPrefix(\"opentracks\", \"http://opentracksapp.com/xmlschemas/v1\");",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "URI namespace XML của GPX/Garmin (xmlschemas) dùng trong setPrefix — không phải kết nối mạng; SPEC_URI chưa nhận 'xmlschemas'"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/AsynchronousResponse.java",
+      "evidence": "File file = new File(huaweiSupportProvider.context.getExternalFilesDir(null), \"ephemeris.zip\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/AsynchronousResponse.java",
+      "evidence": "File file = new File(huaweiSupportProvider2.context.getExternalFilesDir(null), \"ephemeris.zip\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/requests/SendEphemerisParameterConsultRequest.java",
+      "evidence": "File file = new File(huaweiSupportProvider.context.getExternalFilesDir(null), \"ephemeris.zip\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/huawei/p2p/HuaweiP2PScreenshotService.java",
+      "evidence": "FileOutputStream fileOutputStream = new FileOutputStream(new File(FileUtils.getExternalFilesDir() + File.separator + str));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/pebble/webview/JSInterface.java",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-1\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "SHA-1 trong runtime PebbleKit JS (tạo định danh/token theo API Pebble), không băm mật khẩu"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/PKCS5Padding\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/PKCS5Padding\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java",
+      "evidence": "cipher.init(1, new SecretKeySpec(bArr, \"AES\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/gree/GreeAcSupport.java",
+      "evidence": "Cipher cipher2 = Cipher.getInstance(\"AES/ECB/PKCS5Padding\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/banglejs/BangleJSDeviceSupport.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir() + \"/\" + this.gbDevice.mName.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/banglejs/BangleJSActivityTrack.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir() + \"/\" + gBDevice.mName.replaceAll(\"[\\u0000/:\\\\r\\\\n\\\\\\\\]\", \"_\"));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/garmin/ProtocolBufferHandler.java",
+      "evidence": "File file2 = new File(garminSupport3.context.getExternalCacheDir(), \"garmin-inflated\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/garmin/fit/FitAsyncProcessor.java",
+      "evidence": "File file2 = new File(this.context.getExternalCacheDir(), \"garmin-zip-contents\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/adapter/fossil_hr/FossilHRWatchAdapter.java",
+      "evidence": "new File(qHybridSupport.context.getExternalFilesDir(null), \"hr_background.bin\").delete();",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/adapter/fossil_hr/FossilHRWatchAdapter.java",
+      "evidence": "new FileOutputStream(new File(qHybridSupport.context.getExternalFilesDir(null), \"hr_background.bin\"), false).write(bArr);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/requests/fossil_hr/authentication/VerifyPrivateKeyRequest.java",
+      "evidence": "cipher.init(2, secretKeySpec, new IvParameterSpec(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/qhybrid/requests/fossil_hr/authentication/VerifyPrivateKeyRequest.java",
+      "evidence": "cipher2.init(1, secretKeySpec, new IvParameterSpec(new byte[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "CRY-WEAK",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/huami/operations/init/InitOperation.java",
+      "evidence": "Cipher cipher = Cipher.getInstance(\"AES/ECB/NoPadding\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Mật mã do GIAO THỨC THIẾT BỊ của hãng quy định (app buộc phải theo để giao tiếp) — nhất quán với CRAM-MD5/APOP của K-9"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/huami/zeppos/ZeppOsSupport.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), \"zepp-os-received-files\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/huami/zeppos/ZeppOsSupport.java",
+      "evidence": "new File(FileUtils.getExternalFilesDir(), \"zepp-os-received-files\").mkdirs();",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/casio/Casio2C2DSupport$$ExternalSyntheticLambda2.java",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/casio/Casio2C2DSupport$$ExternalSyntheticLambda2.java",
+      "evidence": "webView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/casio/Casio2C2DSupport$$ExternalSyntheticLambda2.java",
+      "evidence": "webView4.addJavascriptInterface(jSInterface, \"GBjs\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "file": "nodomain/freeyourgadget/gadgetbridge/service/devices/withingssteelhr/AuthenticationHandler.java",
+      "evidence": "return MessageDigest.getInstance(\"SHA1\").digest(byteBufferAllocate.array());",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "SHA1 theo giao thức xác thực thiết bị Withings"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/devices/AbstractDeviceCoordinator.java",
+      "evidence": "File file = new File(FileUtils.getExternalFilesDir(), gBDevice.mAddress);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/devices/test/TestDeviceCoordinator.java",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"test-app-cache\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "nodomain/freeyourgadget/gadgetbridge/devices/banglejs/AppsManagementActivity.java",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/devices/banglejs/AppsManagementActivity.java",
+      "evidence": "this.webView.addJavascriptInterface(new WebViewInterface(), \"Android\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "nodomain/freeyourgadget/gadgetbridge/devices/banglejs/AppsManagementActivity.java",
+      "evidence": "this.webView.addJavascriptInterface(new RequestInterceptorInterface(gBWebClient), \"GBReqInt\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView/JS bridge cho trang của chính nhà cung cấp thiết bị (HTTPS) hoặc runtime Pebble đóng gói trong app — theo thiết kế"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/devices/qhybrid/QHybridCoordinator.java",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"qhybrid-app-cache\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "nodomain/freeyourgadget/gadgetbridge/devices/huami/zeppos/ZeppOsCoordinator.java",
+      "evidence": "return new File(FileUtils.getExternalFilesDir(), \"zepp-os-app-cache\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Tệp xuất/nhập do người dùng chủ động hoặc cache/tệp thiết bị trong thư mục external riêng của app, không phải ghi lén dữ liệu nhạy cảm"
+    }
+  ]
+}

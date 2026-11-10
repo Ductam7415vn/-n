@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "app": "app.organicmaps",
+    "scope": [
+      "app.organicmaps"
+    ],
+    "time": "2026-11-08 23:01",
+    "export_rules": "v2",
+    "apk": "app.organicmaps_26092932.apk",
+    "apk_sha256": "654a736d43317084f13560281fe7013f869800610e9d6036b6789d9c9e07f8bc",
+    "analysis_seconds": 0.43
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:42",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ManageSpaceActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:325",
+      "evidence": "app.organicmaps.ManageSpaceActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "71b7b0abd428"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: AndroidAutoService",
+      "severity": "high",
+      "location": "AndroidManifest.xml:353",
+      "evidence": "app.organicmaps.car.AndroidAutoService",
+      "note": "Service nhận action androidx.car.app.CarAppService, androidx.car.app.action.NAVIGATE từ bất kỳ app nào mà không yêu cầu permission — cần kiểm tra service có xác thực bên gọi không.",
+      "confidence": "medium",
+      "fingerprint": "621b6f177775"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "8343f37cc05d"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "Cho phép cleartext tới domain công khai",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\" (domain-config: organicmaps.app, omaps.app)",
+      "note": "Chỉ áp cho các domain liệt kê.",
+      "confidence": "medium",
+      "fingerprint": "010b9c0db1b8"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "app/organicmaps/WebContainerDelegate.java:40",
+      "evidence": "this.mWebView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "5c7b842cd319"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "app/organicmaps/widget/placepage/sections/ExpandableNotesView.java:366",
+      "evidence": "webView2.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "0177aed75c14"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "app/organicmaps/sdk/bookmarks/data/MapObject.java:38",
+      "evidence": "private static final String kHttp = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "0802edbd51a7"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "app/organicmaps/editor/AdvancedTimetableFragment.java:55",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "e8adbc20d094"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "app.organicmaps.SplashActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.NAVIGATE",
+        "android.intent.action.NAVIGATE",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:43"
+    },
+    {
+      "component": "app.organicmaps.DownloadResourcesActivity",
+      "type": "activity-alias",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:326"
+    }
+  ],
+  "endpoints": [
+    "fosstodon.org/@organicmaps",
+    "github.com/organicmaps/organicmaps",
+    "matrix.to/#/%23organicmaps:matrix.org",
+    "osm.org",
+    "twitter.com/OrganicMapsApp",
+    "www.facebook.com/OrganicMaps",
+    "www.openstreetmap.org/user/forgot-password",
+    "www.openstreetmap.org/user/new"
+  ],
+  "requests": []
+}

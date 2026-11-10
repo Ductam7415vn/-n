@@ -1,0 +1,1333 @@
+{
+  "meta": {
+    "app": "de.danoeh.antennapod",
+    "time": "2026-10-04 00:11"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:25",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm."
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:25",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: FeedUpdateReceiver",
+      "severity": "high",
+      "location": "AndroidManifest.xml:161",
+      "evidence": "de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": ""
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/statistics/StatisticsFragment.java:36",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:18",
+      "evidence": "private static final String KEY_ENABLED = \"WidgetEnabled\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:19",
+      "evidence": "public static final String KEY_WIDGET_COLOR = \"widget_color\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:20",
+      "evidence": "public static final String KEY_WIDGET_COVER_BACKGROUND = \"widget_cover_background\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:21",
+      "evidence": "public static final String KEY_WIDGET_FAST_FORWARD = \"widget_fast_forward\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:22",
+      "evidence": "public static final String KEY_WIDGET_PLAYBACK_SPEED = \"widget_playback_speed\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:23",
+      "evidence": "public static final String KEY_WIDGET_REWIND = \"widget_rewind\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:24",
+      "evidence": "public static final String KEY_WIDGET_SKIP = \"widget_skip\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/widget/PlayerWidget.java:25",
+      "evidence": "private static final String KEY_WORKAROUND_ENABLED = \"WorkaroundEnabled\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/episodeslist/EpisodesListFragment.java:60",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/AddFeedFragment.java:57",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/home/HomeFragment.java:47",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/rating/RatingDialogManager.java:12",
+      "evidence": "private static final String KEY_FIRST_START_DATE = \"KEY_FIRST_HIT_DATE\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/rating/RatingDialogManager.java:13",
+      "evidence": "private static final String KEY_RATED = \"KEY_WAS_RATED\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/episode/ItemPagerFragment.java:37",
+      "evidence": "private static final String KEY_PAGER_ID = \"pager_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/subscriptions/SubscriptionFragment.java:62",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/download/CompletedDownloadsFragment.java:69",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/feed/FeedItemlistFragment.java:93",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/queue/QueueFragment.java:73",
+      "evidence": "private static final String KEY_UP_ARROW = \"up_arrow\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/queue/QueueFragment.java:76",
+      "evidence": "private static final String SCROLL_OFFSET_KEY = \"scroll_offset\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/screen/queue/QueueFragment.java:77",
+      "evidence": "private static final String SCROLL_POSITION_KEY = \"scroll_position\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/swipeactions/SwipeActions.java:24",
+      "evidence": "public static final String KEY_PREFIX_NO_ACTION = \"PrefNoSwipeAction\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/ui/swipeactions/SwipeActions.java:25",
+      "evidence": "public static final String KEY_PREFIX_SWIPEACTIONS = \"PrefSwipeActions\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/net/discovery/ItunesTopListLoader.java:27",
+      "evidence": "public static final String PREF_KEY_COUNTRY_CODE = \"country_code\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/net/discovery/ItunesTopListLoader.java:28",
+      "evidence": "public static final String PREF_KEY_HIDDEN_DISCOVERY_COUNTRY = \"hidden_discovery_country\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/net/discovery/ItunesTopListLoader.java:29",
+      "evidence": "public static final String PREF_KEY_NEEDS_CONFIRM = \"needs_confirm\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/discovery/PodcastIndexPodcastSearcher.java:96",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-1\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/common/BasicAuthorizationInterceptor.java:44",
+      "evidence": "Log.d(TAG, \"no credentials for '\" + request.url() + \"'\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/common/BasicAuthorizationInterceptor.java:48",
+      "evidence": "Log.d(TAG, \"Invalid credentials for '\" + request.url() + \"'\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/common/UrlChecker.java:61",
+      "evidence": "return \"http://\" + strTrim;",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/net/download/service/feed/NewEpisodesNotification.java:28",
+      "evidence": "private static final String GROUP_KEY = \"de.danoeh.antennapod.EPISODES\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/download/serviceinterface/FileNameGenerator.java:50",
+      "evidence": "byte[] bArrDigest = MessageDigest.getInstance(\"MD5\").digest(str.getBytes(\"UTF-8\"));",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/activity/MainActivity.java:104",
+      "evidence": "public static final String KEY_GENERATED_VIEW_ID = \"generated_view_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/Itunes.java:19",
+      "evidence": "public static final String NSURI = \"http://www.itunes.com/dtds/podcast-1.0.dtd\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/DublinCore.java:14",
+      "evidence": "public static final String NSURI = \"http://purl.org/dc/elements/1.1/\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/Media.java:30",
+      "evidence": "public static final String NSURI = \"http://search.yahoo.com/mrss/\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/SimpleChapters.java:20",
+      "evidence": "public static final String NSURI = \"http://podlove.org/simple-chapters\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/Content.java:11",
+      "evidence": "public static final String NSURI = \"http://purl.org/rss/1.0/modules/content/\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/parser/media/vorbis/VorbisCommentMetadataReader.java:7",
+      "evidence": "private static final String KEY_COMMENT = \"comment\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/parser/media/vorbis/VorbisCommentMetadataReader.java:8",
+      "evidence": "private static final String KEY_DESCRIPTION = \"description\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/parser/media/vorbis/VorbisCommentMetadataReader.java:9",
+      "evidence": "private static final String KEY_SYNOPSIS = \"synopsis\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:58",
+      "evidence": "private static final String KEYS_FEED = \"Feeds.id AS feed_id, Feeds.title, Feeds.custom_title, Feeds.file_url, Feeds.download_url, Feeds.downloaded, Feeds.link,",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:60",
+      "evidence": "private static final String KEYS_FEED_MEDIA = \"FeedMedia.id AS media_id, FeedMedia.duration, FeedMedia.file_url, FeedMedia.download_url, FeedMedia.downloaded, F",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:61",
+      "evidence": "public static final String KEY_AUTHOR = \"author\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:62",
+      "evidence": "public static final String KEY_AUTO_DELETE_ACTION = \"auto_delete_action\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:63",
+      "evidence": "public static final String KEY_AUTO_DOWNLOAD_ENABLED = \"auto_download\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:64",
+      "evidence": "public static final String KEY_COMPLETION_DATE = \"completion_date\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:65",
+      "evidence": "public static final String KEY_CUSTOM_TITLE = \"custom_title\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:66",
+      "evidence": "public static final String KEY_DESCRIPTION = \"description\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:67",
+      "evidence": "public static final String KEY_DOWNLOADSTATUS_TITLE = \"title\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:68",
+      "evidence": "public static final String KEY_DOWNLOAD_DATE = \"downloaded\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:69",
+      "evidence": "public static final String KEY_DOWNLOAD_URL = \"download_url\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:70",
+      "evidence": "public static final String KEY_DURATION = \"duration\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:71",
+      "evidence": "public static final String KEY_EXCLUDE_FILTER = \"exclude_filter\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:72",
+      "evidence": "public static final String KEY_FEED = \"feed\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:73",
+      "evidence": "public static final String KEY_FEEDFILE = \"feedfile\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:74",
+      "evidence": "public static final String KEY_FEEDFILETYPE = \"feedfile_type\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:75",
+      "evidence": "public static final String KEY_FEEDITEM = \"feeditem\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:76",
+      "evidence": "public static final String KEY_FEED_IDENTIFIER = \"feed_identifier\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:77",
+      "evidence": "public static final String KEY_FEED_PLAYBACK_SPEED = \"feed_playback_speed\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:78",
+      "evidence": "public static final String KEY_FEED_SKIP_SILENCE = \"feed_skip_silence\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:79",
+      "evidence": "public static final String KEY_FILE_URL = \"file_url\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:80",
+      "evidence": "public static final String KEY_HAS_CHAPTERS = \"has_simple_chapters\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:81",
+      "evidence": "public static final String KEY_HAS_EMBEDDED_PICTURE = \"has_embedded_picture\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:82",
+      "evidence": "public static final String KEY_HIDE = \"hide\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:84",
+      "evidence": "public static final String KEY_IMAGE_URL = \"image_url\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:85",
+      "evidence": "public static final String KEY_INCLUDE_FILTER = \"include_filter\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:86",
+      "evidence": "public static final String KEY_IS_PAGED = \"is_paged\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:87",
+      "evidence": "public static final String KEY_ITEM_IDENTIFIER = \"item_identifier\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:88",
+      "evidence": "public static final String KEY_KEEP_UPDATED = \"keep_updated\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:89",
+      "evidence": "public static final String KEY_LANGUAGE = \"language\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:90",
+      "evidence": "public static final String KEY_LASTUPDATE = \"last_update\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:91",
+      "evidence": "public static final String KEY_LAST_PLAYED_TIME_HISTORY = \"playback_completion_date\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:92",
+      "evidence": "public static final String KEY_LAST_PLAYED_TIME_STATISTICS = \"last_played_time\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:93",
+      "evidence": "public static final String KEY_LAST_REFRESH_ATTEMPT = \"downloaded\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:94",
+      "evidence": "public static final String KEY_LAST_UPDATE_FAILED = \"last_update_failed\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:95",
+      "evidence": "public static final String KEY_LINK = \"link\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:96",
+      "evidence": "public static final String KEY_MEDIA = \"media\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:97",
+      "evidence": "public static final String KEY_MIME_TYPE = \"mime_type\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:98",
+      "evidence": "public static final String KEY_MINIMAL_DURATION_FILTER = \"minimal_duration_filter\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:99",
+      "evidence": "public static final String KEY_NEXT_PAGE_LINK = \"next_page_link\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:100",
+      "evidence": "public static final String KEY_PASSWORD = \"password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:101",
+      "evidence": "public static final String KEY_PAYMENT_LINK = \"payment_link\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:102",
+      "evidence": "public static final String KEY_PLAYED_DURATION = \"played_duration\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:103",
+      "evidence": "public static final String KEY_PODCASTINDEX_CHAPTER_URL = \"podcastindex_chapter_url\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:104",
+      "evidence": "public static final String KEY_PODCASTINDEX_TRANSCRIPT_TYPE = \"podcastindex_transcript_type\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:105",
+      "evidence": "public static final String KEY_PODCASTINDEX_TRANSCRIPT_URL = \"podcastindex_transcript_url\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:106",
+      "evidence": "public static final String KEY_POSITION = \"position\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:107",
+      "evidence": "public static final String KEY_PUBDATE = \"pubDate\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:108",
+      "evidence": "public static final String KEY_READ = \"read\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:109",
+      "evidence": "public static final String KEY_REASON = \"reason\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:110",
+      "evidence": "public static final String KEY_REASON_DETAILED = \"reason_detailed\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:111",
+      "evidence": "public static final String KEY_SIZE = \"filesize\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:112",
+      "evidence": "public static final String KEY_SOCIAL_INTERACT_URL = \"social_interact_url\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:113",
+      "evidence": "public static final String KEY_SORT_ORDER = \"sort_order\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:114",
+      "evidence": "public static final String KEY_START = \"start\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:115",
+      "evidence": "public static final String KEY_SUCCESSFUL = \"successful\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:116",
+      "evidence": "public static final String KEY_TITLE = \"title\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:117",
+      "evidence": "public static final String KEY_TYPE = \"type\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:118",
+      "evidence": "public static final String KEY_USERNAME = \"username\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:121",
+      "evidence": "public static final String SELECT_KEY_FEED_ID = \"feed_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:122",
+      "evidence": "public static final String SELECT_KEY_IS_FAVORITE = \"is_favorite\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:123",
+      "evidence": "public static final String SELECT_KEY_IS_IN_QUEUE = \"is_in_queue\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:124",
+      "evidence": "public static final String SELECT_KEY_ITEM_ID = \"item_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:125",
+      "evidence": "public static final String SELECT_KEY_MEDIA_ID = \"media_id\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:129",
+      "evidence": "private static final String TABLE_PRIMARY_KEY = \"id INTEGER PRIMARY KEY AUTOINCREMENT ,\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:134",
+      "evidence": "public static final String KEY_FEED_VOLUME_ADAPTION = \"feed_volume_adaption\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:135",
+      "evidence": "public static final String KEY_FEED_TAGS = \"tags\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:136",
+      "evidence": "public static final String KEY_FEED_SKIP_INTRO = \"feed_skip_intro\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:137",
+      "evidence": "public static final String KEY_FEED_SKIP_ENDING = \"feed_skip_ending\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:138",
+      "evidence": "public static final String KEY_EPISODE_NOTIFICATION = \"episode_notification\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:139",
+      "evidence": "public static final String KEY_STATE = \"state\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:140",
+      "evidence": "public static final String KEY_NEW_EPISODES_ACTION = \"new_episodes_action\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:1118",
+      "evidence": "File file2 = new File(PodDBAdapter.context.getExternalFilesDir(null), \"CorruptedDatabaseBackup.db\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/preferences/UserPreferences.java:87",
+      "evidence": "private static final String PREF_PROXY_PASSWORD = \"prefProxyPassword\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/preferences/UserPreferences.java:624",
+      "evidence": "File file = new File(context.getExternalFilesDir(null), \".nomedia\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/preferences/SynchronizationCredentials.java:11",
+      "evidence": "private static final String PREF_PASSWORD = \"de.danoeh.antennapod.preferences.gpoddernet.password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java:36",
+      "evidence": "private static final String OPML_BACKUP_KEY = \"opml\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java:44",
+      "evidence": "private static final String OPML_ENTITY_KEY = \"antennapod-feeds.opml\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java:60",
+      "evidence": "messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java:122",
+      "evidence": "messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/playback/service/MediaButtonReceiver.java:12",
+      "evidence": "public static final String EXTRA_KEYCODE = \"de.danoeh.antennapod.core.service.extra.MediaButtonReceiver.KEYCODE\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/playback/base/MediaItemAdapter.java:28",
+      "evidence": "public static final String KEY_AUTHORIZATION_HEADER = \"authorization_header\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/playback/base/MediaItemAdapter.java:29",
+      "evidence": "public static final String KEY_STREAM_URL = \"stream_url\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại biểu thức chính quy / hằng PATTERN)."
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "de.danoeh.antennapod.activity.SplashActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+        "android.intent.action.MUSIC_PLAYER"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:39"
+    },
+    {
+      "component": "de.danoeh.antennapod.activity.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "de.danoeh.antennapod.intents.MAIN_ACTIVITY",
+        "android.service.quicksettings.action.QS_TILE_PREFERENCES"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:50"
+    },
+    {
+      "component": "de.danoeh.antennapod.activity.OpmlImportActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:75"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.screen.playback.video.Media3VideoPlayerActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "de.danoeh.antennapod.intents.VIDEO_PLAYER_MEDIA3"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:97"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.screen.onlinefeedview.OnlineFeedViewActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "de.danoeh.antennapod.intents.ONLINE_FEEDVIEW"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:103"
+    },
+    {
+      "component": "de.danoeh.antennapod.activity.SelectSubscriptionActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.CREATE_SHORTCUT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:152"
+    },
+    {
+      "component": "de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.net.conn.CONNECTIVITY_CHANGE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:162"
+    },
+    {
+      "component": "de.danoeh.antennapod.net.download.service.PowerConnectionReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.ACTION_POWER_CONNECTED",
+        "android.intent.action.ACTION_POWER_DISCONNECTED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:167"
+    },
+    {
+      "component": "de.danoeh.antennapod.playback.service.Media3PlaybackService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "androidx.media3.session.MediaSessionService",
+        "androidx.media3.session.MediaLibraryService",
+        "de.danoeh.antennapod.intents.PLAYBACK_SERVICE_MEDIA3",
+        "android.media.browse.MediaBrowserService"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:194"
+    },
+    {
+      "component": "androidx.media3.session.MediaButtonReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MEDIA_BUTTON"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:202"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.widget.WidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:212"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.widget.PlayerWidget",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "de.danoeh.antennapod.FORCE_WIDGET_UPDATE",
+        "de.danoeh.antennapod.STOP_WIDGET_UPDATE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:217"
+    }
+  ],
+  "endpoints": [
+    "127.0.0.1",
+    "antennapod.org/contribute/",
+    "antennapod.org/documentation/",
+    "antennapod.org/privacy/",
+    "api.fyyd.de/0.2/search/podcast?title=%s&count=10",
+    "api.podcastindex.org/api/1.0/search/byterm?q=%s",
+    "avatars2.githubusercontent.com/u/",
+    "forum.antennapod.org/",
+    "forum.antennapod.org/search",
+    "github.com/",
+    "github.com/AntennaPod/AntennaPod/issues",
+    "github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md",
+    "itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json",
+    "itunes.apple.com/lookup?id=",
+    "itunes.apple.com/search?media=podcast&term=%s",
+    "picsum.photos/400/400?random=",
+    "play.google.com/store/apps/details?id=de.danoeh.antennapod",
+    "podcastindex.org/namespace/1.0",
+    "podlove.org/simple-chapters",
+    "purl.org/dc/elements/1.1/",
+    "purl.org/rss/1.0/modules/content/",
+    "search.yahoo.com/mrss/",
+    "www.itunes.com/dtds/podcast-1.0.dtd"
+  ]
+}

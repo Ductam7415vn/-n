@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "app": "ws.xsoh.etar",
+    "scope": [
+      "com.android",
+      "ws.xsoh.etar"
+    ],
+    "time": "2026-11-08 23:02",
+    "export_rules": "v2",
+    "apk": "ws.xsoh.etar_57.apk",
+    "apk_sha256": "dae01d93c8920aa63845868db2190bcc4aa6ff8410b1289de1ce27b1bb89c599",
+    "analysis_seconds": 0.7
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: LaunchActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:53",
+      "evidence": "com.android.calendar.LaunchActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "8aed5d27241d"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/android/calendar/chips/RecipientEditTextView.java:1100",
+      "evidence": "Log.d(TAG, \"There were extra characters after the last tokenizable entry.\" + ((Object) text));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "bd2b749d09c0"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "com.android.calendar.AllInOneActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:35"
+    },
+    {
+      "component": "com.android.calendar.EventInfoActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:55"
+    },
+    {
+      "component": "com.android.calendar.EditEventActivity",
+      "type": "activity-alias",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.EDIT",
+        "android.intent.action.INSERT",
+        "android.intent.action.EDIT",
+        "android.intent.action.INSERT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:67"
+    },
+    {
+      "component": "com.android.calendar.GoogleCalendarUriIntentFilter",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:81"
+    },
+    {
+      "component": "com.android.calendar.SearchActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEARCH"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:94"
+    },
+    {
+      "component": "com.android.calendar.ImportActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:100"
+    },
+    {
+      "component": "com.android.calendar.alerts.AlertReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.EVENT_REMINDER",
+        "android.intent.action.TIME_SET",
+        "android.intent.action.LOCALE_CHANGED",
+        "android.intent.action.PROVIDER_CHANGED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:118"
+    },
+    {
+      "component": "com.android.calendar.UpgradeReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED",
+        "android.intent.action.MY_PACKAGE_REPLACED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:133"
+    },
+    {
+      "component": "com.android.calendar.widget.CalendarAppWidgetProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "com.android.calendar.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:145"
+    },
+    {
+      "component": "com.android.calendar.widget.CalendarAppWidgetService$CalendarFactory",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.TIMEZONE_CHANGED",
+        "android.intent.action.DATE_CHANGED",
+        "android.intent.action.TIME_SET",
+        "android.intent.action.LOCALE_CHANGED",
+        "android.intent.action.PROVIDER_CHANGED",
+        "com.android.calendar.APPWIDGET_SCHEDULED_UPDATE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:152"
+    }
+  ],
+  "endpoints": [
+    "f-droid.org/repository/browse/?fdid=at.bitfire.davdroid",
+    "f-droid.org/repository/browse/?fdid=com.etesync.syncadapter"
+  ],
+  "requests": []
+}

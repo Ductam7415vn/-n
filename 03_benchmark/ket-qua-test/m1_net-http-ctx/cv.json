@@ -1,0 +1,435 @@
+{
+  "meta": {
+    "app": "eu.siacs.conversations",
+    "time": "2026-10-04 00:31"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:95",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm."
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: CropImageActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:250",
+      "evidence": "com.canhub.cropper.CropImageActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_configuration.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_configuration.xml",
+      "evidence": "user certificates trusted",
+      "note": ""
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/ui/fragment/settings/BackupSettingsFragment.java:68",
+      "evidence": "preferenceFindPreference2.setSummary(getString(new Object[]{AppSettings.asPath(MathKt.stringIsNullOrEmpty(string) ? Uri.fromFile(new File(new File(Environment.g",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/ScramSha256Plus.java:24",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA256\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/HashedTokenSha512.java:13",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA512\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/ScramSha1.java:24",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA1\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/ScramSha512Plus.java:24",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA512\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/HashedTokenSha256.java:13",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA256\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/ScramSha512.java:24",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA512\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/ScramSha256.java:24",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA256\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/sasl/ScramSha1Plus.java:24",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"HmacSHA1\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/axolotl/XmppAxolotlMessage.java:138",
+      "evidence": "cipher.init(2, new SecretKeySpec(bArr3, \"AES\"), new IvParameterSpec(this.iv));",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/crypto/axolotl/XmppAxolotlMessage.java:148",
+      "evidence": "SecretKeySpec secretKeySpec = new SecretKeySpec(bArr, \"AES\");",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/utils/BackupFile.java:173",
+      "evidence": "arrayList2.add(new File(new File(Environment.getExternalStorageDirectory(), (String) it.next()), \"Backup\"));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/utils/BackupFile.java:177",
+      "evidence": "arrayList2.add(new File(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), context.getString(R.string.app_name)), \"Backup\"",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/xmpp/XmppConnection.java:2807",
+      "evidence": "Log.d(Config.LOGTAG, ((Object) this.account.jid.asBareJid()) + \": storing hashed token \" + tokenMechanism);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/xmpp/XmppConnection.java:2809",
+      "evidence": "Log.d(Config.LOGTAG, ((Object) this.account.jid.asBareJid()) + \": not accepting hashed token \" + tokenMechanism.name() + \" for log in mechanism \" + saslMechanis",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/xmpp/jingle/JingleRtpConnection.java:2017",
+      "evidence": "Log.d(Config.LOGTAG, \"received offer to restart ICE \" + distinctCredentials);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/xmpp/jingle/JingleRtpConnection.java:2021",
+      "evidence": "Log.d(Config.LOGTAG, \"received confirmation of ICE restart\" + distinctCredentials + \" peer_setup=\" + peerDtlsSetup);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/persistance/DatabaseBackend.java:801",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + \"/Conversations/\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/persistance/DatabaseBackend.java:802",
+      "evidence": "File file2 = new File(Environment.getExternalStorageDirectory() + \"/Conversations/\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/persistance/DatabaseBackend.java:803",
+      "evidence": "File file3 = new File(Environment.getExternalStorageDirectory() + \"/Conversations/Media/Conversations Files/\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/persistance/DatabaseBackend.java:804",
+      "evidence": "File file4 = new File(Environment.getExternalStorageDirectory() + \"/Conversations/Media/Conversations Videos/\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/persistance/DatabaseBackend.java:806",
+      "evidence": "File file5 = new File(Environment.getExternalStorageDirectory() + \"/Conversations/Media/Conversations Images/\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/persistance/FileBackend.java:403",
+      "evidence": "return new File(new File(new File(Environment.getExternalStorageDirectory(), context.getString(R.string.app_name)), \"Media\"), AutoMigrationSpec$CC.m(context.get",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/worker/ExportBackupWorker.java:180",
+      "evidence": "String strAsPath = AppSettings.asPath(MathKt.stringIsNullOrEmpty(string) ? Uri.fromFile(new File(new File(Environment.getExternalStoragePublicDirectory(Environm",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "CRY-KEYHARD",
+      "owasp": "M1",
+      "title": "Dùng SecretKeySpec (xem lại nguồn khoá)",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/worker/ExportBackupWorker.java:282",
+      "evidence": "cipher.init(1, new SecretKeySpec(getKey(str, bArr2), \"AES\"), new IvParameterSpec(bArr));",
+      "note": "Cần kiểm tra keyBytes có bắt nguồn từ chuỗi viết cứng không."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/worker/ExportBackupWorker.java:452",
+      "evidence": "uriFromFile = Uri.fromFile(new File(new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), context.getString(R.string.app_name",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/worker/ExportBackupWorker.java:476",
+      "evidence": "Log.d(Config.LOGTAG, String.format(\"skipping backup for %s because password is empty. unable to encrypt\", account.jid.asBareJid()));",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/services/XmppConnectionService.java:1695",
+      "evidence": "strBytesToHex = CryptoHelper.bytesToHex(MessageDigest.getInstance(\"SHA-1\").digest((account.jid.asBareJid().toString() + \"\\u0000\" + string2).getBytes(StandardCha",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "eu/siacs/conversations/services/BarcodeProvider.java:1101",
+      "evidence": "strBytesToHex = CryptoHelper.bytesToHex(MessageDigest.getInstance(\"SHA-1\").digest(string.getBytes(StandardCharsets.UTF_8)));",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "eu.siacs.conversations.receiver.SystemEventReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED",
+        "android.intent.action.MY_PACKAGE_REPLACED",
+        "android.net.conn.CONNECTIVITY_CHANGE",
+        "android.intent.action.ACTION_SHUTDOWN",
+        "android.media.RINGER_MODE_CHANGED",
+        "android.intent.action.AIRPLANE_MODE_CHANGED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:111"
+    },
+    {
+      "component": "eu.siacs.conversations.ui.ConversationActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:146"
+    },
+    {
+      "component": "eu.siacs.conversations.ui.YuriLauncherActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.SENDTO",
+        "android.intent.action.SENDTO"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:155"
+    },
+    {
+      "component": "eu.siacs.conversations.ui.StartConversationActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:204"
+    },
+    {
+      "component": "eu.siacs.conversations.ui.activity.SettingsActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:209"
+    },
+    {
+      "component": "eu.siacs.conversations.ui.ShareWithActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:231"
+    },
+    {
+      "component": "eu.siacs.conversations.ui.ShortcutActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.CREATE_SHORTCUT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:258"
+    },
+    {
+      "component": "eu.siacs.conversations.ui.ImportBackupActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:267"
+    }
+  ],
+  "endpoints": [
+    "/Conversations/",
+    "/avatars/",
+    "/barcodes/",
+    "/gif",
+    "/posh_cache/",
+    "conversations.im",
+    "conversations.im/privacy.html",
+    "etherx.jabber.org/streams",
+    "gultsch.de/xmpp/drafts/jingle/transports/ice-udp/option",
+    "gultsch.de/xmpp/drafts/omemo/dlts-srtp-verification",
+    "help.conversations.im",
+    "jabber.org/protocol/bytestreams",
+    "jabber.org/protocol/caps",
+    "jabber.org/protocol/chatstates",
+    "jabber.org/protocol/commands",
+    "jabber.org/protocol/disco#info",
+    "jabber.org/protocol/muc",
+    "jabber.org/protocol/muc#roominfo",
+    "jabber.org/protocol/muc#stable_id",
+    "jabber.org/protocol/muc#user",
+    "jabber.org/protocol/nick",
+    "jabber.org/protocol/pubsub",
+    "jabber.org/protocol/pubsub#config-node-max",
+    "jabber.org/protocol/pubsub#errors",
+    "jabber.org/protocol/pubsub#owner",
+    "jabber.org/protocol/pubsub#persistent-items",
+    "jabber.org/protocol/pubsub#publish-options",
+    "jabber.org/protocol/rsm",
+    "search.jabber.network",
+    "www.openkeychain.org/"
+  ]
+}

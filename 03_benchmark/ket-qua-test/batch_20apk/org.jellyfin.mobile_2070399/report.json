@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "app": "org.jellyfin.mobile",
+    "scope": [
+      "org.jellyfin.mobile"
+    ],
+    "time": "2026-11-08 11:50",
+    "apk": "org.jellyfin.mobile_2070399.apk",
+    "apk_sha256": "f9f4b3ab46cc9434df811194c2d4351417f4db83a4c1a0facd0a662d69533f7f",
+    "analysis_seconds": 1.03
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:27",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: MediaTransferReceiver",
+      "severity": "high",
+      "location": "AndroidManifest.xml:47",
+      "evidence": "androidx.mediarouter.media.MediaTransferReceiver",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "e288c6d04f04"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: ImageProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:48",
+      "evidence": "org.jellyfin.mobile.ui.content.ImageProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "e8da4e84091f"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "8343f37cc05d"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "a5738d77e954"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/jellyfin/mobile/webapp/WebViewFragment.java:411",
+      "evidence": "webView.addJavascriptInterface(new NativeInterface(contextRequireContext), \"NativeInterface\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "41d726d46693"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/jellyfin/mobile/webapp/WebViewFragment.java:412",
+      "evidence": "webView.addJavascriptInterface(getNativePlayer(), \"NativePlayer\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "82a37bc1172f"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/jellyfin/mobile/webapp/WebViewFragment.java:418",
+      "evidence": "webView.addJavascriptInterface(externalPlayer, \"ExternalPlayer\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "d61bf828a42c"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/jellyfin/mobile/webapp/WebViewFragment.java:419",
+      "evidence": "webView.addJavascriptInterface(getMediaSegments(), \"MediaSegments\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "afbf5a125869"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/jellyfin/mobile/utils/WebViewUtilsKt.java:27",
+      "evidence": "webSettings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "16bfe413e14f"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "org.jellyfin.mobile.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.media.action.MEDIA_PLAY_FROM_SEARCH"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:28"
+    },
+    {
+      "component": "org.jellyfin.mobile.sessionbrowser.LibraryService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "androidx.media3.session.MediaSessionService",
+        "android.media.browse.MediaBrowserService"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:41"
+    }
+  ],
+  "endpoints": []
+}

@@ -1,0 +1,11 @@
+Số app: 5
+  v1: 109 cảnh báo, chưa nhãn 109 | mọi cảnh báo — | chặt — | ≥ medium — | ≥ medium chặt —
+  v2: 112 cảnh báo, chưa nhãn 112 | mọi cảnh báo — | chặt — | ≥ medium — | ≥ medium chặt —
+
+Thay đổi 1 — cảnh báo đổi tầng tin cậy: 1
+  com.nextcloud.client: CFG-EXPORT com.owncloud.android.providers.FileContentProvider | low → medium | chưa nhãn
+
+Thay đổi 2 — cảnh báo chỉ có ở v2: 3
+  net.osmand.plus: CFG-EXPORT net.osmand.aidl.OsmandAidlService | medium | chưa nhãn
+  net.osmand.plus: CFG-EXPORT net.osmand.aidl.OsmandAidlServiceV2 | medium | chưa nhãn
+  net.osmand.plus: CFG-EXPORT net.osmand.plus.auto.NavigationCarAppService | medium | chưa nhãn

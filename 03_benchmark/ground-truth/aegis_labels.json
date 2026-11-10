@@ -1,0 +1,34 @@
+{
+  "app": "Aegis 3.4.3",
+  "apk_sha256": "0eecec45de0da3ff1358004b51e2960d9178551643a6ed44f6496ea9ec999c19",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_holdout5/ag.json",
+  "note": "Holdout đợt 5: luật đóng băng ở commit d5bb7a6, KHÔNG dùng để chỉnh luật. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Backup chỉ gồm sharedpref + backup/aegis.json (vault đã mã hoá bằng mật khẩu người dùng), có backupAgent riêng"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "file": "com/beemdevelopment/aegis/importers/TotpAuthenticatorImporter.java",
+      "evidence": "private static final byte[] IV = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "IV 0 bắt buộc để giải mã định dạng backup của app TOTP Authenticator (bộ nhập), không phải mã hoá của Aegis"
+    },
+    {
+      "rule_id": "CRY-IV0",
+      "file": "com/beemdevelopment/aegis/importers/AuthyImporter.java",
+      "evidence": "private static final byte[] IV = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "IV 0 bắt buộc để giải mã định dạng backup của Authy (bộ nhập), không phải mã hoá của Aegis"
+    }
+  ]
+}

@@ -1,0 +1,65 @@
+
+[1/8] com.nextcloud.client_30180090.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/com.nextcloud.client_30180090.apk
+SHA-256: 9ad9902cedce19bf6c09ce8fd561c5e3d222636608465a4dc1f6bebd946dbd22
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  36 cảnh báo · 6 endpoint · 0.84 s
+
+[2/8] com.nextcloud.client_30180190.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/com.nextcloud.client_30180190.apk
+SHA-256: 8247a05724968045e4a00466a95a9eeb3aa8ed1a9022400b49ea1e1536407e8d
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  36 cảnh báo · 6 endpoint · 0.81 s
+
+[3/8] com.owncloud.android_22100100.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/com.owncloud.android_22100100.apk
+SHA-256: 81a88b2fadd7e557d01721961b2ba73bd3307ed61493ef041db8b64f13dbfd9f
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  15 cảnh báo · 1 endpoint · 0.59 s
+
+[4/8] de.luhmer.owncloudnewsreader_165.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/de.luhmer.owncloudnewsreader_165.apk
+SHA-256: 6fc631462b466cae7d552d97cbe0e796f5cb0ee84205f4f6f2417282cd562a10
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  12 cảnh báo · 5 endpoint · 0.14 s
+
+[5/8] de.luhmer.owncloudnewsreader_166.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/de.luhmer.owncloudnewsreader_166.apk
+SHA-256: 38eed4afbe365c23ddcdbcfc3c6297055401cdc56ed9f9e67d6035e8f56cbf2d
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  12 cảnh báo · 5 endpoint · 0.11 s
+
+[6/8] net.osmand.plus_531003.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/net.osmand.plus_531003.apk
+SHA-256: 27f1eb82d288a9939b7c0bdd0fb94f78749824ffc753d32d421e01cbe487e5e0
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  35 cảnh báo · 117 endpoint · 4.26 s
+
+[7/8] net.osmand.plus_541103.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/net.osmand.plus_541103.apk
+SHA-256: c61ea6c3caf89e866249812fd72b52fc22dabc46f4addf1d76c96fb097b7f037
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  44 cảnh báo · 118 endpoint · 4.84 s
+
+[8/8] org.wikipedia_50575.apk
+APK: /Volumes/BetaSoft/Desktop/Đồ án/04_code/target-app/recall/org.wikipedia_50575.apk
+SHA-256: 6b5cd05f850f99d3ca45270e3fd943a627d592ec2fec449462bf5510bf29c9e8
+Đang giải nén bằng apktool…
+Đang dịch ngược bằng JADX (có thể mất vài phút)…
+  (JADX báo một số phương thức không dịch được — bình thường với app lớn)
+  7 cảnh báo · 35 endpoint · 1.73 s
+
+Đã quét 8/8 APK. Tổng hợp: <scratch>/recall/index.html

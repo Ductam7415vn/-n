@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "app": "me.hackerchick.catima",
+    "scope": [
+      "protect.card_locker"
+    ],
+    "time": "2026-11-08 11:49",
+    "apk": "me.hackerchick.catima_1004.apk",
+    "apk_sha256": "271980b62f73137db2d843fb4fc35f103c4126d769f816d365206c5c1adff3a9",
+    "analysis_seconds": 0.14
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:35",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm.",
+      "confidence": "high",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: LoyaltyCardViewActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:74",
+      "evidence": "protect.card_locker.cardview.LoyaltyCardViewActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "829f5c8d9f65"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: CardsContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:128",
+      "evidence": "protect.card_locker.contentprovider.CardsContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "15560afd7ba7"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "protect/card_locker/Utils.java:133",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-1\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "52fa3f0d534b"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "protect.card_locker.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:42"
+    },
+    {
+      "component": "protect.card_locker.LoyaltyCardEditActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:76"
+    },
+    {
+      "component": "protect.card_locker.ImportExportActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:98"
+    },
+    {
+      "component": "protect.card_locker.CardShortcutConfigure",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.CREATE_SHORTCUT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:121"
+    }
+  ],
+  "endpoints": [
+    "catima.app/changelog/",
+    "catima.app/donate",
+    "catima.app/privacy-policy/",
+    "fonts.google.com/icons?selected=Material+Icons",
+    "github.com/ACRA/acra",
+    "github.com/CatimaLoyalty/Android/",
+    "github.com/CatimaLoyalty/Android/blob/main/LICENSE",
+    "github.com/CatimaLoyalty/Android/issues",
+    "github.com/Yalantis/uCrop",
+    "github.com/jaredrummler/ColorPicker",
+    "github.com/journeyapps/zxing-android-embedded",
+    "github.com/srikanth-lingala/zip4j",
+    "github.com/zxing/zxing",
+    "hosted.weblate.org/engage/catima/"
+  ]
+}

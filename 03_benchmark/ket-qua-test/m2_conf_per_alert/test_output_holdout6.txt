@@ -1,0 +1,35 @@
+=== InsecureBankv2 — RECALL (ràng buộc cứng = 100%) ===
+  [OK ] V01 khoá cứng
+  [OK ] V02 cleartext
+  [OK ] V05 mật mã yếu (IV)
+  [OK ] V06 exported
+  [OK ] V07 cửa hậu devlogin
+  [OK ] V11 allowBackup
+  => Recall tĩnh: 100%  (6/6 mục tĩnh của đáp án)
+  [+  ] (thêm) V04 lưu trữ không an toàn
+  [+  ] (thêm) V10 rò rỉ qua log
+
+=== InsecureBankv2 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 24  |  TP: 24  FP: 0  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 100.0%  (24/24)
+
+=== KeePassDX 4.5.5 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 50  |  TP: 1  FP: 49  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 2.0%  (1/50)
+
+=== Breezy Weather 6.2.2 — PRECISION (theo nhãn gán tay) ===
+  Tổng cảnh báo: 4  |  TP: 1  FP: 3  chưa gán nhãn: 0
+  => Precision trên phần đã gán nhãn: 25.0%  (1/4)
+
+=== TỔNG 2 APP THẬT (KeePassDX 4.5.5, Breezy Weather 6.2.2) ===
+  TP: 2  FP: 52  chưa gán nhãn: 0
+  => Precision gộp (micro): 3.7%  (2/54)
+  => Precision trung bình theo app (macro): 13.5%
+
+=== 2 APP THẬT — PRECISION THEO ĐỘ TIN CẬY ===
+  mức      | riêng mức            | từ mức này trở lên
+  high     |    —                 |    —
+  medium   |  40.0% (2/5)         |  40.0% (2/5)
+  low      |   0.0% (0/49)        |   3.7% (2/54)
+
+PASS: recall InsecureBankv2 = 100%, không mất TP đã gán nhãn.

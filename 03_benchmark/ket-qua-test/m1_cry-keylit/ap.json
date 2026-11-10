@@ -1,0 +1,352 @@
+{
+  "meta": {
+    "app": "de.danoeh.antennapod",
+    "time": "2026-10-04 00:18"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:25",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm."
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:25",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: FeedUpdateReceiver",
+      "severity": "high",
+      "location": "AndroidManifest.xml:161",
+      "evidence": "de.danoeh.antennapod.net.download.service.feed.FeedUpdateReceiver",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": ""
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/discovery/PodcastIndexPodcastSearcher.java:96",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"SHA-1\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "de/danoeh/antennapod/net/discovery/BuildConfig.java:9",
+      "evidence": "public static final String PODCASTINDEX_API_KEY = \"XTMMQGA2YZ4WJUBYY4HK\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*)."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/common/BasicAuthorizationInterceptor.java:44",
+      "evidence": "Log.d(TAG, \"no credentials for '\" + request.url() + \"'\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/common/BasicAuthorizationInterceptor.java:48",
+      "evidence": "Log.d(TAG, \"Invalid credentials for '\" + request.url() + \"'\");",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/common/UrlChecker.java:61",
+      "evidence": "return \"http://\" + strTrim;",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/net/download/serviceinterface/FileNameGenerator.java:50",
+      "evidence": "byte[] bArrDigest = MessageDigest.getInstance(\"MD5\").digest(str.getBytes(\"UTF-8\"));",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/Itunes.java:19",
+      "evidence": "public static final String NSURI = \"http://www.itunes.com/dtds/podcast-1.0.dtd\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/DublinCore.java:14",
+      "evidence": "public static final String NSURI = \"http://purl.org/dc/elements/1.1/\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/Media.java:30",
+      "evidence": "public static final String NSURI = \"http://search.yahoo.com/mrss/\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/SimpleChapters.java:20",
+      "evidence": "public static final String NSURI = \"http://podlove.org/simple-chapters\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/parser/feed/namespace/Content.java:11",
+      "evidence": "public static final String NSURI = \"http://purl.org/rss/1.0/modules/content/\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https)."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/database/PodDBAdapter.java:1118",
+      "evidence": "File file2 = new File(PodDBAdapter.context.getExternalFilesDir(null), \"CorruptedDatabaseBackup.db\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/preferences/UserPreferences.java:624",
+      "evidence": "File file = new File(context.getExternalFilesDir(null), \".nomedia\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java:60",
+      "evidence": "messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "de/danoeh/antennapod/storage/importexport/OpmlBackupAgent.java:122",
+      "evidence": "messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu."
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "de.danoeh.antennapod.activity.SplashActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.media.action.MEDIA_PLAY_FROM_SEARCH",
+        "android.intent.action.MUSIC_PLAYER"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:39"
+    },
+    {
+      "component": "de.danoeh.antennapod.activity.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "de.danoeh.antennapod.intents.MAIN_ACTIVITY",
+        "android.service.quicksettings.action.QS_TILE_PREFERENCES"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:50"
+    },
+    {
+      "component": "de.danoeh.antennapod.activity.OpmlImportActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:75"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.screen.playback.video.Media3VideoPlayerActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "de.danoeh.antennapod.intents.VIDEO_PLAYER_MEDIA3"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:97"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.screen.onlinefeedview.OnlineFeedViewActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND",
+        "de.danoeh.antennapod.intents.ONLINE_FEEDVIEW"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:103"
+    },
+    {
+      "component": "de.danoeh.antennapod.activity.SelectSubscriptionActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.CREATE_SHORTCUT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:152"
+    },
+    {
+      "component": "de.danoeh.antennapod.net.download.service.ConnectivityActionReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.net.conn.CONNECTIVITY_CHANGE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:162"
+    },
+    {
+      "component": "de.danoeh.antennapod.net.download.service.PowerConnectionReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.ACTION_POWER_CONNECTED",
+        "android.intent.action.ACTION_POWER_DISCONNECTED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:167"
+    },
+    {
+      "component": "de.danoeh.antennapod.playback.service.Media3PlaybackService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "androidx.media3.session.MediaSessionService",
+        "androidx.media3.session.MediaLibraryService",
+        "de.danoeh.antennapod.intents.PLAYBACK_SERVICE_MEDIA3",
+        "android.media.browse.MediaBrowserService"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:194"
+    },
+    {
+      "component": "androidx.media3.session.MediaButtonReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MEDIA_BUTTON"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:202"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.widget.WidgetConfigActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:212"
+    },
+    {
+      "component": "de.danoeh.antennapod.ui.widget.PlayerWidget",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE",
+        "de.danoeh.antennapod.FORCE_WIDGET_UPDATE",
+        "de.danoeh.antennapod.STOP_WIDGET_UPDATE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:217"
+    }
+  ],
+  "endpoints": [
+    "127.0.0.1",
+    "antennapod.org/contribute/",
+    "antennapod.org/documentation/",
+    "antennapod.org/privacy/",
+    "api.fyyd.de/0.2/search/podcast?title=%s&count=10",
+    "api.podcastindex.org/api/1.0/search/byterm?q=%s",
+    "avatars2.githubusercontent.com/u/",
+    "forum.antennapod.org/",
+    "forum.antennapod.org/search",
+    "github.com/",
+    "github.com/AntennaPod/AntennaPod/issues",
+    "github.com/Podcastindex-org/podcast-namespace/blob/main/docs/1.0.md",
+    "itunes.apple.com/%s/rss/toppodcasts/limit=25/explicit=true/json",
+    "itunes.apple.com/lookup?id=",
+    "itunes.apple.com/search?media=podcast&term=%s",
+    "picsum.photos/400/400?random=",
+    "play.google.com/store/apps/details?id=de.danoeh.antennapod",
+    "podcastindex.org/namespace/1.0",
+    "podlove.org/simple-chapters",
+    "purl.org/dc/elements/1.1/",
+    "purl.org/rss/1.0/modules/content/",
+    "search.yahoo.com/mrss/",
+    "www.itunes.com/dtds/podcast-1.0.dtd"
+  ]
+}

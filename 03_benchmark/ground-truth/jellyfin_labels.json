@@ -1,0 +1,87 @@
+{
+  "app": "Jellyfin 2.7.3",
+  "apk_sha256": "f9f4b3ab46cc9434df811194c2d4351417f4db83a4c1a0facd0a662d69533f7f",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_holdout3/jf.json",
+  "note": "Holdout đợt 3: luật đóng băng ở commit 19f2943, KHÔNG dùng để chỉnh luật. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "TP",
+      "reason": "allowBackup=true, backup_content include app_webview (cookie/localStorage chứa token đăng nhập server), database, preferences — không requireFlags mã hoá; minSdk 21 → adb backup trích được trên Android ≤ 11"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "androidx.mediarouter.media.MediaTransferReceiver",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "MediaTransferReceiver của androidx.mediarouter — thư viện yêu cầu exported để hệ thống chuyển phát media"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "org.jellyfin.mobile.ui.content.ImageProvider",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Provider ảnh bìa cho media session/Android Auto (hệ thống cần đọc); chỉ trả ảnh theo itemId, không trả token/dữ liệu tài khoản"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "label": "TP",
+      "reason": "base-config cleartextTrafficPermitted=true. Cố ý (máy chủ tự host) nhưng là điểm yếu thật — gán TP nhất quán với K-9/AntennaPod/Nextcloud"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "file": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "label": "TP",
+      "reason": "base-config tin CA người dùng cài → MITM được. Cố ý (máy chủ tự host) nhưng là điểm yếu thật — gán TP nhất quán với K-9/AntennaPod/Nextcloud"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/jellyfin/mobile/webapp/WebViewFragment.java",
+      "evidence": "webView.addJavascriptInterface(new NativeInterface(contextRequireContext), \"NativeInterface\");",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Cầu nối native (downloadFiles, openUrl, getDeviceInformation…) mở cho web UI tải từ server; server có thể qua HTTP (cleartext cho phép) → MITM/XSS gọi được hàm native. Kiến trúc có chủ đích, hàm ít nguy hiểm"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/jellyfin/mobile/webapp/WebViewFragment.java",
+      "evidence": "webView.addJavascriptInterface(getNativePlayer(), \"NativePlayer\");",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Cầu nối native (downloadFiles, openUrl, getDeviceInformation…) mở cho web UI tải từ server; server có thể qua HTTP (cleartext cho phép) → MITM/XSS gọi được hàm native. Kiến trúc có chủ đích, hàm ít nguy hiểm"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/jellyfin/mobile/webapp/WebViewFragment.java",
+      "evidence": "webView.addJavascriptInterface(externalPlayer, \"ExternalPlayer\");",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Cầu nối native (downloadFiles, openUrl, getDeviceInformation…) mở cho web UI tải từ server; server có thể qua HTTP (cleartext cho phép) → MITM/XSS gọi được hàm native. Kiến trúc có chủ đích, hàm ít nguy hiểm"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/jellyfin/mobile/webapp/WebViewFragment.java",
+      "evidence": "webView.addJavascriptInterface(getMediaSegments(), \"MediaSegments\");",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Cầu nối native (downloadFiles, openUrl, getDeviceInformation…) mở cho web UI tải từ server; server có thể qua HTTP (cleartext cho phép) → MITM/XSS gọi được hàm native. Kiến trúc có chủ đích, hàm ít nguy hiểm"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "org/jellyfin/mobile/utils/WebViewUtilsKt.java",
+      "evidence": "webSettings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Web client Jellyfin cần JS; rủi ro thật nằm ở cầu nối addJavascriptInterface (đã gán riêng)"
+    }
+  ]
+}

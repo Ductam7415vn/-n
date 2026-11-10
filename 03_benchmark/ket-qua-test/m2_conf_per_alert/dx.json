@@ -1,0 +1,216 @@
+{
+  "meta": {
+    "app": "at.bitfire.davdroid",
+    "time": "2026-10-04 01:05"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: AccountActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:130",
+      "evidence": "at.bitfire.davdroid.ui.account.AccountActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: WebdavMountsActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:136",
+      "evidence": "at.bitfire.davdroid.ui.webdav.WebdavMountsActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: [ẩn danh A]",
+      "severity": "high",
+      "location": "AndroidManifest.xml:198",
+      "evidence": "[ẩn danh A]",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: MessagingReceiverImpl",
+      "severity": "high",
+      "location": "AndroidManifest.xml:246",
+      "evidence": "org.unifiedpush.android.connector.internal.MessagingReceiverImpl",
+      "note": "Nhận action org.unifiedpush.android.connector.REGISTRATION_FAILED mà chính app tự gửi — kênh nội bộ, app khác cũng gửi được.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": "",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": "",
+      "confidence": "high"
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "net.openid.appauth.RedirectUriReceiverActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:69"
+    },
+    {
+      "component": "at.bitfire.davdroid.ui.AccountsActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:92"
+    },
+    {
+      "component": "at.bitfire.davdroid.ui.AppSettingsActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.APPLICATION_PREFERENCES"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:99"
+    },
+    {
+      "component": "at.bitfire.davdroid.ui.setup.LoginActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.VIEW",
+        "loginFlow"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:109"
+    },
+    {
+      "component": "at.bitfire.davdroid.sync.adapter.CalendarsSyncAdapterService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:144"
+    },
+    {
+      "component": "at.bitfire.davdroid.sync.adapter.JtxSyncAdapterService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:150"
+    },
+    {
+      "component": "at.bitfire.davdroid.sync.adapter.OpenTasksSyncAdapterService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:156"
+    },
+    {
+      "component": "at.bitfire.davdroid.sync.adapter.TasksOrgSyncAdapterService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:162"
+    },
+    {
+      "component": "at.bitfire.davdroid.sync.account.AddressBookAuthenticatorService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.accounts.AccountAuthenticator"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:168"
+    },
+    {
+      "component": "at.bitfire.davdroid.sync.adapter.ContactsSyncAdapterService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:174"
+    },
+    {
+      "component": "at.bitfire.davdroid.ui.widget.LabeledSyncButtonWidgetReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:186"
+    },
+    {
+      "component": "at.bitfire.davdroid.ui.widget.IconSyncButtonWidgetReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:192"
+    },
+    {
+      "component": "org.unifiedpush.android.connector.internal.RaiseToForegroundService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "org.unifiedpush.android.connector.RAISE_TO_FOREGROUND"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:240"
+    }
+  ],
+  "endpoints": [
+    "accounts.google.com/o/oauth2/v2/auth",
+    "developers.google.com/terms/api-services-user-data-policy#additional_requirements_for_specific_api_scopes",
+    "fosstodon.org/@davx5app",
+    "github.com/bitfireAT/davx5-ose/discussions",
+    "github.com/bitfireAT/davx5-ose/issues",
+    "hosted.weblate.org/engage/davx5/",
+    "manual.davx5.com",
+    "manual.davx5.com/",
+    "oauth2.googleapis.com/token",
+    "unifiedpush.org",
+    "www.davx5.com",
+    "www.davx5.com/faq"
+  ]
+}

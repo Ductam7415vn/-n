@@ -1,0 +1,543 @@
+{
+  "meta": {
+    "app": "com.nextcloud.client",
+    "scope": [
+      "com.nextcloud.client",
+      "com.owncloud"
+    ],
+    "time": "2026-11-10 18:13",
+    "apk": "com.nextcloud.client_30170090.apk",
+    "apk_sha256": "8d2ed6c796174afa46a5aab9ee3f33c26f22c101022c73e3029c5a28edbde581",
+    "analysis_seconds": 0.82
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:31",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:31",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": "",
+      "confidence": "high",
+      "fingerprint": "506e7ca61e85"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: FileContentProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:95",
+      "evidence": "com.owncloud.android.providers.FileContentProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp. Mã có kiểm tra danh tính app gọi.",
+      "confidence": "low",
+      "fingerprint": "6caa18e4b131"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: DiskLruImageCacheFileProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:114",
+      "evidence": "com.owncloud.android.providers.DiskLruImageCacheFileProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "19c8c99e14b8"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: TrashbinActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:141",
+      "evidence": "com.owncloud.android.ui.trashbin.TrashbinActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "6fc8fe687134"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: AccountManagerService",
+      "severity": "high",
+      "location": "AndroidManifest.xml:162",
+      "evidence": "com.owncloud.android.services.AccountManagerService",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "3657f9e95d10"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: SsoGrantPermissionActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:163",
+      "evidence": "com.owncloud.android.ui.activity.SsoGrantPermissionActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium",
+      "fingerprint": "2f4aeecd33ea"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "8343f37cc05d"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "a5738d77e954"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/owncloud/android/ui/activity/SsoGrantPermissionActivity.java:64",
+      "evidence": "Log.v(str, \"TOKEN-REQUEST: Calling Package: \" + this.packageName);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "8c7971f9a417"
+    },
+    {
+      "rule_id": "LOG-SENS",
+      "owasp": "M9",
+      "title": "Ghi log có thể chứa dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/owncloud/android/ui/activity/SsoGrantPermissionActivity.java:65",
+      "evidence": "Log.v(str, \"TOKEN-REQUEST: App Name: \" + appNameForPackage);",
+      "note": "Log in ra giá trị nhạy cảm (không tính thông điệp cố định chỉ chứa từ khoá); bản phát hành nên loại bỏ.",
+      "confidence": "low",
+      "fingerprint": "a66f99d59589"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "com/owncloud/android/ui/activity/TextEditorWebView.java:85",
+      "evidence": "this.webview.addJavascriptInterface(new EditorWebView.MobileInterface(), \"DirectEditingMobileInterface\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "c4f68ec36280"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "com/owncloud/android/ui/activity/RichDocumentsEditorWebView.java:59",
+      "evidence": "this.webview.addJavascriptInterface(new RichDocumentsMobileInterface(), \"RichDocumentsMobileInterface\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium",
+      "fingerprint": "5bcbe8122ddb"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/owncloud/android/ui/activity/ExternalSiteWebView.java:107",
+      "evidence": "webSettings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "9616df2ac447"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/owncloud/android/ui/fragment/FeatureWebFragment.java:35",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "55b518c788c0"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "com/owncloud/android/ui/helpers/FileOperationsHelper.java:818",
+      "evidence": "return new File(activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + \"/directCameraUpload.jpg\");",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low",
+      "fingerprint": "afc3c3103f4d"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/owncloud/android/utils/BitmapUtils.java:203",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "c3bb36d80ec1"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/owncloud/android/utils/EncryptionUtils.java:301",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "7255cc9a9740"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/owncloud/android/utils/DisplayUtils.java:77",
+      "evidence": "private static final String HTTP_PROTOCOL = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "e4f3c6f73438"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/status/GetCapabilitiesRemoteOperation.java:43",
+      "evidence": "private static final String NODE_PASSWORD = \"password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "addef6ec3069"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/owncloud/android/lib/resources/status/GetStatusRemoteOperation.java:24",
+      "evidence": "private static final String PROTOCOL_HTTP = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "e70c4e9ef670"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/owncloud/android/lib/resources/status/GetStatusRemoteOperation.java:207",
+      "evidence": "client.setBaseUri(Uri.parse(\"http://\" + string));",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "48805c12601b"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/users/SendCSROperation.java:19",
+      "evidence": "private static final String PUBLIC_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "edf94ac605db"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/users/DeletePublicKeyOperation.java:11",
+      "evidence": "private static final String PUBLIC_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "abe2096bd873"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/users/GetPrivateKeyOperation.java:17",
+      "evidence": "private static final String PUBLIC_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "ac93a0ffb9aa"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/users/StorePrivateKeyOperation.java:19",
+      "evidence": "private static final String PRIVATE_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/private-key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "b075d584011f"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/users/GetPublicKeyOperation.java:18",
+      "evidence": "private static final String PUBLIC_KEY_URL = \"/ocs/v2.php/apps/end_to_end_encryption/api/v1/public-key\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "f061c1c371ae"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/owncloud/android/lib/resources/files/FileUtils.java:27",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "f75bc6d1a48a"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/shares/ShareXMLParser.java:31",
+      "evidence": "private static final String NODE_PASSWORD = \"password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "d5149ba7a394"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/shares/ShareXMLParser.java:41",
+      "evidence": "private static final String NODE_TOKEN = \"token\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "85e94f1e89db"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/shares/UpdateShareRemoteOperation.java:28",
+      "evidence": "private static final String PARAM_PASSWORD = \"password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "e9f9577d3982"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/resources/shares/CreateShareRemoteOperation.java:13",
+      "evidence": "private static final String PARAM_PASSWORD = \"password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "2e858ee32c97"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/common/network/NetworkUtils.java:29",
+      "evidence": "private static String LOCAL_TRUSTSTORE_PASSWORD = \"password\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "2a15883584cd"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/common/operations/RemoteOperation.java:22",
+      "evidence": "protected static final String E2E_TOKEN = \"e2e-token\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "e328ebd683fc"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/lib/common/operations/RemoteOperation.java:28",
+      "evidence": "protected static final String REMOTE_WIPE_TOKEN = \"token\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "3a1d62827bb4"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "com/owncloud/android/db/ProviderMeta.java:124",
+      "evidence": "public static final String OCSHARES_TOKEN = \"token\";",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "low",
+      "fingerprint": "a3ef0e5e3d19"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/owncloud/android/authentication/AuthenticatorUrlUtils.java:9",
+      "evidence": "private static final String HTTP_PROTOCOL = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "bb6871c8b62a"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/owncloud/android/authentication/AuthenticatorUrlUtils.java:29",
+      "evidence": "strTrim = \"http://\" + strTrim;",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "d407e9e63cd0"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/owncloud/android/authentication/AuthenticatorActivity.java:101",
+      "evidence": "public static final String HTTP_PROTOCOL = \"http://\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "6d64cfed2151"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/owncloud/android/authentication/AuthenticatorActivity.java:234",
+      "evidence": "this.accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low",
+      "fingerprint": "0e462e455007"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "com.owncloud.android.ui.activity.FileDisplayActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.SEARCH",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:33"
+    },
+    {
+      "component": "com.owncloud.android.ui.activity.ReceiveExternalFilesActivity",
+      "type": "activity",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:68"
+    },
+    {
+      "component": "com.owncloud.android.authentication.AccountAuthenticatorService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.accounts.AccountAuthenticator"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:83"
+    },
+    {
+      "component": "com.owncloud.android.syncadapter.FileSyncService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:89"
+    },
+    {
+      "component": "com.owncloud.android.authentication.AuthenticatorActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "com.owncloud.android.workaround.accounts.CREATE"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:115"
+    },
+    {
+      "component": "com.owncloud.android.authentication.DeepLinkLoginActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:121"
+    },
+    {
+      "component": "com.owncloud.android.files.BootupBroadcastReceiver",
+      "type": "receiver",
+      "exported": "ngầm định",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED",
+        "android.intent.action.QUICKBOOT_POWERON",
+        "com.htc.intent.action.QUICKBOOT_POWERON",
+        "android.intent.action.MY_PACKAGE_REPLACED"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:144"
+    }
+  ],
+  "endpoints": [
+    "f-droid.org/repository/browse/?fdid=at.bitfire.davdroid",
+    "goo.gl/maps/",
+    "nextcloud.com/ns",
+    "nextcloud.org/ns",
+    "owncloud.org/ns",
+    "www.apple.com/DTDs/PropertyList-1.0.dtd\\"
+  ],
+  "requests": []
+}

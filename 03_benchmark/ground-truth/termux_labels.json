@@ -1,0 +1,34 @@
+{
+  "app": "Termux 0.118.3",
+  "apk_sha256": "e6265a57eb5ca363808488e3b01955958bed93bc0c8a0d281849b363b11027ec",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m2_holdout9/termux/report.json",
+  "note": "Holdout đợt 9: quét bằng `apiscan.py scan` (phạm vi tự suy: ['com.termux']), luật + điểm tin cậy + suy phạm vi đóng băng ở commit 7135621, KHÔNG dùng để chỉnh.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "com.termux.app.activities.SettingsActivity",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "SettingsActivity chỉ mở màn hình cài đặt, không đọc dữ liệu từ intent — nhất quán với DAVx5 WebdavMounts"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/termux/app/TermuxInstaller.java",
+      "evidence": "Logger.logInfo(\"termux-storage\", \"Setting up storage symlinks at ~/storage/shared, ~/storage/downloads, ~/storage/dcim, ~/storage/pictures, ~/storage/music and ",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Chuỗi thông điệp log có nối đường dẫn bộ nhớ ngoài, không tạo/ghi tệp"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "com/termux/shared/file/TermuxFileUtils.java",
+      "evidence": "if (path.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath() + \"/\")) {",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Chỉ so sánh tiền tố đường dẫn với thư mục bộ nhớ ngoài, không ghi dữ liệu"
+    }
+  ]
+}

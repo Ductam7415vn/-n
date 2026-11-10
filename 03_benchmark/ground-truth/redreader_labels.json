@@ -1,0 +1,156 @@
+{
+  "app": "RedReader 1.26",
+  "apk_sha256": "641512cee55154cd0c811e435d5f60b9b9e6d65a2103e0a34389c9fe5b4484f2",
+  "labeled_on": "2026-10-04",
+  "labeled_from": "03_benchmark/ket-qua-test/m1_holdout5/rr.json",
+  "note": "Holdout đợt 5: luật đóng băng ở commit d5bb7a6, KHÔNG dùng để chỉnh luật. Phạm vi quét = package trong manifest.",
+  "definition": "Định nghĩa: TP = cảnh báo chỉ đúng một điểm yếu bảo mật có thật (đối chiếu mã/manifest). FP = không phải lỗ hổng; fp_type: 'pattern' = khớp mẫu sai, 'intended' = hành vi cố ý/bắt buộc của app. borderline = nhận định có thể tranh luận (báo cả số chặt khi coi là FP).",
+  "labels": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:allowBackup=\"true\"",
+      "label": "TP",
+      "reason": "fullBackupContent include accounts_oauth2.db (token OAuth Reddit) + sharedpref, không requireFlags mã hoá; minSdk 21 → adb backup trích được trên Android ≤ 11 (cloud-backup có disableIfNoEncryptionCapabilities) — nhất quán với Jellyfin"
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "file": "AndroidManifest.xml",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "label": "TP",
+      "reason": "Cho phép HTTP cleartext toàn cục (không có network security config) — nhất quán với các app trước"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "file": "AndroidManifest.xml",
+      "evidence": "androidx.compose.ui.tooling.PreviewActivity",
+      "label": "TP",
+      "reason": "androidx.compose.ui.tooling.PreviewActivity (debug) lọt vào release và exported — nhất quán với Feeder. Độ tin cậy trung bình"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "org/quantumbadger/redreader/fragments/WebViewFragment.java",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Trình duyệt trong app cần JS để hiển thị trang web"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/quantumbadger/redreader/fragments/WebViewFragment$$ExternalSyntheticLambda0.java",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), strFilenameFromString);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Người dùng chủ động lưu ảnh (ảnh công khai) vào Pictures"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "file": "org/quantumbadger/redreader/fragments/WebViewFragment$$ExternalSyntheticLambda0.java",
+      "evidence": "file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), i + \"_\" + strFilenameFromString.substring(1));",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Người dùng chủ động lưu ảnh (ảnh công khai) vào Pictures"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/quantumbadger/redreader/common/LinkHandler.java",
+      "evidence": "strConcat = \"http://\".concat(strConcat);",
+      "label": "TP",
+      "borderline": true,
+      "reason": "Link không có scheme bị mặc định thành http:// (cleartext) — nhất quán với Feeder LinkUtils"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/quantumbadger/redreader/common/LinkHandler.java",
+      "evidence": "return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, \"http://i.qkme.me/%s.jpg\", Arrays.copyOf(new Object[]{strGroup3}, 1))), imageSize, ",
+      "label": "TP",
+      "reason": "Ảnh meme tải qua http://i.qkme.me (cleartext). Rủi ro thấp — nhất quán với Feeder thumbnail YouTube"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/quantumbadger/redreader/common/LinkHandler.java",
+      "evidence": "return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, \"http://i.qkme.me/%s.jpg\", Arrays.copyOf(new Object[]{strGroup2}, 1))), imageSize, ",
+      "label": "TP",
+      "reason": "Ảnh meme tải qua http://i.qkme.me (cleartext). Rủi ro thấp"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/quantumbadger/redreader/common/LinkHandler.java",
+      "evidence": "return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, \"http://www.livememe.com/%s.jpg\", Arrays.copyOf(new Object[]{strGroup}, 1))), image",
+      "label": "TP",
+      "reason": "Ảnh meme tải qua http://www.livememe.com (cleartext). Rủi ro thấp"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "file": "org/quantumbadger/redreader/common/LinkHandler.java",
+      "evidence": "if (openWebBrowser(appCompatActivity, Uri.parse(\"http://youtube.com/watch?v=\" + strGroup + strConcat), z2)) {",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Link YouTube mở bằng openWebBrowser (intent VIEW ra trình duyệt ngoài theo mặc định); YouTube chuyển hướng https — nhất quán với Conversations link openkeychain"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "org/quantumbadger/redreader/activities/OAuthLoginActivity.java",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView đăng nhập OAuth Reddit cần JS — nhất quán với Tusky"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/quantumbadger/redreader/views/webview/WebViewFixed.java",
+      "evidence": "public final void addJavascriptInterface() {",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Khai báo/lời gọi hàm tự viết cùng tên addJavascriptInterface() không đối số trong WebViewFixed — không phải API WebView"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/quantumbadger/redreader/views/webview/WebViewFixed.java",
+      "evidence": "addJavascriptInterface(new JavascriptInterface(), \"_VideoEnabledWebView\");",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "Cầu nối JS thật duy nhất chỉ lộ notifyVideoEnd() (báo video kết thúc), không có dữ liệu/hành động nhạy cảm"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/quantumbadger/redreader/views/webview/WebViewFixed.java",
+      "evidence": "addJavascriptInterface();",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Khai báo/lời gọi hàm tự viết cùng tên addJavascriptInterface() không đối số trong WebViewFixed — không phải API WebView"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/quantumbadger/redreader/views/webview/WebViewFixed.java",
+      "evidence": "addJavascriptInterface();",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Khai báo/lời gọi hàm tự viết cùng tên addJavascriptInterface() không đối số trong WebViewFixed — không phải API WebView"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/quantumbadger/redreader/views/webview/WebViewFixed.java",
+      "evidence": "addJavascriptInterface();",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Khai báo/lời gọi hàm tự viết cùng tên addJavascriptInterface() không đối số trong WebViewFixed — không phải API WebView"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "file": "org/quantumbadger/redreader/views/webview/WebViewFixed.java",
+      "evidence": "getSettings().setJavaScriptEnabled(true);",
+      "label": "FP",
+      "fp_type": "intended",
+      "reason": "WebView hiển thị nội dung web cần JS"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "file": "org/quantumbadger/redreader/views/webview/WebViewFixed.java",
+      "evidence": "addJavascriptInterface();",
+      "label": "FP",
+      "fp_type": "pattern",
+      "reason": "Khai báo/lời gọi hàm tự viết cùng tên addJavascriptInterface() không đối số trong WebViewFixed — không phải API WebView"
+    }
+  ]
+}

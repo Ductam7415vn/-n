@@ -1,0 +1,192 @@
+{
+  "meta": {
+    "app": "com.fsck.k9",
+    "scope": [
+      "app.k9mail",
+      "com.fsck.k9",
+      "net.thunderbird"
+    ],
+    "time": "2026-11-10 18:16",
+    "export_rules": "v2",
+    "apk": "com.fsck.k9_39045.apk",
+    "apk_sha256": "a9a6d4219fe44bfb4e47693efa973c0c173741074193d8e9d7e37a354e7aafca",
+    "analysis_seconds": 1.8
+  },
+  "issues": [
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:56",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": "",
+      "confidence": "high",
+      "fingerprint": "506e7ca61e85"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: SettingsProvider",
+      "severity": "high",
+      "location": "AndroidManifest.xml:213",
+      "evidence": "app.k9mail.feature.migration.provider.SettingsProvider",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp. Mã có kiểm tra danh tính app gọi.",
+      "confidence": "medium",
+      "fingerprint": "69bf7d9b0f95"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "8343f37cc05d"
+    },
+    {
+      "rule_id": "NET-TRUST",
+      "owasp": "M5",
+      "title": "Tin cậy CA do người dùng cài (user trust anchor)",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "user certificates trusted",
+      "note": "base-config: áp cho mọi kết nối.",
+      "confidence": "high",
+      "fingerprint": "a5738d77e954"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/fsck/k9/ui/settings/AboutViewModelKt.java:9",
+      "evidence": "public static final AbstractPersistentList USED_LIBRARIES = MathKt.persistentListOf(new Library(\"Android Jetpack libraries\", \"https://developer.android.com/jetp",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium",
+      "fingerprint": "2a2e4453a767"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/fsck/k9/mail/K9MailLib.java:51",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "03469dbb6b09"
+    },
+    {
+      "rule_id": "CRY-HASH",
+      "owasp": "M10",
+      "title": "Hàm băm yếu cho dữ liệu nhạy cảm",
+      "severity": "medium",
+      "location": "com/fsck/k9/mail/store/pop3/Pop3Connection.java:243",
+      "evidence": "MessageDigest messageDigest = MessageDigest.getInstance(\"MD5\");",
+      "note": "MD5/SHA-1 không nên dùng để băm mật khẩu.",
+      "confidence": "low",
+      "fingerprint": "d5bf9aa7edaa"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "net.thunderbird.app.common.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:77"
+    },
+    {
+      "component": "com.fsck.k9.activity.MessageHomeActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:102"
+    },
+    {
+      "component": "net.openid.appauth.RedirectUriReceiverActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:179"
+    }
+  ],
+  "endpoints": [
+    "accounts.google.com/o/oauth2/v2/auth",
+    "api.fastmail.com/oauth/authorize",
+    "api.fastmail.com/oauth/refresh",
+    "api.login.aol.com/oauth2/get_token",
+    "api.login.aol.com/oauth2/request_auth",
+    "api.login.yahoo.com/oauth2/get_token",
+    "api.login.yahoo.com/oauth2/request_auth",
+    "auth-stage.tb.pro/realms/tbpro/protocol/openid-connect/auth",
+    "auth-stage.tb.pro/realms/tbpro/protocol/openid-connect/token",
+    "auth.tb.pro/realms/tbpro/protocol/openid-connect/auth",
+    "auth.tb.pro/realms/tbpro/protocol/openid-connect/token",
+    "github.com/ByteHamster/SearchPreference",
+    "github.com/JakeWharton/timber",
+    "github.com/JetBrains/compose-multiplatform-core",
+    "github.com/JetBrains/java-annotations",
+    "github.com/JetBrains/kotlin",
+    "github.com/JetBrains/kotlin/tree/master/plugins/android-extensions/android-extensions-runtime",
+    "github.com/Kotlin/kotlinx-datetime",
+    "github.com/Kotlin/kotlinx.collections.immutable",
+    "github.com/Kotlin/kotlinx.coroutines",
+    "github.com/Kotlin/kotlinx.serialization",
+    "github.com/MiniDNS/minidns",
+    "github.com/bumptech/glide",
+    "github.com/cketti/SafeContentResolver",
+    "github.com/cketti/ckChangeLog",
+    "github.com/google/auto",
+    "github.com/google/error-prone",
+    "github.com/google/flexbox-layout",
+    "github.com/google/guava",
+    "github.com/gregkorossy/ColorPicker",
+    "github.com/gregkorossy/DateTimePicker",
+    "github.com/hdodenhof/CircleImageView",
+    "github.com/material-components/material-components-android",
+    "github.com/mikepenz/FastAdapter",
+    "github.com/openid/AppAuth-Android",
+    "github.com/splitwise/TokenAutoComplete/",
+    "github.com/square/moshi",
+    "github.com/square/okhttp",
+    "github.com/square/okio",
+    "github.com/takisoft/preferencex-android",
+    "github.com/touchlab/Stately",
+    "github.com/zxing/zxing",
+    "insert-koin.io/",
+    "jcip.net/",
+    "jsoup.org/",
+    "jutf7.sourceforge.net/",
+    "kotlinlang.org/api/latest/jvm/stdlib/",
+    "login.microsoftonline.com/common/oauth2/v2.0/authorize",
+    "login.microsoftonline.com/common/oauth2/v2.0/token",
+    "mail.google.com/",
+    "oauth2.googleapis.com/token",
+    "outlook.office.com/IMAP.AccessAsUser.All",
+    "outlook.office.com/SMTP.Send",
+    "play.google.com/store/apps/details?id=org.sufficientlysecure.keychain",
+    "support.mozilla.org/kb/configure-push-email-thunderbird-android",
+    "support.thunderbird.net/kb/gmail-thunderbird-android",
+    "www.fastmail.com/dev/protocol-imap",
+    "www.fastmail.com/dev/protocol-smtp",
+    "www.jcraft.com/jzlib/",
+    "www.slf4j.org/",
+    "www.tb.pro/thundermail"
+  ],
+  "requests": []
+}

@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "app": "com.keylesspalace.tusky",
+    "time": "2026-10-04 00:43"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: CropImageActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:144",
+      "evidence": "com.canhub.cropper.CropImageActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp."
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": ""
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/keylesspalace/tusky/components/login/LoginWebViewActivity.java:98",
+      "evidence": "webView2.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://."
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "com.keylesspalace.tusky.components.login.LoginActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:34"
+    },
+    {
+      "component": "com.keylesspalace.tusky.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.SEND_MULTIPLE",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:43"
+    },
+    {
+      "component": "com.keylesspalace.tusky.receiver.NotificationBlockStateBroadcastReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.app.action.NOTIFICATION_CHANNEL_BLOCK_STATE_CHANGED",
+        "android.app.action.NOTIFICATION_CHANNEL_GROUP_BLOCK_STATE_CHANGED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:118"
+    },
+    {
+      "component": "org.unifiedpush.android.connector.internal.RaiseToForegroundService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "org.unifiedpush.android.connector.RAISE_TO_FOREGROUND"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:167"
+    },
+    {
+      "component": "org.unifiedpush.android.connector.internal.MessagingReceiverImpl",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "org.unifiedpush.android.connector.MESSAGE",
+        "org.unifiedpush.android.connector.UNREGISTERED",
+        "org.unifiedpush.android.connector.NEW_ENDPOINT",
+        "org.unifiedpush.android.connector.REGISTRATION_FAILED"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:173"
+    }
+  ],
+  "endpoints": [
+    "github.com/C1710/blobmoji",
+    "github.com/C1710/blobmoji/raw/main/fonts/BlobmojiCompat.ttf",
+    "github.com/C1710/fluentui-emoji/raw/main/fonts/FluentEmojiCompat.ttf",
+    "github.com/C1710/openmoji/raw/master/fonts/OpenMojiCompat.ttf",
+    "github.com/C1710/twemoji/raw/master/fonts/TwemojiCompat.ttf",
+    "github.com/googlefonts/noto-emoji",
+    "github.com/googlefonts/noto-emoji/blob/main/LICENSE",
+    "github.com/googlefonts/noto-emoji/raw/refs/heads/main/fonts/Noto-COLRv1-emojicompat.ttf",
+    "github.com/microsoft/fluentui-emoji",
+    "github.com/microsoft/fluentui-emoji/blob/main/LICENSE",
+    "mastodon.social/@Tusky",
+    "openmoji.org/",
+    "raw.githubusercontent.com/C1710/blobmoji/emoji14/LICENSE",
+    "raw.githubusercontent.com/hfg-gmuend/openmoji/master/LICENSE.txt",
+    "raw.githubusercontent.com/twitter/twemoji/master/LICENSE-GRAPHICS",
+    "twemoji.twitter.com/"
+  ]
+}

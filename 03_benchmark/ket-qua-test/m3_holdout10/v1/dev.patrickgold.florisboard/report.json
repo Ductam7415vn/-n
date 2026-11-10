@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "app": "dev.patrickgold.florisboard",
+    "scope": [
+      "dev.patrickgold.florisboard"
+    ],
+    "time": "2026-11-08 23:02",
+    "apk": "dev.patrickgold.florisboard_117.apk",
+    "apk_sha256": "d8ef30b212730e7c005250f3f9a8bcee4afd1605b66efaa15f7f59a89cffa9b5",
+    "analysis_seconds": 0.95
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:15",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium",
+      "fingerprint": "6e4d5926b73a"
+    },
+    {
+      "rule_id": "CRY-KEYLIT",
+      "owasp": "M1",
+      "title": "Khoá/bí mật viết cứng dạng chuỗi",
+      "severity": "high",
+      "location": "dev/patrickgold/florisboard/lib/util/InputMethodUtils$$ExternalSyntheticLambda1.java:90",
+      "evidence": "String key = \"android-support-nav:controller:backStackStates:\" + str;",
+      "note": "Chuỗi bí mật nhúng thẳng trong mã (đã loại regex/PATTERN, SQL và hằng TÊN khoá như KEY_*/PREF_*).",
+      "confidence": "medium",
+      "fingerprint": "feaecc7c0595"
+    }
+  ],
+  "suppressed": [],
+  "attack_surface": [
+    {
+      "component": "dev.patrickgold.florisboard.app.FlorisAppActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:29"
+    },
+    {
+      "component": "dev.patrickgold.florisboard.SettingsLauncherAlias",
+      "type": "activity-alias",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:50"
+    },
+    {
+      "component": "dev.patrickgold.florisboard.ime.clipboard.FlorisCopyToClipboardActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:57"
+    }
+  ],
+  "endpoints": [
+    "beta.addons.florisboard.org/",
+    "github.com/florisboard/florisboard/discussions/1935"
+  ],
+  "requests": []
+}

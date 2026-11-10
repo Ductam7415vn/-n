@@ -1,0 +1,343 @@
+{
+  "meta": {
+    "app": "org.quantumbadger.redreader",
+    "scope": [
+      "org.quantumbadger.redreader"
+    ],
+    "time": "2026-10-04 11:07"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:18",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-CLEAR",
+      "owasp": "M5",
+      "title": "Cho phép lưu lượng HTTP không mã hoá",
+      "severity": "high",
+      "location": "AndroidManifest.xml:18",
+      "evidence": "android:usesCleartextTraffic=\"true\"",
+      "note": "",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: PreviewActivity",
+      "severity": "high",
+      "location": "AndroidManifest.xml:121",
+      "evidence": "androidx.compose.ui.tooling.PreviewActivity",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/quantumbadger/redreader/fragments/WebViewFragment.java:344",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/fragments/WebViewFragment$$ExternalSyntheticLambda0.java:90",
+      "evidence": "File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), strFilenameFromString);",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "STO-EXT",
+      "owasp": "M9",
+      "title": "Ghi dữ liệu ra bộ nhớ ngoài",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/fragments/WebViewFragment$$ExternalSyntheticLambda0.java:95",
+      "evidence": "file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), i + \"_\" + strFilenameFromString.substring(1));",
+      "note": "App tự tạo đường dẫn tệp trong bộ nhớ ngoài — app khác có thể đọc/ghi trên thiết bị cũ.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/common/LinkHandler.java:264",
+      "evidence": "strConcat = \"http://\".concat(strConcat);",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/common/LinkHandler.java:526",
+      "evidence": "return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, \"http://i.qkme.me/%s.jpg\", Arrays.copyOf(new Object[]{strGroup3}, 1))), imageSize, ",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/common/LinkHandler.java:530",
+      "evidence": "return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, \"http://i.qkme.me/%s.jpg\", Arrays.copyOf(new Object[]{strGroup2}, 1))), imageSize, ",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/common/LinkHandler.java:536",
+      "evidence": "return new ImageInfo(new ImageUrlInfo(new UriString(String.format(Locale.US, \"http://www.livememe.com/%s.jpg\", Arrays.copyOf(new Object[]{strGroup}, 1))), image",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/common/LinkHandler.java:1760",
+      "evidence": "if (openWebBrowser(appCompatActivity, Uri.parse(\"http://youtube.com/watch?v=\" + strGroup + strConcat), z2)) {",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/quantumbadger/redreader/activities/OAuthLoginActivity.java:47",
+      "evidence": "settings.setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/views/webview/WebViewFixed.java:58",
+      "evidence": "public final void addJavascriptInterface() {",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/views/webview/WebViewFixed.java:62",
+      "evidence": "addJavascriptInterface(new JavascriptInterface(), \"_VideoEnabledWebView\");",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/views/webview/WebViewFixed.java:68",
+      "evidence": "addJavascriptInterface();",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/views/webview/WebViewFixed.java:74",
+      "evidence": "addJavascriptInterface();",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/views/webview/WebViewFixed.java:80",
+      "evidence": "addJavascriptInterface();",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "org/quantumbadger/redreader/views/webview/WebViewFixed.java:95",
+      "evidence": "getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "WEB-IFACE",
+      "owasp": "M4",
+      "title": "WebView addJavascriptInterface",
+      "severity": "medium",
+      "location": "org/quantumbadger/redreader/views/webview/WebViewFixed.java:104",
+      "evidence": "addJavascriptInterface();",
+      "note": "Có thể cho JS gọi vào mã native.",
+      "confidence": "low"
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "org.quantumbadger.redreader.activities.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:22"
+    },
+    {
+      "component": "org.quantumbadger.redreader.activities.LinkDispatchActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:30"
+    },
+    {
+      "component": "org.quantumbadger.redreader.activities.PostSubmitActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.SEND"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:94"
+    },
+    {
+      "component": "org.quantumbadger.redreader.receivers.BootReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:107"
+    }
+  ],
+  "endpoints": [
+    "/api/block_user",
+    "/api/comment",
+    "/api/compose",
+    "/api/editusertext",
+    "/api/flairselector",
+    "/api/read_all_messages",
+    "/api/sendreplies",
+    "/api/submit",
+    "/api/unfriend",
+    "/api/v1/me",
+    "/me/m/",
+    "/r/",
+    "/r/Art",
+    "/r/AskReddit",
+    "/r/DIY",
+    "/r/Documentaries",
+    "/r/EarthPorn",
+    "/r/Fitness",
+    "/r/Futurology",
+    "/r/GetMotivated",
+    "/r/IAmA",
+    "/r/InternetIsBeautiful",
+    "/r/Jokes",
+    "/r/LifeProTips",
+    "/r/Music",
+    "/r/Showerthoughts",
+    "/r/TwoXChromosomes",
+    "/r/UpliftingNews",
+    "/r/askscience",
+    "/r/aww",
+    "/r/books",
+    "/r/creepy",
+    "/r/dataisbeautiful",
+    "/r/explainlikeimfive",
+    "/r/food",
+    "/r/funny",
+    "/r/gadgets",
+    "/r/gaming",
+    "/r/gifs",
+    "/r/history",
+    "/r/listentothis",
+    "/r/mildlyinteresting",
+    "/r/movies",
+    "/r/news",
+    "/r/nosleep",
+    "/r/nottheonion",
+    "/r/oldschoolcool",
+    "/r/personalfinance",
+    "/r/philosophy",
+    "/r/photoshopbattles",
+    "/r/pics",
+    "/r/reddit",
+    "/r/redreader",
+    "/r/science",
+    "/r/space",
+    "/r/sports",
+    "/r/television",
+    "/r/tifu",
+    "/r/todayilearned",
+    "/r/videos",
+    "/r/worldnews",
+    "/r/writingprompts",
+    "/s/",
+    "/u/",
+    "/user/",
+    "api.gfycat.com/v1/gfycats/",
+    "api.imgur.com/2/album/",
+    "api.imgur.com/2/image/",
+    "api.imgur.com/3/image",
+    "api.redgifs.com/v1/gfycats/",
+    "api.redgifs.com/v2/gifs/",
+    "api.redgifs.com/v2/oauth/client",
+    "api.streamable.com/videos/",
+    "backend.deviantart.com/oembed?url=",
+    "i.imgflip.com/",
+    "i.imgur.com/",
+    "i.qkme.me/%s.jpg",
+    "media.giphy.com/media/",
+    "media.makeameme.org/created/",
+    "oauth.reddit.com",
+    "oauth.reddit.com/grants/installed_client",
+    "reddit.com",
+    "reddit.com/",
+    "reddit.com/r/",
+    "redreader.org/loginhelp/",
+    "v.redd.it/",
+    "www.livememe.com/%s.jpg",
+    "www.reddit.com/api/v1/access_token",
+    "www.reddit.com/api/v1/authorize.compact",
+    "www.reddit.com/r/",
+    "www.reddit.com/svc/shreddit/account/login",
+    "www.reddit.com/u/",
+    "www.redgifs.com/ifr/",
+    "youtube.com/watch?v="
+  ]
+}

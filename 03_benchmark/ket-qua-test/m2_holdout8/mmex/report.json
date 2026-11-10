@@ -1,0 +1,340 @@
+{
+  "meta": {
+    "app": "com.money.manager.ex",
+    "scope": [
+      "com.money.manager.ex"
+    ],
+    "time": "2026-10-04 11:01",
+    "apk": "com.money.manager.ex_1118.apk",
+    "apk_sha256": "a2295d9b888a764ebd2be5abd3e700e2a33dd51c453add5ff64b97c1e1a33f0c"
+  },
+  "issues": [
+    {
+      "rule_id": "CFG-BACKUP",
+      "owasp": "M8",
+      "title": "Cho phép sao lưu dữ liệu ứng dụng",
+      "severity": "medium",
+      "location": "AndroidManifest.xml:18",
+      "evidence": "android:allowBackup=\"true\"",
+      "note": "Cho phép trích xuất dữ liệu qua adb backup trên máy đã cắm. Có quy tắc backup/backupAgent — cần đọc quy tắc để biết dữ liệu nào bị sao lưu.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: SyncSchedulerBroadcastReceiver",
+      "severity": "high",
+      "location": "AndroidManifest.xml:45",
+      "evidence": "com.money.manager.ex.sync.SyncSchedulerBroadcastReceiver",
+      "note": "Nhận action com.money.manager.ex.intent.action.START_SYNC_SERVICE mà chính app tự gửi — kênh nội bộ, app khác cũng gửi được.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: [ẩn danh C]",
+      "severity": "high",
+      "location": "AndroidManifest.xml:165",
+      "evidence": "[ẩn danh C]",
+      "note": "Nhận action [action ẩn danh C] mà chính app tự gửi — kênh nội bộ, app khác cũng gửi được.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "CFG-EXPORT",
+      "owasp": "M8",
+      "title": "Thành phần exported không bảo vệ: [ẩn danh B]",
+      "severity": "high",
+      "location": "AndroidManifest.xml:213",
+      "evidence": "[ẩn danh B]",
+      "note": "Không có intent-filter: không có lý do để app khác gọi trực tiếp.",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-NSC",
+      "owasp": "M5",
+      "title": "network_security_config cho phép cleartext",
+      "severity": "medium",
+      "location": "res/xml/network_security_config.xml",
+      "evidence": "cleartextTrafficPermitted=\"true\"",
+      "note": "",
+      "confidence": "high"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/money/manager/ex/HelpActivity.java:23",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/money/manager/ex/about/AboutFragment.java:201",
+      "evidence": "gVar3.e = hc1.p(\"http://android.moneymanagerex.org/?utm_campaign=Application_Android&utm_medium=MMEX_\", strC, \"&utm_source=Website\");",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/money/manager/ex/about/AboutFragment.java:207",
+      "evidence": "gVar4.e = hc1.p(\"http://www.moneymanagerex.org/?utm_campaign=Application_Android&utm_medium=MMEX_\", strC, \"&utm_source=Website\");",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/money/manager/ex/about/AboutFragment.java:218",
+      "evidence": "gVar7.e = \"http://www.gnu.org/licenses/old-licenses/gpl-2.0.html\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    },
+    {
+      "rule_id": "WEB-JS",
+      "owasp": "M4",
+      "title": "WebView bật JavaScript",
+      "severity": "low",
+      "location": "com/money/manager/ex/common/WebViewActivity.java:36",
+      "evidence": "webView.getSettings().setJavaScriptEnabled(true);",
+      "note": "Rủi ro khi kết hợp tải nội dung không tin cậy / file://.",
+      "confidence": "low"
+    },
+    {
+      "rule_id": "NET-HTTP",
+      "owasp": "M5",
+      "title": "Chuỗi http:// trong mã (cleartext)",
+      "severity": "medium",
+      "location": "com/money/manager/ex/currency/CurrencyChartActivity.java:64",
+      "evidence": "String str = \"http://chart.finance.yahoo.com/z?s=\" + stringExtra2 + stringExtra + \"=x&t=5d&z=m\";",
+      "note": "Có thể là endpoint gọi không mã hoá (đã loại URI namespace và mã kiểm tra/nâng cấp http→https).",
+      "confidence": "medium"
+    }
+  ],
+  "attack_surface": [
+    {
+      "component": "com.money.manager.ex.widget.ButtonAddTransactionWidgetProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:27"
+    },
+    {
+      "component": "com.money.manager.ex.widget.SummaryWidgetProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:33"
+    },
+    {
+      "component": "com.money.manager.ex.widget.AccountBillsWidgetProvider",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:39"
+    },
+    {
+      "component": "com.money.manager.ex.core.RecurringTransactionBootReceiver",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.BOOT_COMPLETED"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:53"
+    },
+    {
+      "component": "com.money.manager.ex.widget.SingleAccountWidget",
+      "type": "receiver",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_UPDATE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:59"
+    },
+    {
+      "component": "com.money.manager.ex.home.MainActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.MAIN",
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Điểm vào ứng dụng (MAIN/LAUNCHER) — bắt buộc exported",
+      "location": "AndroidManifest.xml:65"
+    },
+    {
+      "component": "com.money.manager.ex.transactions.CheckingTransactionEditActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.EDIT",
+        "android.intent.action.INSERT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:101"
+    },
+    {
+      "component": "com.money.manager.ex.payee.PayeeActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.PICK",
+        "android.intent.action.EDIT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:107"
+    },
+    {
+      "component": "com.money.manager.ex.tag.TagActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.PICK",
+        "android.intent.action.EDIT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:113"
+    },
+    {
+      "component": "com.money.manager.ex.account.AccountListActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.PICK",
+        "android.intent.action.EDIT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:119"
+    },
+    {
+      "component": "com.money.manager.ex.common.CategoryListActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.PICK",
+        "android.intent.action.EDIT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:125"
+    },
+    {
+      "component": "com.money.manager.ex.currency.list.CurrencyListActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.PICK",
+        "android.intent.action.EDIT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:131"
+    },
+    {
+      "component": "com.money.manager.ex.currency.CurrencyEditActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.EDIT",
+        "android.intent.action.INSERT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:138"
+    },
+    {
+      "component": "com.money.manager.ex.account.AccountEditActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.EDIT",
+        "android.intent.action.INSERT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:144"
+    },
+    {
+      "component": "com.money.manager.ex.scheduled.ScheduledTransactionEditActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.EDIT",
+        "android.intent.action.INSERT"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:151"
+    },
+    {
+      "component": "com.money.manager.ex.settings.SyncPreferencesActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.intent.action.VIEW"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:177"
+    },
+    {
+      "component": "com.money.manager.ex.HelpActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "com.money.manager.ex.custom.intent.action.WEB_VIEW_RAW_FILE",
+        "com.money.manager.ex.custom.intent.action.WEB_VIEW_URL"
+      ],
+      "reason": "Nhận action của app bên thứ ba (app không tự gửi action này)",
+      "location": "AndroidManifest.xml:187"
+    },
+    {
+      "component": "com.money.manager.ex.widget.SingleAccountWidgetConfigureActivity",
+      "type": "activity",
+      "exported": "khai báo",
+      "actions": [
+        "android.appwidget.action.APPWIDGET_CONFIGURE"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:199"
+    },
+    {
+      "component": "com.money.manager.ex.sync.adapter.SyncAdapterService",
+      "type": "service",
+      "exported": "khai báo",
+      "actions": [
+        "android.content.SyncAdapter"
+      ],
+      "reason": "Nhận intent hệ thống/chuẩn công khai — cần rà soát xử lý dữ liệu đầu vào",
+      "location": "AndroidManifest.xml:232"
+    }
+  ],
+  "endpoints": [
+    "android.moneymanagerex.org/?utm_campaign=Application_Android&utm_medium=MMEX_",
+    "chart.finance.yahoo.com/z?s=",
+    "finance.yahoo.com/quote/",
+    "github.com/moneymanagerex/android-money-manager-ex",
+    "github.com/moneymanagerex/android-money-manager-ex/issues/",
+    "github.com/moneymanagerex/android-money-manager-ex/issues/new",
+    "github.com/moneymanagerex/android-money-manager-ex/releases",
+    "query2.finance.yahoo.com",
+    "twitter.com/MoneyManagerEx",
+    "www.buymeacoffee.com/wolfsolver",
+    "www.gnu.org/licenses/old-licenses/gpl-2.0.html",
+    "www.moneymanagerex.org/?utm_campaign=Application_Android&utm_medium=MMEX_"
+  ]
+}
